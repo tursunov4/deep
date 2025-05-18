@@ -1,0 +1,39 @@
+stages:
+  - build
+  - deploy
+
+build_dist:
+  # Image version: 18-bookworm
+  image: node@sha256:b08b1356559e2e9945f47ded630c9eb9d4e3ca04f111ab20d55652442cf14aee
+  stage: build
+  only:
+    - main
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - npm i
+    - npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+
+deploy_frontend:
+  image: alpine@sha256:77726ef6b57ddf65bb551896826ec38bc3e53f75cdde31354fbffb4f25238ebd
+  stage: deploy
+  only:
+    - main
+  before_script:
+    - "command -v ssh-agent >/dev/null || ( apk add --update openssh )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $VM_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh $SSH_USER@$VM_IPADDRESS "cd $SOURCE_ROOT && docker compose down && rm -rf frontend/dist"
+    - scp -r dist $SSH_USER@$VM_IPADDRESS:$SOURCE_ROOT/frontend/ || export FAILED=1
+    - ssh $SSH_USER@$VM_IPADDRESS "cd $SOURCE_ROOT && docker compose up -d"
+    - if [ "$FAILED" == 1 ]; then echo "File copy failed" && exit 1; fi

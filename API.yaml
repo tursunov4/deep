@@ -1,0 +1,2775 @@
+openapi: 3.0.3
+info:
+  title: API
+  version: 1.0.0
+paths:
+  /api/catalogs/:
+    get:
+      operationId: catalogs_list
+      tags:
+      - catalogs
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Catalog'
+          description: ''
+  /api/categories/:
+    get:
+      operationId: categories_list
+      tags:
+      - categories
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categories'
+          description: ''
+  /api/categories/amount_of/:
+    get:
+      operationId: categories_amount_of_retrieve
+      tags:
+      - categories
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountCategory'
+          description: ''
+  /api/categories/list-subcategories/:
+    post:
+      operationId: categories_list_subcategories_create
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriesRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoriesRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoriesRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_subcategories'
+          description: ''
+  /api/collections/{id}/:
+    get:
+      operationId: collections_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Коллекция товаров.
+        required: true
+      tags:
+      - collections
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveCollection'
+          description: ''
+  /api/collections/amount_of/:
+    get:
+      operationId: collections_amount_of_retrieve
+      tags:
+      - collections
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountCollection'
+          description: ''
+  /api/collections/featured/:
+    get:
+      operationId: collections_featured_retrieve
+      tags:
+      - collections
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjsCollection'
+          description: ''
+  /api/collections/list/:
+    get:
+      operationId: collections_list_list
+      tags:
+      - collections
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RetrieveCollection'
+          description: ''
+  /api/door-page/covers/:
+    get:
+      operationId: door_page_covers_list
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cover'
+          description: ''
+  /api/door-page/door_page/:
+    get:
+      operationId: door_page_door_page_retrieve
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoorPage'
+          description: ''
+  /api/door-page/doors_combinations/:
+    get:
+      operationId: door_page_doors_combinations_list
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoorCombinations'
+          description: ''
+  /api/door-page/doors_covers_combinations/:
+    get:
+      operationId: door_page_doors_covers_combinations_list
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DoorCoverCombinationSerialiser'
+          description: ''
+  /api/door-page/handler_locks/:
+    get:
+      operationId: door_page_handler_locks_list
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HandlerLock'
+          description: ''
+  /api/door-page/locks/:
+    get:
+      operationId: door_page_locks_list
+      tags:
+      - door-page
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lock'
+          description: ''
+  /api/door_collections/:
+    get:
+      operationId: door_collections_retrieve
+      tags:
+      - door_collections
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoorCollections'
+          description: ''
+  /api/doors/:
+    get:
+      operationId: doors_list
+      tags:
+      - doors
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewDoor'
+          description: ''
+  /api/doors/{id}/:
+    get:
+      operationId: doors_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Дверь (товар).
+        required: true
+      tags:
+      - doors
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Door'
+          description: ''
+  /api/inspiration/:
+    get:
+      operationId: inspiration_list
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewInspiration'
+          description: ''
+  /api/inspiration/{id}/:
+    get:
+      operationId: inspiration_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Вдохновение.
+        required: true
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inspiration'
+          description: ''
+  /api/inspiration/count_pages/:
+    post:
+      operationId: inspiration_count_pages_create
+      tags:
+      - inspiration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        amount_of_pages:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        amount_of_images:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+  /api/inspiration/filter_list/:
+    get:
+      operationId: inspiration_filter_list_list
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        styles:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InspirationStyle'
+          description: ''
+        authors:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+        building_types:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildingType'
+          description: ''
+        rooms:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+          description: ''
+  /api/inspiration/next/{id}/:
+    get:
+      operationId: inspiration_next_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inspiration'
+          description: ''
+  /api/inspiration/open/{id}/:
+    get:
+      operationId: inspiration_open_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        ok:
+          content:
+            application/json:
+              schema:
+                type: boolean
+          description: ''
+  /api/inspiration/page/{pag_num}/:
+    post:
+      operationId: inspiration_page_create
+      parameters:
+      - in: path
+        name: pag_num
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - inspiration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InspirationFilterRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewInspiration'
+          description: ''
+  /api/inspiration/prev/{id}/:
+    get:
+      operationId: inspiration_prev_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - inspiration
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inspiration'
+          description: ''
+  /api/main/:
+    get:
+      operationId: main_list
+      tags:
+      - main
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subcategories'
+          description: ''
+  /api/main_catalog/:
+    get:
+      operationId: main_catalog_retrieve
+      tags:
+      - main_catalog
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MainCatalog'
+          description: ''
+  /api/main_tax/:
+    get:
+      operationId: main_tax_retrieve
+      tags:
+      - main_tax
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MainTax'
+          description: ''
+  /api/main_video/:
+    get:
+      operationId: main_video_retrieve
+      tags:
+      - main_video
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MainVideo'
+          description: ''
+  /api/new-subcategory/amount_of_pages/:
+    post:
+      operationId: new_subcategory_amount_of_pages_create
+      tags:
+      - new-subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        amount_of_pages:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        amount_of_products:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        rus_max_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        eng_max_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        rus_min_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        eng_min_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+  /api/new-subcategory/amount_of_pages_mobile/:
+    post:
+      operationId: new_subcategory_amount_of_pages_mobile_create
+      tags:
+      - new-subcategory
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        amount_of_pages:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        amount_of_products:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        rus_max_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+        eng_max_money:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+  /api/new-subcategory/color_count/:
+    post:
+      operationId: new_subcategory_color_count_create
+      tags:
+      - new-subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FilterRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountCIS'
+          description: ''
+  /api/new-subcategory/page-mobile/{pag_num}/:
+    patch:
+      operationId: new_subcategory_page_mobile_partial_update
+      parameters:
+      - in: path
+        name: pag_num
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - new-subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List-collections'
+          description: ''
+  /api/new-subcategory/page/{pag_num}/:
+    patch:
+      operationId: new_subcategory_page_partial_update
+      parameters:
+      - in: path
+        name: pag_num
+        schema:
+          type: string
+          pattern: ^\w+$
+        required: true
+      tags:
+      - new-subcategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFilterRequest'
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List-collections'
+          description: ''
+  /api/product/{id}/:
+    get:
+      operationId: product_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Товар (абстрактный).
+        required: true
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbstractProduct'
+          description: ''
+  /api/product/{id}/related_objs/:
+    get:
+      operationId: product_related_objs_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Товар (абстрактный).
+        required: true
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewAbstract'
+          description: ''
+  /api/product/{id}/same_collection/:
+    get:
+      operationId: product_same_collection_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Товар (абстрактный).
+        required: true
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjsCollection'
+          description: ''
+  /api/product/amount_of_products/:
+    get:
+      operationId: product_amount_of_products_retrieve
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: ''
+  /api/product/count_colours/:
+    get:
+      operationId: product_count_colours_list
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountColour'
+          description: ''
+  /api/product/list_colours/:
+    get:
+      operationId: product_list_colours_list
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Colour'
+          description: ''
+  /api/product/new_products/:
+    get:
+      operationId: product_new_products_list
+      tags:
+      - product
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewAbstract'
+          description: ''
+  /api/upload_order_pdf/:
+    post:
+      operationId: upload_order_pdf_create
+      tags:
+      - upload_order_pdf
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadOrderPDFRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UploadOrderPDFRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadOrderPDFRequest'
+        required: true
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AbstractProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        colored_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+          readOnly: true
+        installation_video:
+          type: string
+          format: uri
+          nullable: true
+          title: Видео-установщик
+        eng_collection_name:
+          type: string
+        rus_collection_name:
+          type: string
+        eng_subcategory_name:
+          type: string
+        rus_subcategory_name:
+          type: string
+        eng_category_name:
+          type: string
+        rus_category_name:
+          type: string
+      required:
+      - colored_products
+      - eng_category_name
+      - eng_collection_name
+      - eng_name
+      - eng_subcategory_name
+      - id
+      - rus_category_name
+      - rus_collection_name
+      - rus_name
+      - rus_subcategory_name
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author_name:
+          type: string
+          title: Имя автора (анг)
+          maxLength: 100
+        author_name_ru:
+          type: string
+          title: Имя автора (рус)
+          maxLength: 100
+        icon:
+          type: string
+          format: uri
+          title: Изображение
+      required:
+      - author_name
+      - icon
+      - id
+    AuthorsEnum:
+      enum:
+      - 4
+      - 3
+      type: integer
+      description: |-
+        * `4` - 4
+        * `3` - 3
+    BuildingType:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        count_inspirations:
+          type: string
+          readOnly: true
+      required:
+      - count_inspirations
+      - eng_name
+      - id
+      - rus_name
+    BuildingTypeEnum:
+      enum:
+      - 10
+      - 11
+      type: integer
+      description: |-
+        * `10` - 10
+        * `11` - 11
+    Catalog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        catalog_name_ru:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        catalog_name_eng:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        subcatalogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubcatalogSertializer'
+          readOnly: true
+      required:
+      - catalog_name_eng
+      - catalog_name_ru
+      - id
+      - subcatalogs
+    Categories:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название категории на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название категории на английском языке
+          maxLength: 100
+      required:
+      - eng_name
+      - id
+      - rus_name
+    CategoriesRequest:
+      type: object
+      properties:
+        rus_name:
+          type: string
+          minLength: 1
+          title: Название (рус)
+          description: Название категории на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          minLength: 1
+          title: Название (анг)
+          description: Название категории на английском языке
+          maxLength: 100
+      required:
+      - eng_name
+      - rus_name
+    ColAbstract:
+      type: object
+      properties:
+        collection_type:
+          type: boolean
+          default: false
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        colored_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviewAbstract'
+          readOnly: true
+      required:
+      - colored_products
+      - eng_name
+      - id
+      - rus_name
+    CollectionsEnum:
+      enum:
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `1` - 1
+        * `2` - 2
+    Colour:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        photo:
+          type: string
+          format: uri
+          title: Изображение
+      required:
+      - eng_name
+      - id
+      - photo
+      - rus_name
+    ColoursEnum:
+      enum:
+      - 5
+      - 4
+      - 3
+      - 6
+      - 2
+      - 14
+      - 13
+      type: integer
+      description: |-
+        * `5` - 5
+        * `4` - 4
+        * `3` - 3
+        * `6` - 6
+        * `2` - 2
+        * `14` - 14
+        * `13` - 13
+    CountCIS:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        count:
+          type: integer
+          readOnly: true
+      required:
+      - count
+      - eng_name
+      - id
+      - rus_name
+    CountCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название подкатегории на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название подкатегории на английском языке
+          maxLength: 100
+        product_counter:
+          type: integer
+          readOnly: true
+      required:
+      - eng_name
+      - id
+      - product_counter
+      - rus_name
+    CountCollection:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название коллекции на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название коллекции на английском языке
+          maxLength: 100
+        count:
+          type: integer
+          readOnly: true
+      required:
+      - count
+      - eng_name
+      - id
+      - rus_name
+    CountColour:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        count:
+          type: integer
+          readOnly: true
+      required:
+      - count
+      - eng_name
+      - id
+      - rus_name
+    Cover:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        pdf_ru:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF (рус)
+        pdf_eng:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF (анг)
+        image:
+          type: string
+          format: uri
+          title: Изображение
+      required:
+      - eng_name
+      - id
+      - image
+      - rus_name
+    Door:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        id_code:
+          type: string
+          title: Идентификационный номер
+          maxLength: 100
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        rus_title:
+          type: string
+          title: Заголовок (рус)
+          maxLength: 500
+        eng_title:
+          type: string
+          title: Заголовок (анг)
+          maxLength: 500
+        rus_description:
+          type: string
+          title: Описание (рус)
+          maxLength: 1000
+        eng_description:
+          type: string
+          title: Описание (анг)
+          maxLength: 1000
+        rub_cost:
+          type: number
+          format: double
+          nullable: true
+          title: Цена товара (руб)
+        euro_cost:
+          type: number
+          format: double
+          title: Цена товара (евро)
+        tax:
+          type: number
+          format: double
+          nullable: true
+          title: Налог
+        door_specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoorSpecification'
+          readOnly: true
+        door_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoorImage'
+          readOnly: true
+        drawing:
+          type: string
+          format: uri
+          nullable: true
+          title: Модель товара
+        en_pdf:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF (анг)
+        en_pdf_name:
+          type: string
+          nullable: true
+          title: Название PDF файла (анг)
+          maxLength: 100
+        ru_pdf:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF (рус)
+        ru_pdf_name:
+          type: string
+          nullable: true
+          title: Название PDF файла (рус)
+          maxLength: 100
+        en_pdf_size_field:
+          type: string
+          readOnly: true
+        ru_pdf_size_field:
+          type: string
+          readOnly: true
+        locks_handles:
+          type: array
+          items:
+            $ref: '#/components/schemas/HandlerLock'
+          readOnly: true
+      required:
+      - door_images
+      - door_specifications
+      - en_pdf_size_field
+      - eng_description
+      - eng_name
+      - eng_title
+      - euro_cost
+      - id
+      - id_code
+      - locks_handles
+      - ru_pdf_size_field
+      - rus_description
+      - rus_name
+      - rus_title
+    DoorCollections:
+      type: object
+      properties:
+        file:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF-файл
+    DoorCombinations:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        banner:
+          type: string
+          format: uri
+          title: Обложка
+        name_left_up_ru:
+          type: string
+          title: Название (верхний левый угол) (рус)
+          maxLength: 100
+        name_left_up_eng:
+          type: string
+          title: Название (верхний левый угол) (анг)
+          maxLength: 100
+        image_left_up:
+          type: string
+          format: uri
+          title: Изображение (верхний левый угол)
+        cost_rub_left_up:
+          type: string
+          title: Цена (руб) (верхний левый угол)
+          maxLength: 100
+        cost_eur_left_up:
+          type: string
+          title: Цена (евро) (верхний левый угол)
+          maxLength: 100
+        name_right_up_ru:
+          type: string
+          title: Название (верхний правый угол) (рус)
+          maxLength: 100
+        name_right_up_eng:
+          type: string
+          title: Название (верхний правый угол) (анг)
+          maxLength: 100
+        image_right_up:
+          type: string
+          format: uri
+          title: Изображение (верхний правый угол)
+        cost_rub_right_up:
+          type: string
+          title: Цена (руб) (верхний правый угол)
+          maxLength: 100
+        cost_eur_right_up:
+          type: string
+          title: Цена (евро) (верхний правый угол)
+          maxLength: 100
+        name_left_down_ru:
+          type: string
+          title: Название (левый нижний угол) (рус)
+          maxLength: 100
+        name_left_down_eng:
+          type: string
+          title: Название (левый нижний угол) (анг)
+          maxLength: 100
+        image_left_down:
+          type: string
+          format: uri
+          title: Изображение (левый нижний угол)
+        cost_rub_left_down:
+          type: string
+          title: Цена (руб) (левый нижний угол)
+          maxLength: 100
+        cost_eur_left_down:
+          type: string
+          title: Цена (евро) (левый нижний угол)
+          maxLength: 100
+        name_right_down_ru:
+          type: string
+          title: Название (правый нижний угол) (рус)
+          maxLength: 100
+        name_right_down_eng:
+          type: string
+          title: Название (правый нижний угол) (анг)
+          maxLength: 100
+        image_right_down:
+          type: string
+          format: uri
+          title: Изображение (правый нижний угол)
+        cost_rub_right_down:
+          type: string
+          title: Цена (руб) (правый нижний угол)
+          maxLength: 100
+        cost_eur_right_down:
+          type: string
+          title: Цена (евро) (правый нижний угол)
+          maxLength: 100
+        sort_order:
+          type: integer
+          readOnly: true
+      required:
+      - banner
+      - id
+      - image_left_down
+      - image_left_up
+      - image_right_down
+      - image_right_up
+      - name_left_down_eng
+      - name_left_down_ru
+      - name_left_up_eng
+      - name_left_up_ru
+      - name_right_down_eng
+      - name_right_down_ru
+      - name_right_up_eng
+      - name_right_up_ru
+      - sort_order
+    DoorCoverCombinationSerialiser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        name_ru:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        name_eng:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        description_ru:
+          type: string
+          title: Описание (рус)
+        description_eng:
+          type: string
+          title: Описание (анг)
+        sort_order:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - image
+      - name_eng
+      - name_ru
+      - sort_order
+    DoorImage:
+      type: object
+      properties:
+        photo:
+          type: string
+          format: uri
+          title: Изображение
+        crop_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Маленькое изображение
+        main_photo:
+          type: boolean
+          title: Сделать главным
+      required:
+      - photo
+    DoorPage:
+      type: object
+      properties:
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        ru_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_title:
+          type: string
+          title: Заголовок (анг)
+          maxLength: 100
+        ru_title:
+          type: string
+          title: Заголовок (рус)
+          maxLength: 100
+        combination_title_name_ru:
+          type: string
+          title: Заголовок блока 'Комбинации' (рус)
+          description: Название секции комбинаци на русском языке
+          maxLength: 100
+        combination_title_name_eng:
+          type: string
+          title: Заголовок блока 'Комбинации' (анг)
+          description: Название секции комбинаци
+          maxLength: 100
+        cover_combination_title_name_ru:
+          type: string
+          title: Заголовок блока 'Комбинации покрытий' (рус)
+          description: Название секции комбинаци покрытий
+          maxLength: 100
+        cover_combination_title_name_eng:
+          type: string
+          title: Заголовок блока 'Комбинации покрытий' (анг)
+          description: Название секции комбинаци покрытий
+          maxLength: 100
+        cover_title_name_ru:
+          type: string
+          title: Заголовок блока 'Отделочные материалы для двери' (рус)
+          description: Название секции покрытий
+          maxLength: 100
+        cover_title_name_eng:
+          type: string
+          title: Заголовок блока 'Отделочные материалы для двери' (анг)
+          description: Название секции покрытий
+          maxLength: 100
+        handle_title_name_ru:
+          type: string
+          title: Заголовок блока 'Дверные ручки и замки' (рус)
+          description: Название секции дверных ручек и замков
+          maxLength: 100
+        handle_title_name_eng:
+          type: string
+          title: Заголовок блока 'Дверные ручки и замки' (анг)
+          description: Название секции дверных ручек и замков
+          maxLength: 100
+        lock_title_name_ru:
+          type: string
+          title: Заголовок блока 'Умные дверные замки' (рус)
+          description: Название секции замков
+          maxLength: 100
+        lock_title_name_eng:
+          type: string
+          title: Заголовок блока 'Умные дверные замки' (анг)
+          description: Название секции замков
+          maxLength: 100
+        hight_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Изображение 'Допустимая высота двери'
+        hight_title_name_ru:
+          type: string
+          title: Заголовок блока 'Допустимая высота двери' (рус)
+          description: Заголовок секции "Допустимая высота двери"
+          maxLength: 100
+        hight_title_name_eng:
+          type: string
+          title: Заголовок блока 'Допустимая высота двери' (анг)
+          description: Заголовок секции высота двери
+          maxLength: 100
+        hight_description_ru:
+          type: string
+          title: Текст блока 'Допустимая высота двери' (рус)
+          description: Текст секции "Допустимая высота двери"
+        hight_description_eng:
+          type: string
+          title: Текст блока 'Допустимая высота двери' (анг)
+          description: Текст секции высота двери
+        hight_background:
+          type: string
+          title: Цвет подложки текста
+          pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          maxLength: 25
+        collections_background_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Изображение 'Фон перехода к коллекциям'
+        cover_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoorPageCoverImage'
+          readOnly: true
+      required:
+      - cover_images
+    DoorPageCoverImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        photo:
+          type: string
+          format: uri
+          title: Изображение
+      required:
+      - id
+      - photo
+    DoorSpecification:
+      type: object
+      properties:
+        rus_performance:
+          type: string
+          title: Performance (рус)
+          maxLength: 100
+        eng_performance:
+          type: string
+          title: Performance (анг)
+          maxLength: 100
+        rus_standard:
+          type: string
+          title: Standard (рус)
+          maxLength: 100
+        eng_standard:
+          type: string
+          title: Standard (анг)
+          maxLength: 100
+        rus_upon_request:
+          type: string
+          title: Upon request (рус)
+          maxLength: 100
+        eng_upon_request:
+          type: string
+          title: Upon request (анг)
+          maxLength: 100
+        image:
+          type: string
+          format: uri
+          title: Изображение
+      required:
+      - eng_performance
+      - eng_standard
+      - eng_upon_request
+      - image
+      - rus_performance
+      - rus_standard
+      - rus_upon_request
+    FilterRequest:
+      type: object
+      properties:
+        subcategory_eng_name:
+          type: string
+          minLength: 1
+          default: ''
+        prefered_collection:
+          type: integer
+          default: 0
+        marker:
+          $ref: '#/components/schemas/MarkerEnum'
+        lowest_cost:
+          type: number
+          format: double
+          default: 0.0
+        highest_cost:
+          type: number
+          format: double
+          default: 20000.0
+        colours:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColoursEnum'
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionsEnum'
+        order_by:
+          $ref: '#/components/schemas/OrderByEnum'
+        sale:
+          type: boolean
+          default: true
+        featured:
+          type: boolean
+          default: true
+      required:
+      - collections
+      - colours
+      - marker
+      - order_by
+    HandlerLock:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        name_ru:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        name_eng:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        ru_description:
+          type: string
+          title: Описание (рус)
+        eng_description:
+          type: string
+          title: Описание (анг)
+      required:
+      - id
+      - image
+      - name_eng
+      - name_ru
+    Image:
+      type: object
+      properties:
+        photo:
+          type: string
+          format: uri
+          title: Изображение
+        main_photo:
+          type: boolean
+          title: Сделать главным
+      required:
+      - photo
+    Inspiration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        description_eng:
+          type: string
+          title: Описание изображения (анг)
+        description_ru:
+          type: string
+          title: Описание изображения (рус)
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        crop_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Уменьшенное изображение
+        author:
+          type: array
+          items:
+            $ref: '#/components/schemas/Author'
+          readOnly: true
+        style:
+          type: array
+          items:
+            $ref: '#/components/schemas/InspirationStyle'
+          readOnly: true
+        room:
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+          readOnly: true
+        building_type:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingType'
+          readOnly: true
+        width:
+          type: string
+          readOnly: true
+        height:
+          type: string
+          readOnly: true
+        products_in:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductInInspiration'
+          readOnly: true
+        support_products_for:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportProductForInspiration'
+          readOnly: true
+      required:
+      - author
+      - building_type
+      - eng_name
+      - height
+      - id
+      - image
+      - products_in
+      - room
+      - rus_name
+      - style
+      - support_products_for
+      - width
+    InspirationFilterRequest:
+      type: object
+      properties:
+        authors:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorsEnum'
+        building_type:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuildingTypeEnum'
+        styles:
+          type: array
+          items:
+            $ref: '#/components/schemas/StylesEnum'
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomsEnum'
+        order_by:
+          $ref: '#/components/schemas/OrderByEnum'
+      required:
+      - authors
+      - building_type
+      - order_by
+      - rooms
+      - styles
+    InspirationStyle:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        count_inspirations:
+          type: string
+          readOnly: true
+      required:
+      - count_inspirations
+      - eng_name
+      - id
+      - rus_name
+    List-collections:
+      type: object
+      properties:
+        subcategory:
+          $ref: '#/components/schemas/Subcategories'
+        amount_of_pages:
+          type: integer
+        objects_on_page:
+          type: array
+          items:
+            $ref: '#/components/schemas/Object'
+      required:
+      - amount_of_pages
+      - objects_on_page
+      - subcategory
+    List_subcategories:
+      type: object
+      properties:
+        category:
+          $ref: '#/components/schemas/Categories'
+        subcategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subcategories'
+      required:
+      - category
+      - subcategories
+    Lock:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        name_ru:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        name_eng:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        ru_description:
+          type: string
+          title: Описание (рус)
+        eng_description:
+          type: string
+          title: Описание (анг)
+        electro:
+          type: boolean
+          title: Электрический замок
+        step_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/LockStepImage'
+      required:
+      - id
+      - image
+      - name_eng
+      - name_ru
+      - step_images
+    LockStepImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name_ru:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        name_eng:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        ru_description:
+          type: string
+          title: Описание (рус)
+        eng_description:
+          type: string
+          title: Описание (анг)
+        flash:
+          type: boolean
+          title: Молния
+        lock:
+          type: integer
+      required:
+      - id
+      - image
+      - lock
+      - name_eng
+      - name_ru
+    MainCatalog:
+      type: object
+      properties:
+        file:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF-файл
+    MainTax:
+      type: object
+      properties:
+        tax:
+          type: number
+          format: double
+          title: Налог
+      required:
+      - tax
+    MainVideo:
+      type: object
+      properties:
+        file:
+          type: string
+          format: uri
+          nullable: true
+          title: Видео
+    MarkerEnum:
+      enum:
+      - ru
+      - en
+      type: string
+      description: |-
+        * `ru` - ru
+        * `en` - en
+    Object:
+      oneOf:
+      - $ref: '#/components/schemas/ShowCollection'
+      - $ref: '#/components/schemas/ColAbstract'
+    ObjsCollection:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        background_color:
+          type: string
+          title: Цвет подложки
+          description: Цвет подложки, на которой будет отображен текст
+          pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          maxLength: 25
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название коллекции на русском языке
+          maxLength: 100
+        rus_description:
+          type: string
+          title: Описание (1) (рус)
+          description: Описнаие коллекции на русском языке (левый столбец)
+          maxLength: 1060
+        rus_title:
+          type: string
+          title: Заголовок (рус)
+          description: Заголовок перед описанием на русском языке
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название коллекции на английском языке
+          maxLength: 100
+        eng_description:
+          type: string
+          title: Описание (1) (анг)
+          description: Описнаие коллекции на английском языке (левый столбец)
+          maxLength: 1060
+        eng_title:
+          type: string
+          title: Заголовок (анг)
+          description: Заголовок перед описанием на английском языке
+        banner:
+          type: string
+          format: uri
+          title: Обложка
+          description: Обложка коллекции
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviewAbstract'
+          readOnly: true
+        featured_banner:
+          type: string
+          format: uri
+          nullable: true
+          title: Обложка (выбор экспертов)
+      required:
+      - banner
+      - eng_name
+      - id
+      - products
+      - rus_name
+    OrderByEnum:
+      enum:
+      - date
+      - cost
+      - popularity
+      - none
+      type: string
+      description: |-
+        * `date` - date
+        * `cost` - cost
+        * `popularity` - popularity
+        * `none` - none
+    PatchedFilterRequest:
+      type: object
+      properties:
+        subcategory_eng_name:
+          type: string
+          minLength: 1
+          default: ''
+        prefered_collection:
+          type: integer
+          default: 0
+        marker:
+          $ref: '#/components/schemas/MarkerEnum'
+        lowest_cost:
+          type: number
+          format: double
+          default: 0.0
+        highest_cost:
+          type: number
+          format: double
+          default: 20000.0
+        colours:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColoursEnum'
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionsEnum'
+        order_by:
+          $ref: '#/components/schemas/OrderByEnum'
+        sale:
+          type: boolean
+          default: true
+        featured:
+          type: boolean
+          default: true
+    PreviewAbstract:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        colored_products:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreviewProduct'
+          readOnly: true
+      required:
+      - colored_products
+      - eng_name
+      - id
+      - rus_name
+    PreviewDoor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        main_photo:
+          allOf:
+          - $ref: '#/components/schemas/DoorImage'
+          readOnly: true
+        rub_cost:
+          type: number
+          format: double
+          nullable: true
+          title: Цена товара (руб)
+        euro_cost:
+          type: number
+          format: double
+          title: Цена товара (евро)
+      required:
+      - eng_name
+      - euro_cost
+      - id
+      - main_photo
+      - rus_name
+    PreviewInspiration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        image:
+          type: string
+          format: uri
+          title: Изображение
+        crop_image:
+          type: string
+          format: uri
+          nullable: true
+          title: Уменьшенное изображение
+      required:
+      - eng_name
+      - id
+      - image
+      - rus_name
+    PreviewProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        colour:
+          allOf:
+          - $ref: '#/components/schemas/Colour'
+          readOnly: true
+        main_photo:
+          allOf:
+          - $ref: '#/components/schemas/Image'
+          readOnly: true
+        rub_cost:
+          type: number
+          format: double
+          nullable: true
+          title: Стоимость (руб)
+        euro_cost:
+          type: number
+          format: double
+          title: Стоимость (евро)
+      required:
+      - colour
+      - euro_cost
+      - id
+      - main_photo
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        id_code:
+          type: string
+          maxLength: 100
+        rus_name:
+          type: string
+        eng_name:
+          type: string
+        rus_title:
+          type: string
+          title: Название (рус)
+          maxLength: 500
+        eng_title:
+          type: string
+          title: Название (анг)
+          maxLength: 500
+        rus_description:
+          type: string
+          title: Описание (рус)
+        eng_description:
+          type: string
+          title: Описание (анг)
+        guarantee_ru:
+          type: string
+          title: Гарантии (ру)
+        guarantee_eng:
+          type: string
+          title: Гарантии (анг)
+        delivery_ru:
+          type: string
+          title: Доставка (ру)
+        delivery_eng:
+          type: string
+          title: Доставка (анг)
+        support_ru:
+          type: string
+          title: Поддержка (ру)
+        support_eng:
+          type: string
+          title: Поддержка (анг)
+        refund_ru:
+          type: string
+          title: Возврат (ру)
+        refund_eng:
+          type: string
+          title: Возврат (анг)
+        rus_care:
+          type: string
+          title: Уход за товаром (рус)
+        eng_care:
+          type: string
+          title: Уход за товаром (анг)
+        rub_cost:
+          type: number
+          format: double
+          nullable: true
+          title: Стоимость (руб)
+        euro_cost:
+          type: number
+          format: double
+          title: Стоимость (евро)
+        tax:
+          type: number
+          format: double
+          nullable: true
+          title: Налог
+        colour:
+          allOf:
+          - $ref: '#/components/schemas/Colour'
+          readOnly: true
+        amount_of:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        product_specifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Specification'
+          readOnly: true
+        product_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          readOnly: true
+        flag_of_model:
+          type: boolean
+          title: Наличие 3D-модели
+        drawing_ru:
+          type: string
+          format: uri
+          nullable: true
+          title: 3Д модель/ чертеж (рус)
+        drawing_eng:
+          type: string
+          format: uri
+          nullable: true
+          title: 3Д модель/ чертеж (анг)
+        en_pdf:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF файл (анг)
+        en_pdf_name:
+          type: string
+          nullable: true
+          title: Название PDF файла (анг)
+          maxLength: 100
+        ru_pdf:
+          type: string
+          format: uri
+          nullable: true
+          title: PDF файл (рус)
+        ru_pdf_name:
+          type: string
+          nullable: true
+          title: Название PDF файла (рус)
+          maxLength: 100
+        en_pdf_size_field:
+          type: string
+          readOnly: true
+        ru_pdf_size_field:
+          type: string
+          readOnly: true
+        collection_file_ru:
+          type: string
+          format: uri
+          nullable: true
+        collection_file_eng:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - amount_of
+      - colour
+      - en_pdf_size_field
+      - eng_name
+      - eng_title
+      - euro_cost
+      - id
+      - id_code
+      - product_images
+      - product_specifications
+      - ru_pdf_size_field
+      - rus_name
+      - rus_title
+    ProductInInspiration:
+      type: object
+      properties:
+        abstract_product_preview:
+          allOf:
+          - $ref: '#/components/schemas/PreviewAbstract'
+          readOnly: true
+        colored_product:
+          allOf:
+          - $ref: '#/components/schemas/PreviewProduct'
+          readOnly: true
+        x_coordinate:
+          type: number
+          format: double
+        y_coordinate:
+          type: number
+          format: double
+      required:
+      - abstract_product_preview
+      - colored_product
+      - x_coordinate
+      - y_coordinate
+    RetrieveCollection:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название коллекции на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название коллекции на английском языке
+          maxLength: 100
+        rus_title:
+          type: string
+          title: Заголовок (рус)
+          description: Заголовок перед описанием на русском языке
+        eng_title:
+          type: string
+          title: Заголовок (анг)
+          description: Заголовок перед описанием на английском языке
+        rus_description:
+          type: string
+          title: Описание (1) (рус)
+          description: Описнаие коллекции на русском языке (левый столбец)
+          maxLength: 1060
+        eng_description:
+          type: string
+          title: Описание (1) (анг)
+          description: Описнаие коллекции на английском языке (левый столбец)
+          maxLength: 1060
+        rus_description_2:
+          type: string
+          title: Описание (2) (рус)
+          description: Описнаие коллекции на русском языке (правый столбец)
+          maxLength: 1060
+        eng_description_2:
+          type: string
+          title: Описание (2) (анг)
+          description: Описнаие коллекции на английском языке (правый столбец)
+          maxLength: 1060
+        rus_filter_name:
+          type: string
+          title: Сокращенное название (рус)
+          description: Сокращенное название на русском языке
+          maxLength: 100
+        eng_filter_name:
+          type: string
+          title: Сокращенное название (анг)
+          description: Сокращенное название на английском языке
+          maxLength: 100
+        year:
+          type: integer
+          maximum: 9999
+          minimum: 1990
+          title: Год создания
+          description: Год создания коллекции
+        background_color:
+          type: string
+          title: Цвет подложки
+          description: Цвет подложки, на которой будет отображен текст
+          pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          maxLength: 25
+        banner:
+          type: string
+          format: uri
+          title: Обложка
+          description: Обложка коллекции
+        featured:
+          type: boolean
+          title: Выбор экспертов
+        featured_banner:
+          type: string
+          format: uri
+          nullable: true
+          title: Обложка (выбор экспертов)
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subcategories'
+          readOnly: true
+      required:
+      - banner
+      - categories
+      - eng_filter_name
+      - eng_name
+      - id
+      - rus_filter_name
+      - rus_name
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        count_inspirations:
+          type: string
+          readOnly: true
+      required:
+      - count_inspirations
+      - eng_name
+      - id
+      - rus_name
+    RoomsEnum:
+      enum:
+      - 6
+      type: integer
+      description: '* `6` - 6'
+    ShowCollection:
+      type: object
+      properties:
+        collection_type:
+          type: boolean
+          default: true
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название коллекции на русском языке
+          maxLength: 100
+        rus_filter_name:
+          type: string
+          title: Сокращенное название (рус)
+          description: Сокращенное название на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название коллекции на английском языке
+          maxLength: 100
+        eng_filter_name:
+          type: string
+          title: Сокращенное название (анг)
+          description: Сокращенное название на английском языке
+          maxLength: 100
+        banner:
+          type: string
+          format: uri
+          title: Обложка
+          description: Обложка коллекции
+      required:
+      - banner
+      - eng_filter_name
+      - eng_name
+      - id
+      - rus_filter_name
+      - rus_name
+    Specification:
+      type: object
+      properties:
+        rus_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        rus_value:
+          type: string
+          title: Значение (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        eng_value:
+          type: string
+          title: Значение (анг)
+          maxLength: 100
+      required:
+      - eng_name
+      - eng_value
+      - rus_name
+      - rus_value
+    StylesEnum:
+      enum:
+      - 7
+      - 8
+      type: integer
+      description: |-
+        * `7` - 7
+        * `8` - 8
+    SubcatalogSertializer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        ru_name:
+          type: string
+          title: Название (рус)
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          maxLength: 100
+        pdf_ru:
+          type: string
+          format: uri
+          title: PDF (рус)
+        pdf_eng:
+          type: string
+          format: uri
+          title: PDF (анг)
+        banner_eng:
+          type: string
+          format: uri
+          nullable: true
+          title: Обложка (анг)
+        banner_ru:
+          type: string
+          format: uri
+          nullable: true
+          title: Обложка (рус)
+      required:
+      - eng_name
+      - id
+      - pdf_eng
+      - pdf_ru
+      - ru_name
+    Subcategories:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        rus_name:
+          type: string
+          title: Название (рус)
+          description: Название подкатегории на русском языке
+          maxLength: 100
+        eng_name:
+          type: string
+          title: Название (анг)
+          description: Название подкатегории на английском языке
+          maxLength: 100
+        banner:
+          type: string
+          format: uri
+          title: Обложка
+          description: Обложка подкатегории
+        product_counter:
+          type: integer
+          readOnly: true
+      required:
+      - banner
+      - eng_name
+      - id
+      - product_counter
+      - rus_name
+    SupportProductForInspiration:
+      type: object
+      properties:
+        product:
+          allOf:
+          - $ref: '#/components/schemas/PreviewAbstract'
+          readOnly: true
+      required:
+      - product
+    UploadOrderPDFRequest:
+      type: object
+      properties:
+        base64_data:
+          type: string
+          minLength: 1
+        first_name:
+          type: string
+          default: ''
+        second_name:
+          type: string
+          default: ''
+        patronymic:
+          type: string
+          default: ''
+        delivery_type:
+          type: string
+          default: ''
+        country:
+          type: string
+          default: ''
+        street_name:
+          type: string
+          default: ''
+        zip_code:
+          type: string
+          default: ''
+        comment:
+          type: string
+          default: ''
+        city:
+          type: string
+          default: ''
+        email:
+          type: string
+          default: ''
+        phone:
+          type: string
+          default: ''
+      required:
+      - base64_data
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

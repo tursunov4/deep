@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .font-ultra-condensed {
+        font-stretch: ultra-condensed;
+    }
+
+    .image-color {
+        filter: invert(12%) sepia(99%) saturate(3549%) hue-rotate(104deg) brightness(97%) contrast(90%);
+    }
+
+    @keyframes scroll-left {
+        0% {
+            transform: translate(100%, 0);
+        }
+        100% {
+            transform: translate(-200%, 0);
+        }
+    }
+
+    @keyframes scroll-right {
+        0% {
+            transform: translate(-100%, 0);
+        }
+
+        100% {
+            transform: translate(200%, 0);
+        }
+    }
+
+    .close {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+    }
+
+    .close:before, .close:after {
+        position: absolute;
+        left: 10px;
+        content: ' ';
+        height: 20px;
+        width: 2px;
+        background-color: #333;
+    }
+
+    .close:before {
+        transform: rotate(45deg);
+    }
+
+    .close:after {
+        transform: rotate(-45deg);
+    }
+
+    .gg-chevron-down {
+        box-sizing: border-box;
+        position: relative;
+        display: block;
+        transform: scale(var(--ggs, 1));
+        width: 22px;
+        height: 22px;
+        border: 1px solid transparent;
+        border-radius: 100px
+    }
+
+    .gg-chevron-down::after {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        transform: rotate(45deg);
+        left: 4px;
+        top: 2px
+    }
+
+    .hide-scroll {
+        overflow-y: scroll;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    .hide-scroll::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+
+
+}
+
+@layer base {
+    @font-face {
+        font-family: 'BackwardsSans';
+        src: url(./fonts/TTBackwardsSansTrialBlack.otf) format("opentype");
+        font-weight: 900;
+    }
+    @font-face {
+        font-family: 'BackwardsSans';
+        src: url(./fonts/TTBackwardsSansTrialBold.otf) format("opentype");
+        font-weight: 700;
+    }
+    @font-face {
+        font-family: 'BackwardsSans';
+        src: url(./fonts/TTBackwardsSansTrialLight.otf) format("opentype");
+        font-weight: 300;
+    }
+    @font-face {
+        font-family: 'BackwardsSans';
+        src: url(./fonts/TTBackwardsSansTrialRegular.otf) format("opentype");
+        font-weight: 400;
+    }
+    @font-face {
+        font-family: 'BackwardsSans';
+        src: url(./fonts/TTBackwardsSansTrialThin.otf) format("opentype");
+        font-weight: 100;
+    }
+
+}
+
+@layer components {
+    .text-base {
+        @apply text-[12px]
+    }
+
+    .title {
+        @apply font-bold font-TT;
+    }
+
+    .block-gap {
+        @apply desktop:my-[60px] my-[40px]
+    }
+
+    .main-p {
+        @apply desktop:p-[30px] p-[20px]
+    }
+
+    .main-p-sides {
+        @apply desktop:px-[30px] px-[20px]
+    }
+
+    .page-title-block {
+        @apply desktop:h-[400px] h-[390px]
+    }
+
+    .menu-selected {
+        @apply flex gap-5 after:content-[''] after:grow after:border-white after:border-b after:my-auto after:ml-auto after:max-w-[150px]
+    }
+
+    .button-ghost {
+        @apply bg-none text-black border-solid border-black border-[1px] rounded-lg flex justify-center items-center hover:bg-black hover:text-white duration-300
+    }
+
+    h1 {
+        @apply font-semibold text-lg desktop:text-[2.5vw]
+    }
+
+    h2 {
+        @apply font-semibold text-lg desktop:text-[1.5vw]
+    }
+
+    h3 {
+        @apply font-semibold text-lg desktop:text-[1.1vw]
+    }
+
+    .lg {
+        @apply text-[1vw]
+    }
+
+    .selected-dot {
+        @apply relative shadow-none after:absolute after:-right-1 after:content-[''] after:rounded-full after:w-2 after:h-2 after:bg-black
+    }
+
+    .selected-dot-hover {
+        @apply relative shadow-none after:absolute after:-right-1 after:content-[''] after:rounded-full after:w-2 after:h-2 after:bg-black/50
+    }
+
+    .text-input {
+        @apply bg-transparent border-2 border-black rounded-lg p-2 px-4 text-lg
+    }
+
+    .label {
+        @apply text-lg
+    }
+
+    .main-color {
+        @apply bg-[#98f576] hover:bg-[#83e55f]
+    }
+
+    .main-button {
+        @apply bg-[#98f576] hover:bg-[#83e55f] p-2 rounded-lg px-6 desktop:text-base text-xs
+    }
+
+    .ghost-button {
+        @apply p-2 rounded-lg px-6 border border-gray-400 desktop:text-base text-xs hover:text-[#0E8A0E] hover:border-[#0E8A0E]
+    }
+
+    .text-main-color {
+        @apply text-[#0E8A0E]
+    }
+}
+
+@media (min-width: 1100px) {
+    .desktop-buttons.swiper-initialized {
+        margin: 0 30px !important;
+        border-top: 0px solid black;
+        overflow: visible !important;
+    }
+
+    .desktop-buttons .swiper-button-next, .swiper-button-prev {
+        cursor: pointer;
+        overflow: hidden;
+        margin-bottom: auto;
+        position: absolute;
+        width: 60px;
+        top: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        z-index: 99;
+    }
+
+    .desktop-buttons .swiper-button-next {
+        background: url('assets/slider_bg_right.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    .desktop-buttons .swiper-button-prev {
+        background: url('assets/slider_bg_left.png') no-repeat center center;
+        background-size: cover;
+    }
+
+    .desktop-buttons .swiper-button-next:hover::after {
+        content: "";
+        width: 48%;
+        height: 2px;
+        background-color: #000000;
+        position: absolute;
+        animation: scroll-right 1.7s infinite cubic-bezier(.23, .92, .34, .91);
+    }
+
+    .desktop-buttons .swiper-button-prev::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #E0E0E0;
+        position: absolute;
+        right: 0;
+    }
+
+    .desktop-buttons .swiper-button-next::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: #E0E0E0;
+        position: absolute;
+        left: 0;
+    }
+
+    .desktop-buttons .swiper-button-prev:hover::after {
+        content: "";
+        width: 48%;
+        height: 2px;
+        background-color: #000000;
+        position: absolute;
+        right: 0;
+        animation: scroll-left 1.7s infinite cubic-bezier(.23, .92, .34, .91);
+    }
+
+    .desktop-buttons .swiper-button-prev::before, .desktop-buttons .swiper-button-next::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 80px;
+        background-color: white;
+        left: 0;
+        top: calc(50% - 40px);
+    }
+
+    .desktop-buttons .swiper-button-next {
+        right: -30px;
+    }
+
+    .desktop-buttons .swiper-button-prev {
+        left: -30px;
+    }
+
+    .desktop-buttons .swiper-button-disabled {
+        opacity: 0;
+    }
+}
