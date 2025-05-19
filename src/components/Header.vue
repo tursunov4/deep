@@ -14,7 +14,7 @@ const menuItems = [
   { title: "МЕБЕЛЬ", link: "/mebel" },
   { title: "ФУРНИТУРА", link: "/furnitura" },
   { title: "КОЛЛЕКЦИИ", link: "/collections" },
-  { title: "ВДОХНОВЕНИЕ", link: "/vdohnovenie" },
+  { title: "ВДОХНОВЕНИЕ", link: "/inspirations" },
   { title: "КАТАЛОГИ", link: "/catalogs" },
   { title: "О НАС", link: "/about" },
 ];

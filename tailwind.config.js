@@ -20,6 +20,7 @@ export default {
     extend: {
       colors: {
         "black-general": "#101010",
+        customGray: "#6D6D6D",
       },
       backgroundImage: {
         "custom-gradient":

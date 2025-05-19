@@ -41,7 +41,7 @@ onMounted(fetchCatalogs);
           class="flex flex-col uppercase items-center gap-[14px] desktop:gap-[10px] mx-auto my-auto"
         >
           <h1
-            class="title text-center desktop:text-[40px] desktop:leading-[80px] text-[40px] leading-[40px]"
+            class="title text-center desktop:text-[40px] desktop:leading-[80px] text-[32px] leading-[40px]"
           >
             <template v-if="App.language == 'ru'">
               Ката<span class="pl-[2px]">л</span>оги
@@ -54,14 +54,19 @@ onMounted(fetchCatalogs);
         </div>
       </div>
     </div>
-    <div><a href="">ГЛАВНАЯ</a> - <a href="">Каталоги</a></div>
+    <div
+      class="desktop:text-end text-start mx-[20px] desktop:mx-[30px] uppercase pb-5 text-[14px]"
+    >
+      <RouterLink to="/">ГЛАВНАЯ</RouterLink> -
+      <a class="font-bold" href="">Каталоги</a>
+    </div>
     <div
       v-for="catalog in catalogs"
       :id="catalog.catalog_name_eng.toLowerCase()"
-      class="desktop:flex desktop:mx-[30px] mx-[20px] desktop:border-t desktop:pt-[30px] border-black font-bold desktop:mt-0 mt-[60px]"
+      class="desktop:flex desktop:mx-[30px] mx-[20px] desktop:border-t desktop:pt-[30px] border-black font-bold desktop:mt-0 mt-[1 0px]"
     >
       <div
-        class="desktop:w-1/4 border-black pb-[7px] desktop:pr-[40px] desktop:pb-0 overflow-hidden border-b break-words desktop:border-none font-TT text-[40px]"
+        class="desktop:w-1/4 border-black pb-[7px] desktop:pr-[40px] desktop:pb-0 overflow-hidden border-b break-words desktop:border-none font-TT text-[32px] desktop:text-[40px]"
       >
         {{
           App.language == "ru"
