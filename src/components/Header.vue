@@ -10,7 +10,7 @@ const isMobileMenuOpen = ref(false);
 const menuItems = [
   { title: "САНТЕХНИКА", link: "/santexnika" },
   { title: "ОСВЕЩЕНИЕ", link: "/osveshchenie" },
-  { title: "ДВЕРИ", link: "/doori" },
+  { title: "ДВЕРИ", link: "/doors" },
   { title: "МЕБЕЛЬ", link: "/mebel" },
   { title: "ФУРНИТУРА", link: "/furnitura" },
   { title: "КОЛЛЕКЦИИ", link: "/collections" },
