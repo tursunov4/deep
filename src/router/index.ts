@@ -12,6 +12,7 @@ const Category = () => import("../components/Category.vue");
 const About = () => import("../components/AboutPage.vue");
 const Cart = () => import("../components/Cart/CartPage.vue");
 const Catalogs = () => import("../components/CatalogsPage.vue");
+const Switches = () => import("../components/Switches/SwitchesPage.vue");
 const Inspirations = () =>
   import("../components/Inspiration/InspirationsPage.vue");
 const Inspiration = () =>
@@ -37,6 +38,11 @@ const routes = [
     path: "/inspiration/:id",
     name: "inspiration-page",
     component: Inspiration,
+  },
+  {
+    path: "/switch/:id",
+    name: "switches-page",
+    component: Switches,
   },
   {
     path: "/lighting",

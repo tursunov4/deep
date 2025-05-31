@@ -1,3 +1,4 @@
+import router from '../../router/index'; import { useRoute } from 'vue-router';
 <template>
   <div
     class="border-t border-l mx-5 border-[#101010] grid grid-cols-1 desktop:grid-cols-2"
@@ -5,7 +6,8 @@
     <div
       v-for="item in items"
       :key="item.title"
-      class="border-b p-[30px] border-r border-[#101010] flex flex-col"
+      @click="router.push('/switch/' + item.title)"
+      class="border-b cursor-pointer p-[30px] border-r border-[#101010] flex flex-col"
     >
       <!-- Image -->
       <div
@@ -27,6 +29,8 @@
 <script setup lang="ts">
 const defaultImage = new URL("../../assets/mainPage/doors.png", import.meta.url)
   .href;
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const items = [
   {
