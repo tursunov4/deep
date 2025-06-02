@@ -148,12 +148,12 @@ onMounted(() => {
           </div>
         </div>
         <div class="flex gap-3 mt-6">
-          <img class="w-[20px] h-[20px]" src="../assets/whatsapp.svg" />
-          <img class="w-[20px] h-[20px]" src="../assets/telegram.svg" />
-          <img class="w-[20px] h-[20px]" src="../assets/phone.svg" />
-          <img class="w-[20px] h-[20px]" src="../assets/pinterest.svg" />
-          <img class="w-[20px] h-[20px]" src="../assets/inst.svg" />
-          <img class="w-[20px] h-[20px]" src="../assets/youtube.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/WhatsApp.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/Telegaramm.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/Pinterest.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/Facebook.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/Instagramm.svg" />
+          <img class="w-[27.9px] h-[27.9px]" src="../assets/youtube.svg" />
         </div>
       </div>
     </div>
@@ -238,11 +238,11 @@ onMounted(() => {
 
       <!-- Socials -->
       <div class="flex items-center gap-4 mt-2">
-        <img src="../assets/whatsapp.svg" class="w-5 h-5" />
-        <img src="../assets/telegram.svg" class="w-5 h-5" />
+        <img src="../assets/WhatsApp.svg" class="w-5 h-5" />
+        <img src="../assets/Telegram.svg" class="w-5 h-5" />
         <img src="../assets/phone.svg" class="w-5 h-5" />
         <img src="../assets/pinterest.svg" class="w-5 h-5" />
-        <img src="../assets/inst.svg" class="w-5 h-5" />
+        <img src="../assets/Instagramm.svg" class="w-5 h-5" />
         <img src="../assets/youtube.svg" class="w-5 h-5" />
       </div>
 
