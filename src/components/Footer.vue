@@ -5,6 +5,7 @@ import { onMounted, ref, Ref } from "vue";
 import { components, paths } from "../types/schema";
 import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
+import WhatsAppicon from "../assets/WhatsApp.svg";
 const { t } = useI18n({ useScope: "global" });
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
@@ -148,7 +149,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="flex gap-3 mt-6">
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/WhatsApp.svg" />
+          <img class="w-[27.9px] h-[27.9px]" :src="WhatsAppicon" />
           <img class="w-[27.9px] h-[27.9px]" src="../assets/Telegaramm.svg" />
           <img class="w-[27.9px] h-[27.9px]" src="../assets/Pinterest.svg" />
           <img class="w-[27.9px] h-[27.9px]" src="../assets/Facebook.svg" />
@@ -238,7 +239,7 @@ onMounted(() => {
 
       <!-- Socials -->
       <div class="flex items-center gap-4 mt-2">
-        <img src="../assets/WhatsApp.svg" class="w-5 h-5" />
+        <img :src="WhatsAppicon" class="w-5 h-5" />
         <img src="../assets/Telegram.svg" class="w-5 h-5" />
         <img src="../assets/phone.svg" class="w-5 h-5" />
         <img src="../assets/pinterest.svg" class="w-5 h-5" />
