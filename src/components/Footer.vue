@@ -5,11 +5,11 @@ import { onMounted, ref, Ref } from "vue";
 import { components, paths } from "../types/schema";
 import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
-import WhatsAppicon from "../assets/WhatsApp.svg";
-import Printericon from "../assets/Pinterest.svg";
-import Telegramicon from "../assets/Telegaramm.svg";
-import Facebookicon from "../assets/Facebook.svg";
-import Instagramicon from "../assets/Instagramm.svg";
+import WhatsAppicon from "../assets/whatsApp.svg";
+import Printericon from "../assets/pinterest.svg";
+import Telegramicon from "../assets/telegaramm.svg";
+import Facebookicon from "../assets/facebook.svg";
+import Instagramicon from "../assets/instagramm.svg";
 import Youtubeicon from "../assets/youtube.svg";
 
 const { t } = useI18n({ useScope: "global" });
