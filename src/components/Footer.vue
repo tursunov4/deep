@@ -5,7 +5,7 @@ import { onMounted, ref, Ref } from "vue";
 import { components, paths } from "../types/schema";
 import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
-import WhatsAppicon from "../assets/whatsApp.svg";
+import WhatsAppicon from "../assets/whatsapp.svg";
 import Printericon from "../assets/pinterest.svg";
 import Telegramicon from "../assets/telegaramm.svg";
 import Facebookicon from "../assets/facebook.svg";
