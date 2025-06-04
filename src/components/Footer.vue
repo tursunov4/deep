@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import { useI18n } from "vue-i18n";
 import router from "../router";
 import { onMounted, ref, Ref } from "vue";
@@ -6,11 +6,12 @@ import { components, paths } from "../types/schema";
 import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
 import WhatsAppicon from "../assets/WhatsApp.svg";
+
 const { t } = useI18n({ useScope: "global" });
 const HOST = import.meta.env.VITE_HOST_NAME;
-const { GET } = createClient<paths>({ baseUrl: HOST });
+const { GET } = createClient < paths > { baseUrl: HOST };
 const App = AppStore();
-const categories: Ref<components["schemas"]["Categories"][]> = ref([]);
+const categories = ref([]);
 
 async function fetchCategories() {
   const { data, error } = await GET("/api/categories/", {});
