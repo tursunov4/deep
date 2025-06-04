@@ -7,7 +7,7 @@ import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
 import WhatsAppicon from "../assets/whatsapp.svg";
 import Printericon from "../assets/pinterest.svg";
-import Telegramicon from "../assets/telegaramm.svg";
+import Telegramicon from "../assets/telegram.svg";
 import Facebookicon from "../assets/facebook.svg";
 import Instagramicon from "../assets/instagramm.svg";
 import Youtubeicon from "../assets/youtube.svg";
