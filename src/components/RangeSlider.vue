@@ -72,16 +72,14 @@ watch(
   --slider-tooltip-distance: 3px;
 }
 
-@media screen and (max-width: 1100px) {
-  :root {
-    --slider-tooltip-bg: #000000;
-    --slider-tooltip-bg-disabled: #000000;
-    --slider-tooltip-color: #000000;
-    --slider-bg: #e0e0e0;
-    --slider-connect-bg: #000000;
-    --slider-connect-bg-disabled: #000000;
-    --slider-handle-bg: #000;
-  }
+:root {
+  --slider-tooltip-bg: #000000;
+  --slider-tooltip-bg-disabled: #000000;
+  --slider-tooltip-color: #000000;
+  --slider-bg: #e0e0e0;
+  --slider-connect-bg: #000000;
+  --slider-connect-bg-disabled: #000000;
+  --slider-handle-bg: #000;
 }
 
 .slider-target,

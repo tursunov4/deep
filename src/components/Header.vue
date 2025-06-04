@@ -8,13 +8,15 @@ const { locale } = useI18n({ useScope: "global" });
 const isMobileMenuOpen = ref(false);
 const activeDropdown = ref(null);
 const activeSubDropdown = ref(null);
+const dropdownTimeout = ref(null);
+const mobileMenuLevel = ref(0); // 0 = main menu, 1 = submenu
 
 const menuItems = [
-  { title: "САНТЕХНИКА", link: "/santexnika" },
-  { title: "ОСВЕЩЕНИЕ", link: "/lighting" },
+  { title: "САНТЕХНИКА", link: "#" },
+  { title: "ОСВЕЩЕНИЕ", link: "/category/OFFSETS" },
   { title: "ДВЕРИ", link: "/doors" },
   { title: "МЕБЕЛЬ", link: "/mebel" },
-  { title: "ФУРНИТУРА", link: "/furnitura" },
+  { title: "ФУРНИТУРА", link: "/#" },
   { title: "КОЛЛЕКЦИИ", link: "/collections" },
   { title: "ВДОХНОВЕНИЕ", link: "/inspirations" },
   { title: "КАТАЛОГИ", link: "/catalogs" },
@@ -25,57 +27,88 @@ const menuItems = [
 const dropdownMenus = {
   САНТЕХНИКА: {
     categories: [
-      "ДИММЕРЫ",
-      "РОЗЕТКИ",
-      "ВЫКЛЮЧАТЕЛИ",
-      "ТЁПЛЫЙ ПОЛ",
-      "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ",
+      { name: "ДИММЕРЫ", link: "/category/OFFSETS" },
+      { name: "РОЗЕТКИ", link: "/category/OFFSETS" },
+      { name: "ВЫКЛЮЧАТЕЛИ", link: "/category/OFFSETS" },
+      { name: "ТЁПЛЫЙ ПОЛ", link: "/category/OFFSETS" },
+      { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
     ],
-    deepDesign: ["ГЛАВНАЯ", "О КОМПАНИИ", "КОНТАКТЫ", "КАТАЛОГИ"],
-    information: ["ГЛАВНАЯ", "О КОМПАНИИ", "КОНТАКТЫ", "КАТАЛОГИ"],
+    deepDesign: [
+      { name: "ГЛАВНАЯ", link: "/главная" },
+      { name: "О КОМПАНИИ", link: "/о-компании" },
+      { name: "КОНТАКТЫ", link: "/контакты" },
+      { name: "КАТАЛОГИ", link: "/каталоги" },
+    ],
+    information: [
+      { name: "ГЛАВНАЯ", link: "/" },
+      { name: "О КОМПАНИИ", link: "/about" },
+
+      { name: "КАТАЛОГИ", link: "/catalogs" },
+    ],
   },
   ФУРНИТУРА: {
     categories: [
-      "ДИММЕРЫ",
-      "РОЗЕТКИ",
-      "ВЫКЛЮЧАТЕЛИ",
-      "ТЁПЛЫЙ ПОЛ",
-      "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ",
+      { name: "ДИММЕРЫ", link: "/category/OFFSETS" },
+      { name: "РОЗЕТКИ", link: "/category/OFFSETS" },
+      { name: "ВЫКЛЮЧАТЕЛИ", link: "/category/OFFSETS" },
+      { name: "ТЁПЛЫЙ ПОЛ", link: "/category/OFFSETS" },
+      { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
     ],
-    forHome: ["ПРОХОДНЫЕ", "ЛЕСТНИЧНЫЕ", "ПЛАСТИНЫ", "ТУМБЛЕРЫ"],
-    information: ["ГЛАВНАЯ", "О КОМПАНИИ", "КОНТАКТЫ", "КАТАЛОГИ"],
+    forHome: [
+      { name: "ПРОХОДНЫЕ", link: "/проходные" },
+      { name: "ЛЕСТНИЧНЫЕ", link: "/лестничные" },
+      { name: "ПЛАСТИНЫ", link: "/пластины" },
+      { name: "ТУМБЛЕРЫ", link: "/тумблеры" },
+    ],
+    information: [
+      { name: "ГЛАВНАЯ", link: "/" },
+      { name: "О КОМПАНИИ", link: "/about" },
+
+      { name: "КАТАЛОГИ", link: "/catalogs" },
+    ],
   },
 };
 
-const mobileMenuStructure = {
-  categories: [
-    "САНТЕХНИКА",
-    "ОСВЕЩЕНИЕ",
-    "ДВЕРИ",
-    "МЕБЕЛЬ",
-    "ФУРНИТУРА",
-    "КОЛЛЕКЦИИ",
-    "ВДОХНОВЕНИЕ",
-    "КАТАЛОГИ",
-    "О НАС",
-  ],
-  deepDesign: ["ГЛАВНАЯ", "О КОМПАНИИ", "КОНТАКТЫ", "КАТАЛОГИ"],
+// Clear any existing timeout
+const clearDropdownTimeout = () => {
+  if (dropdownTimeout.value) {
+    clearTimeout(dropdownTimeout.value);
+    dropdownTimeout.value = null;
+  }
 };
 
-// Handle dropdown hover
+// Handle dropdown hover with improved logic
 const handleMouseEnter = (menuTitle) => {
+  clearDropdownTimeout();
+  // Always set the activeDropdown - if no dropdown exists, it will be null
   if (dropdownMenus[menuTitle]) {
     activeDropdown.value = menuTitle;
+    activeSubDropdown.value = null;
+  } else {
+    // If hovering over a menu item without dropdown, clear active dropdown
+    activeDropdown.value = null;
     activeSubDropdown.value = null;
   }
 };
 
 const handleMouseLeave = () => {
-  // Add small delay to prevent flickering
-  setTimeout(() => {
+  clearDropdownTimeout();
+  dropdownTimeout.value = setTimeout(() => {
     activeDropdown.value = null;
     activeSubDropdown.value = null;
-  }, 100);
+  }, 150);
+};
+
+const handleDropdownEnter = () => {
+  clearDropdownTimeout();
+};
+
+const handleDropdownLeave = () => {
+  clearDropdownTimeout();
+  dropdownTimeout.value = setTimeout(() => {
+    activeDropdown.value = null;
+    activeSubDropdown.value = null;
+  }, 150);
 };
 
 const handleSubMenuEnter = (subMenuKey) => {
@@ -87,29 +120,32 @@ const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
   if (isMobileMenuOpen.value) {
     document.body.style.overflow = "hidden";
+    mobileMenuLevel.value = 0;
   } else {
     document.body.style.overflow = "";
     activeDropdown.value = null;
     activeSubDropdown.value = null;
+    mobileMenuLevel.value = 0;
   }
 };
 
 const handleMobileMenuClick = (menuTitle) => {
   if (dropdownMenus[menuTitle]) {
-    if (activeDropdown.value === menuTitle) {
-      activeDropdown.value = null;
-      activeSubDropdown.value = null;
-    } else {
-      activeDropdown.value = menuTitle;
-      activeSubDropdown.value = null;
-    }
+    activeDropdown.value = menuTitle;
+    activeSubDropdown.value = null;
+    mobileMenuLevel.value = 1;
   } else {
-    // Navigate to page
     router.push(
       menuItems.find((item) => item.title === menuTitle)?.link || "/"
     );
     toggleMobileMenu();
   }
+};
+
+const goBackToMainMenu = () => {
+  mobileMenuLevel.value = 0;
+  activeDropdown.value = null;
+  activeSubDropdown.value = null;
 };
 
 const handleMobileSubMenuClick = (subMenuKey) => {
@@ -127,6 +163,11 @@ const handleEscape = (e) => {
   }
 };
 
+// Navigation helper
+const navigateTo = (path) => {
+  router.push(path);
+};
+
 onMounted(() => {
   document.addEventListener("keydown", handleEscape);
 });
@@ -134,33 +175,36 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener("keydown", handleEscape);
   document.body.style.overflow = "";
+  clearDropdownTimeout();
 });
 </script>
 
 <template>
   <header
-    class="w-full text-white flex items-center justify-between px-6 desktop:px-[60px] pt-[20px] pb-[20px] h-[80px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300"
+    class="w-full text-white flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] pb-[100px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300"
     :class="activeDropdown ? 'bg-black' : 'bg-custom-gradient'"
   >
     <!-- Left: Logo + Desktop Menu -->
     <div class="flex items-center gap-[20px] relative">
       <img
         src="/logo-black.svg"
-        class="h-[30px] desktop:h-[35px] cursor-pointer"
-        @click="router.push('/')"
+        class="h-[30px] desktop:h-[35px] cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        @click="navigateTo('/')"
+        alt="Logo"
       />
 
       <!-- Desktop menu -->
-      <nav class="hidden desktop:flex gap-[20px] relative">
+      <nav class="hidden desktop:flex gap-[23px] relative">
         <div
           v-for="item in menuItems"
           :key="item.title"
           class="relative"
           @mouseenter="handleMouseEnter(item.title)"
+          @mouseleave="handleMouseLeave"
         >
           <RouterLink
             :to="item.link"
-            class="hover:opacity-70 transition-all cursor-pointer"
+            class="hover:text-[#8D8D8D] text-[#FFFFFF] transition-all font-bold text-[18px] leading-[100%] tracking-[0.02em] text-right uppercase duration-300 cursor-pointer py-2 px-1 rounded"
           >
             {{ item.title }}
           </RouterLink>
@@ -171,17 +215,19 @@ onUnmounted(() => {
     <!-- Right: Lang, Cart, Hamburger -->
     <div class="flex items-center gap-4 relative">
       <!-- Language Switch -->
-      <div class="flex items-center gap-2 text-[12px]">
+      <div class="desktop:flex hidden items-center gap-2 text-[12px]">
         <button
           @click="locale = 'en'"
           :class="{ 'opacity-60': locale !== 'en' }"
+          class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
         >
           EN
         </button>
-        <span>|</span>
+
         <button
           @click="locale = 'ru'"
           :class="{ 'opacity-60': locale !== 'ru' }"
+          class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
         >
           RU
         </button>
@@ -191,7 +237,7 @@ onUnmounted(() => {
       <img
         src="../assets/basket-black.svg"
         alt="Cart"
-        class="h-[35px] w-[35px] cursor-pointer"
+        class="h-[35px] w-[35px] cursor-pointer hover:opacity-80 transition-opacity duration-300"
         @click="$emit('showCart')"
       />
 
@@ -211,111 +257,89 @@ onUnmounted(() => {
         />
       </button>
     </div>
-  </header>
-
-  <!-- Full Width Desktop Dropdown -->
-  <transition name="fade">
-    <div
-      v-if="activeDropdown && dropdownMenus[activeDropdown]"
-      class="fixed top-[80px] left-0 w-full bg-black text-white shadow-2xl z-40 hidden desktop:block"
-      @mouseenter="activeDropdown = activeDropdown"
-      @mouseleave="handleMouseLeave"
-    >
-      <div class="max-w-[1400px] mx-auto px-[60px] py-12">
-        <div class="grid grid-cols-4 gap-12">
-          <!-- Column 1: Categories -->
-          <div>
-            <h3
-              class="text-gray-400 text-xs mb-6 uppercase tracking-[0.15em] font-medium"
-            >
-              Категории
-            </h3>
-            <div class="space-y-4">
-              <div
-                v-for="category in dropdownMenus[activeDropdown].categories"
-                :key="category"
-                class="text-white hover:text-gray-300 cursor-pointer transition-colors text-sm leading-relaxed"
-                @click="router.push(`/${category.toLowerCase()}`)"
-              >
-                {{ category }}
+    <!-- Full Width Desktop Dropdown -->
+    <transition name="fade">
+      <div
+        v-if="activeDropdown && dropdownMenus[activeDropdown]"
+        class="fixed top-[70px] left-0 w-full bg-black text-white shadow-2xl z-40 hidden desktop:block"
+        @mouseenter="handleDropdownEnter"
+        @mouseleave="handleDropdownLeave"
+      >
+        <div class="w-full mx-auto px-[94px] py-[40px]">
+          <div class="grid grid-cols-6 gap-12 border-b border-gray-600 pb-5">
+            <!-- Column 1 -->
+            <div class="col-span-1">
+              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
+                Компоненты
+              </h3>
+              <div class="space-y-4">
+                <div
+                  v-for="category in dropdownMenus[activeDropdown].categories"
+                  :key="category.link"
+                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  @click="navigateTo(`${category.link}`)"
+                >
+                  {{ category.name }}
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Column 2: Deep Design / For Home -->
-          <div>
-            <h3
-              class="text-gray-400 text-xs mb-6 uppercase tracking-[0.15em] font-medium"
-            >
-              {{ activeDropdown === "САНТЕХНИКА" ? "Deep Design" : "Для дома" }}
-            </h3>
-            <div class="space-y-4">
-              <div
-                v-for="subItem in activeDropdown === 'САНТЕХНИКА'
-                  ? dropdownMenus[activeDropdown].deepDesign
-                  : dropdownMenus[activeDropdown].forHome"
-                :key="subItem"
-                class="text-white hover:text-gray-300 cursor-pointer transition-colors text-sm leading-relaxed"
-                @click="router.push(`/${subItem.toLowerCase()}`)"
-              >
-                {{ subItem }}
+            <!-- Column 2 -->
+            <div class="col-span-1">
+              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
+                Сопутствующие товары
+              </h3>
+              <div class="space-y-4">
+                <div
+                  v-for="item in activeDropdown === 'САНТЕХНИКА'
+                    ? dropdownMenus[activeDropdown].deepDesign
+                    : dropdownMenus[activeDropdown].forHome"
+                  :key="item.link"
+                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  @click="navigateTo(`${item.link}`)"
+                >
+                  {{ item.name }}
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Column 3: Information -->
-          <div>
-            <h3
-              class="text-gray-400 text-xs mb-6 uppercase tracking-[0.15em] font-medium"
-            >
-              Информация
-            </h3>
-            <div class="space-y-4">
-              <div
-                v-for="info in dropdownMenus[activeDropdown].information"
-                :key="info"
-                class="text-white hover:text-gray-300 cursor-pointer transition-colors text-sm leading-relaxed"
-                @click="router.push(`/${info.toLowerCase()}`)"
-              >
-                {{ info }}
+            <!-- Column 3 -->
+            <div class="col-span-1">
+              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
+                Информация
+              </h3>
+              <div class="space-y-4">
+                <div
+                  v-for="info in dropdownMenus[activeDropdown].information"
+                  :key="info.link"
+                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  @click="navigateTo(`${info.link}`)"
+                >
+                  {{ info.name }}
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Column 4: Deep Design Description (only for САНТЕХНИКА) -->
-          <div v-if="activeDropdown === 'САНТЕХНИКА'">
-            <h4 class="text-gray-300 text-sm italic mb-4 font-light">
-              Deep Design
-            </h4>
-            <p class="text-gray-400 text-xs leading-relaxed font-light">
-              Разрабатывая и производя продукцию Deep-design, мы стремимся
-              создать детали, которые дополнят ваше пространство, создавая
-              полную гармоничную атмосферу как для знакомых событий, так и для
-              повседневной рутины. Ведь наша жизнь состоит из множества
-              маленьких событий, благодаря которым мы чувствуем себя дома.
-              Пространство — это отражение как для знаковых событий, так и для
-              повседневной рутины. Ведь наша жизнь состоит из множества
-              маленьких событий, которые складываются в единое целое.
-            </p>
-          </div>
-
-          <!-- Column 4: Alternative content for ФУРНИТУРА -->
-          <div v-else-if="activeDropdown === 'ФУРНИТУРА'">
-            <h4 class="text-gray-300 text-sm italic mb-4 font-light">
-              Фурнитура
-            </h4>
-            <p class="text-gray-400 text-xs leading-relaxed font-light">
-              Качественная фурнитура — это основа комфорта и функциональности
-              вашего дома. Мы предлагаем широкий ассортимент продукции, которая
-              сочетает в себе надежность, эстетику и современные технологии.
-              Каждый элемент тщательно продуман для создания гармоничного
-              пространства.
-            </p>
+            <!-- Column 4 -->
+            <div class="col-span-3 border-l border-gray-600 pl-[94.5px]">
+              <img
+                class="mb-3"
+                src="../assets/deppdesign.svg"
+                alt="deep design"
+              />
+              <p class="text-gray-400 text-xs leading-relaxed font-light">
+                Разрабатывая и производя продукцию Depp-design мы стремимся
+                создать детали, которые дополнят ваше пространство, создавая
+                тонкую лаконичную атмосферу как для знаковых событий, так и для
+                повседневной рутины. Ведь наша жизнь состоит из множества
+                маленьких событий, которые складываются в единое целое.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </header>
 
   <!-- Mobile Menu Overlay -->
   <transition name="fade">
@@ -324,27 +348,194 @@ onUnmounted(() => {
       class="fixed inset-0 z-40 bg-black text-white overflow-y-auto"
     >
       <!-- Mobile Menu Content -->
-      <div class="px-6 py-6">
-        <!-- Main Categories -->
-        <div class="mb-8">
-          <h3 class="text-gray-400 text-xs mb-4 uppercase tracking-wider">
-            Категории
-          </h3>
-          <div class="space-y-4">
-            <div v-for="item in menuItems" :key="item.title" class="block">
+      <div class="px-6 py-6 pt-[95px] h-full">
+        <!-- Main Menu Level -->
+        <div v-if="mobileMenuLevel === 0" class="h-full flex flex-col">
+          <!-- Categories Header -->
+          <div class="flex-1">
+            <h3
+              class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+            >
+              Категории
+            </h3>
+
+            <div class="space-y-0">
+              <div v-for="item in menuItems" :key="item.title" class="block">
+                <div
+                  class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:opacity-70 transition-all duration-300"
+                  @click="handleMobileMenuClick(item.title)"
+                >
+                  <span>{{ item.title }}</span>
+                  <svg
+                    v-if="dropdownMenus[item.title]"
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Section -->
+          <div class="mt-auto pt-5 border-gray-800 space-y-4">
+            <!-- Deep Design Section -->
+            <div class="mb-6">
+              <h4
+                class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+              >
+                Deep Design
+              </h4>
+              <div class="space-y-0">
+                <div
+                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                >
+                  ГЛАВНАЯ
+                </div>
+                <div
+                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                >
+                  О КОМПАНИИ
+                </div>
+
+                <div
+                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                >
+                  КАТАЛОГИ
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="text-gray-400 text-sm">
+              <div class="mb-2">+7 909 999 3517</div>
+              <div class="space-y-1">
+                <div>Москва, ул. Свободы 35</div>
+                <div>стр. 17</div>
+                <div>будни с 9:00—19:00</div>
+              </div>
+            </div>
+
+            <!-- Language Switch -->
+            <div class="flex items-center gap-4 pt-4">
+              <button
+                @click="locale = 'ru'"
+                :class="[
+                  'text-sm transition-colors font-arial duration-300',
+                  locale === 'ru' ? 'text-white' : 'text-gray-400',
+                ]"
+              >
+                RU
+              </button>
+              <button
+                @click="locale = 'en'"
+                :class="[
+                  'text-sm transition-colors font-arial duration-300',
+                  locale === 'en' ? 'text-white' : 'text-gray-400',
+                ]"
+              >
+                EN
+              </button>
+            </div>
+
+            <!-- Social Icons -->
+            <div class="flex gap-4 pt-4">
               <div
-                class="flex items-center justify-between cursor-pointer"
-                @click="handleMobileMenuClick(item.title)"
+                v-for="social in ['W', 'T', 'P', 'F', 'I', 'Y']"
+                :key="social"
+                class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-300"
+              >
+                <span class="text-xs">{{ social }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submenu Level -->
+        <div
+          v-else-if="mobileMenuLevel === 1 && activeDropdown"
+          class="h-full flex flex-col"
+        >
+          <!-- Back Button -->
+          <div class="flex items-center mb-6">
+            <button
+              @click="goBackToMainMenu"
+              class="flex items-center text-white hover:opacity-70 transition-opacity"
+            >
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Submenu Content -->
+          <div class="flex-1">
+            <!-- Categories Header -->
+            <h3
+              class="text-gray-400 text-sm mb-6 uppercase tracking-wider font-medium"
+            >
+              Категории
+            </h3>
+
+            <!-- Categories List -->
+            <div class="space-y-0 mb-8">
+              <div
+                v-for="category in dropdownMenus[activeDropdown].categories"
+                :key="category"
+                class="text-white text-base hover:opacity-70 cursor-pointer transition-opacity py-4 border-b border-gray-800"
+                @click="
+                  navigateTo(`/${category.toLowerCase()}`);
+                  toggleMobileMenu();
+                "
+              >
+                {{ category }}
+              </div>
+            </div>
+
+            <!-- For Home / Deep Design Section -->
+            <div class="mb-8">
+              <div
+                class="flex items-center justify-between cursor-pointer mb-4 py-2"
+                @click="
+                  handleMobileSubMenuClick(
+                    activeDropdown === 'САНТЕХНИКА' ? 'deepDesign' : 'forHome'
+                  )
+                "
               >
                 <span
-                  class="text-white text-[16px] hover:opacity-70 transition-all"
+                  class="text-gray-400 text-sm uppercase tracking-wider font-medium"
                 >
-                  {{ item.title }}
+                  {{
+                    activeDropdown === "САНТЕХНИКА" ? "Deep Design" : "Для дома"
+                  }}
                 </span>
                 <svg
-                  v-if="dropdownMenus[item.title]"
                   class="w-4 h-4 transition-transform duration-200"
-                  :class="{ 'rotate-90': activeDropdown === item.title }"
+                  :class="{
+                    'rotate-90':
+                      activeSubDropdown ===
+                      (activeDropdown === 'САНТЕХНИКА'
+                        ? 'deepDesign'
+                        : 'forHome'),
+                  }"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -358,168 +549,29 @@ onUnmounted(() => {
                 </svg>
               </div>
 
-              <!-- Mobile Submenu -->
               <transition name="slide-down">
                 <div
                   v-if="
-                    activeDropdown === item.title && dropdownMenus[item.title]
+                    activeSubDropdown ===
+                    (activeDropdown === 'САНТЕХНИКА' ? 'deepDesign' : 'forHome')
                   "
-                  class="mt-4 ml-4 space-y-4 border-l border-gray-700 pl-4"
+                  class="space-y-0"
                 >
-                  <!-- Submenu Categories -->
-                  <div>
-                    <div class="space-y-2">
-                      <div
-                        v-for="category in dropdownMenus[item.title].categories"
-                        :key="category"
-                        class="text-gray-300 text-sm hover:text-white cursor-pointer transition-colors"
-                        @click="
-                          router.push(`/${category.toLowerCase()}`);
-                          toggleMobileMenu();
-                        "
-                      >
-                        {{ category }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- For Home / Deep Design section -->
-                  <div class="pt-4 border-t border-gray-800">
-                    <div
-                      class="flex items-center justify-between cursor-pointer mb-2"
-                      @click="
-                        handleMobileSubMenuClick(
-                          item.title === 'САНТЕХНИКА' ? 'deepDesign' : 'forHome'
-                        )
-                      "
-                    >
-                      <span
-                        class="text-gray-400 text-xs uppercase tracking-wider"
-                      >
-                        {{
-                          item.title === "САНТЕХНИКА"
-                            ? "Deep Design"
-                            : "Для дома"
-                        }}
-                      </span>
-                      <svg
-                        class="w-3 h-3 transition-transform duration-200"
-                        :class="{
-                          'rotate-90':
-                            activeSubDropdown ===
-                            (item.title === 'САНТЕХНИКА'
-                              ? 'deepDesign'
-                              : 'forHome'),
-                        }"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-
-                    <transition name="slide-down">
-                      <div
-                        v-if="
-                          activeSubDropdown ===
-                          (item.title === 'САНТЕХНИКА'
-                            ? 'deepDesign'
-                            : 'forHome')
-                        "
-                        class="space-y-2 ml-2"
-                      >
-                        <div
-                          v-for="subItem in item.title === 'САНТЕХНИКА'
-                            ? dropdownMenus[item.title].deepDesign
-                            : dropdownMenus[item.title].forHome"
-                          :key="subItem"
-                          class="text-gray-300 text-sm hover:text-white cursor-pointer transition-colors"
-                          @click="
-                            router.push(`/${subItem.toLowerCase()}`);
-                            toggleMobileMenu();
-                          "
-                        >
-                          {{ subItem }}
-                        </div>
-                      </div>
-                    </transition>
+                  <div
+                    v-for="subItem in activeDropdown === 'САНТЕХНИКА'
+                      ? dropdownMenus[activeDropdown].deepDesign
+                      : dropdownMenus[activeDropdown].forHome"
+                    :key="subItem"
+                    class="text-white text-base hover:opacity-70 cursor-pointer transition-opacity py-3 border-b border-gray-800 ml-4"
+                    @click="
+                      navigateTo(`/${subItem.toLowerCase()}`);
+                      toggleMobileMenu();
+                    "
+                  >
+                    {{ subItem }}
                   </div>
                 </div>
               </transition>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="pt-6 border-t border-gray-800 space-y-4">
-          <div class="text-gray-400 text-xs">
-            <div>+7 909 999 3517</div>
-            <div class="mt-2">
-              <div>Москва, ул. Свободы 35</div>
-              <div>стр. 17</div>
-              <div>будни с 9:00—19:00</div>
-            </div>
-          </div>
-
-          <!-- Language Switch -->
-          <div class="flex items-center gap-4 pt-4">
-            <button
-              @click="locale = 'ru'"
-              :class="[
-                'text-sm',
-                locale === 'ru' ? 'text-white' : 'text-gray-400',
-              ]"
-            >
-              RU
-            </button>
-            <button
-              @click="locale = 'en'"
-              :class="[
-                'text-sm',
-                locale === 'en' ? 'text-white' : 'text-gray-400',
-              ]"
-            >
-              EN
-            </button>
-          </div>
-
-          <!-- Social Icons -->
-          <div class="flex gap-4 pt-4">
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">W</span>
-            </div>
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">T</span>
-            </div>
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">P</span>
-            </div>
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">F</span>
-            </div>
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">I</span>
-            </div>
-            <div
-              class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors"
-            >
-              <span class="text-xs">Y</span>
             </div>
           </div>
         </div>
@@ -531,6 +583,7 @@ onUnmounted(() => {
 <style scoped>
 .router-link-active {
   opacity: 1;
+  font-weight: 500;
 }
 
 .fade-enter-active,
@@ -545,7 +598,7 @@ onUnmounted(() => {
 .slide-down-enter-active,
 .slide-down-leave-active {
   transition: all 0.3s ease;
-  max-height: 300px;
+  max-height: 500px;
   overflow: hidden;
 }
 .slide-down-enter-from,
@@ -553,4 +606,6 @@ onUnmounted(() => {
   max-height: 0;
   opacity: 0;
 }
+
+/* Custom gradient class agar Tailwind'da yo'q bo'lsa */
 </style>

@@ -23,8 +23,8 @@ export default {
         customGray: "#6D6D6D",
       },
       backgroundImage: {
-        "custom-gradient":
-          " linear-gradient(180deg, rgba(13, 13, 13, 0.62) 5.5%, rgba(23, 23, 23, 0.05) 76.33%, rgba(26, 26, 26, 0) 93.93%)",
+        "custom-header":
+          "linear-gradient(to bottom, #1A1A1A 0%, #2F2F2F 40%, #4A4A4A 70%, #F0F0F0 100%)",
       },
     },
     fontFamily: {
