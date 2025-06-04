@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import router from "../router";
 import { onMounted, ref, Ref } from "vue";
@@ -6,12 +6,17 @@ import { components, paths } from "../types/schema";
 import createClient from "openapi-fetch";
 import { AppStore } from "../store/AppStore.ts";
 import WhatsAppicon from "../assets/WhatsApp.svg";
+import Printericon from "../assets/Pinterest.svg";
+import Telegramicon from "../assets/Telegaramm.svg";
+import Facebookicon from "../assets/Facebook.svg";
+import Instagramicon from "../assets/Instagramm.svg";
+import Youtubeicon from "../assets/youtube.svg";
 
 const { t } = useI18n({ useScope: "global" });
 const HOST = import.meta.env.VITE_HOST_NAME;
-const { GET } = createClient < paths > { baseUrl: HOST };
+const { GET } = createClient<paths>({ baseUrl: HOST });
 const App = AppStore();
-const categories = ref([]);
+const categories: Ref<components["schemas"]["Categories"][]> = ref([]);
 
 async function fetchCategories() {
   const { data, error } = await GET("/api/categories/", {});
@@ -151,11 +156,11 @@ onMounted(() => {
         </div>
         <div class="flex gap-3 mt-6">
           <img class="w-[27.9px] h-[27.9px]" :src="WhatsAppicon" />
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/Telegaramm.svg" />
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/Pinterest.svg" />
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/Facebook.svg" />
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/Instagramm.svg" />
-          <img class="w-[27.9px] h-[27.9px]" src="../assets/youtube.svg" />
+          <img class="w-[27.9px] h-[27.9px]" :src="Telegramicon" />
+          <img class="w-[27.9px] h-[27.9px]" :src="Printericon" />
+          <img class="w-[27.9px] h-[27.9px]" :src="Facebookicon" />
+          <img class="w-[27.9px] h-[27.9px]" :src="Instagramicon" />
+          <img class="w-[27.9px] h-[27.9px]" :src="Youtubeicon" />
         </div>
       </div>
     </div>
@@ -240,12 +245,12 @@ onMounted(() => {
 
       <!-- Socials -->
       <div class="flex items-center gap-4 mt-2">
-        <img :src="WhatsAppicon" class="w-5 h-5" />
-        <img src="../assets/Telegram.svg" class="w-5 h-5" />
-        <img src="../assets/phone.svg" class="w-5 h-5" />
-        <img src="../assets/pinterest.svg" class="w-5 h-5" />
-        <img src="../assets/Instagramm.svg" class="w-5 h-5" />
-        <img src="../assets/youtube.svg" class="w-5 h-5" />
+        <img class="w-[27.9px] h-[27.9px]" :src="WhatsAppicon" />
+        <img class="w-[27.9px] h-[27.9px]" :src="Telegramicon" />
+        <img class="w-[27.9px] h-[27.9px]" :src="Printericon" />
+        <img class="w-[27.9px] h-[27.9px]" :src="Facebookicon" />
+        <img class="w-[27.9px] h-[27.9px]" :src="Instagramicon" />
+        <img class="w-[27.9px] h-[27.9px]" :src="Youtubeicon" />
       </div>
 
       <!-- Bottom note -->
