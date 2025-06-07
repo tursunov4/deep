@@ -11,7 +11,6 @@ import Telegramicon from "../assets/telegram.svg";
 import Facebookicon from "../assets/Facebook.svg";
 import Instagramicon from "../assets/Instagramm.svg";
 import Youtubeicon from "../assets/youtube.svg";
-
 const { t } = useI18n({ useScope: "global" });
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });

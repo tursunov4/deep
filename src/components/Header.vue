@@ -181,14 +181,17 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="w-full text-white flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] pb-[100px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300"
-    :class="activeDropdown ? 'bg-black' : 'bg-custom-gradient'"
+    class="w-full text-white flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300"
+    :class="[
+      activeDropdown ? 'bg-black' : 'bg-custom-gradient',
+      isMobileMenuOpen ? 'pb-[10px]' : 'pb-[100px]',
+    ]"
   >
     <!-- Left: Logo + Desktop Menu -->
-    <div class="flex items-center gap-[20px] relative">
+    <div class="flex items-center gap-[20px] z-50 relative">
       <img
         src="/logo-black.svg"
-        class="h-[30px] desktop:h-[35px] cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        class="h-[30px] desktop:h-[35px] z-50 cursor-pointer hover:opacity-80 transition-opacity duration-300"
         @click="navigateTo('/')"
         alt="Logo"
       />
@@ -237,7 +240,7 @@ onUnmounted(() => {
       <img
         src="../assets/basket-black.svg"
         alt="Cart"
-        class="h-[35px] w-[35px] cursor-pointer hover:opacity-80 transition-opacity duration-300"
+        class="h-[35px] w-[35px] cursor-pointer z-50 hover:opacity-80 transition-opacity duration-300"
         @click="$emit('showCart')"
       />
 
@@ -339,245 +342,231 @@ onUnmounted(() => {
         </div>
       </div>
     </transition>
-  </header>
-
-  <!-- Mobile Menu Overlay -->
-  <transition name="fade">
-    <div
-      v-if="isMobileMenuOpen"
-      class="fixed inset-0 z-40 bg-black text-white overflow-y-auto"
-    >
-      <!-- Mobile Menu Content -->
-      <div class="px-6 py-6 pt-[95px] h-full">
-        <!-- Main Menu Level -->
-        <div v-if="mobileMenuLevel === 0" class="h-full flex flex-col">
-          <!-- Categories Header -->
-          <div class="flex-1">
-            <h3
-              class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
-            >
-              Категории
-            </h3>
-
-            <div class="space-y-0">
-              <div v-for="item in menuItems" :key="item.title" class="block">
-                <div
-                  class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:opacity-70 transition-all duration-300"
-                  @click="handleMobileMenuClick(item.title)"
-                >
-                  <span>{{ item.title }}</span>
-                  <svg
-                    v-if="dropdownMenus[item.title]"
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Footer Section -->
-          <div class="mt-auto pt-5 border-gray-800 space-y-4">
-            <!-- Deep Design Section -->
-            <div class="mb-6">
-              <h4
+    <transition name="fade">
+      <div
+        v-if="isMobileMenuOpen"
+        class="fixed inset-0 z-40 bg-black text-white overflow-y-auto pb-5"
+      >
+        <!-- Mobile Menu Content -->
+        <div class="px-6 py-6 pt-[95px] h-full">
+          <!-- Main Menu Level -->
+          <div v-if="mobileMenuLevel === 0" class="h-full flex flex-col">
+            <!-- Categories Header -->
+            <div class="flex-1">
+              <h3
                 class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
               >
-                Deep Design
-              </h4>
+                Категории
+              </h3>
+
               <div class="space-y-0">
-                <div
-                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
-                >
-                  ГЛАВНАЯ
-                </div>
-                <div
-                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
-                >
-                  О КОМПАНИИ
-                </div>
-
-                <div
-                  class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
-                >
-                  КАТАЛОГИ
+                <div v-for="item in menuItems" :key="item.title" class="block">
+                  <div
+                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:opacity-70 transition-all duration-300"
+                    @click="handleMobileMenuClick(item.title)"
+                  >
+                    <span>{{ item.title }}</span>
+                    <svg
+                      v-if="dropdownMenus[item.title]"
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Contact Info -->
-            <div class="text-gray-400 text-sm">
-              <div class="mb-2">+7 909 999 3517</div>
-              <div class="space-y-1">
-                <div>Москва, ул. Свободы 35</div>
-                <div>стр. 17</div>
-                <div>будни с 9:00—19:00</div>
+            <!-- Footer Section -->
+            <div class="mt-auto pt-5 border-gray-800 space-y-4">
+              <!-- Deep Design Section -->
+              <div class="mb-6">
+                <h4
+                  class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+                >
+                  Deep Design
+                </h4>
+                <div class="space-y-0">
+                  <div
+                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                  >
+                    ГЛАВНАЯ
+                  </div>
+                  <div
+                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                  >
+                    О КОМПАНИИ
+                  </div>
+
+                  <div
+                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                  >
+                    КАТАЛОГИ
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <!-- Language Switch -->
-            <div class="flex items-center gap-4 pt-4">
-              <button
-                @click="locale = 'ru'"
-                :class="[
-                  'text-sm transition-colors font-arial duration-300',
-                  locale === 'ru' ? 'text-white' : 'text-gray-400',
-                ]"
-              >
-                RU
-              </button>
-              <button
-                @click="locale = 'en'"
-                :class="[
-                  'text-sm transition-colors font-arial duration-300',
-                  locale === 'en' ? 'text-white' : 'text-gray-400',
-                ]"
-              >
-                EN
-              </button>
-            </div>
+              <!-- Language Switch -->
+              <div class="flex items-center gap-4 pt-4 items-start">
+                <button
+                  @click="locale = 'ru'"
+                  :class="[
+                    'text-sm transition-colors font-arial duration-300',
+                    locale === 'ru' ? 'text-white' : 'text-gray-400',
+                  ]"
+                >
+                  RU
+                </button>
+                <button
+                  @click="locale = 'en'"
+                  :class="[
+                    'text-sm transition-colors font-arial duration-300',
+                    locale === 'en' ? 'text-white' : 'text-gray-400',
+                  ]"
+                >
+                  EN
+                </button>
+              </div>
 
-            <!-- Social Icons -->
-            <div class="flex gap-4 pt-4">
-              <div
-                v-for="social in ['W', 'T', 'P', 'F', 'I', 'Y']"
-                :key="social"
-                class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-600 transition-colors duration-300"
-              >
-                <span class="text-xs">{{ social }}</span>
+              <div class="grid grid-cols-2 pb-5">
+                <!-- Contact Info -->
+                <div class="text-gray-400 text-sm">
+                  <div class="mb-2">+7 909 999 3517</div>
+                  <div class="space-y-1">
+                    <div>Москва, ул. Свободы 35</div>
+                    <div>стр. 17</div>
+                    <div>будни с 9:00—19:00</div>
+                  </div>
+                </div>
+                <!-- Social Icons -->
+                <div class="flex gap-4 pt-4 flex-wrap">
+                  <a href="https://www.instagram.com/depp_d/" target="_blank">
+                    <img
+                      class="w-[35px]"
+                      src="../assets/inst.svg"
+                      alt="Instagram"
+                  /></a>
+                  <a
+                    href="https://www.facebook.com/deppdesign/"
+                    target="_blank"
+                  >
+                    <img
+                      class="w-[35px]"
+                      src="../assets/faceb.svg"
+                      alt="Facebook"
+                  /></a>
+                  <a href="https://www.youtube.com/@deppdesign" target="_blank">
+                    <img
+                      class="w-[35px]"
+                      src="../assets/youtube.svg"
+                      alt="Youtube"
+                  /></a>
+                  <a href="https://t.me/deppdesign" target="_blank">
+                    <img
+                      class="w-[35px]"
+                      src="../assets/tgwhite.svg"
+                      alt="Telegram"
+                  /></a>
+                  <a href="https://wa.me/79099993517" target="_blank">
+                    <img
+                      class="w-[35px]"
+                      src="../assets/WhatsAppwhite.svg"
+                      alt="WhatsApp"
+                  /></a>
+                  <a
+                    href="https://www.pinterest.com/deppdesign/"
+                    target="_blank"
+                  >
+                    <img
+                      class="w-[35px]"
+                      src="../assets/printestw.svg"
+                      alt="Pinterest"
+                  /></a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Submenu Level -->
-        <div
-          v-else-if="mobileMenuLevel === 1 && activeDropdown"
-          class="h-full flex flex-col"
-        >
-          <!-- Back Button -->
-          <div class="flex items-center mb-6">
-            <button
-              @click="goBackToMainMenu"
-              class="flex items-center text-white hover:opacity-70 transition-opacity"
-            >
-              <svg
-                class="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <!-- Submenu Level -->
+          <div
+            v-if="mobileMenuLevel === 1 && activeDropdown"
+            class="h-full flex flex-col"
+          >
+            <!-- Back Button -->
+            <div class="flex justify-end items-center mb-6">
+              <button
+                @click="goBackToMainMenu"
+                class="flex items-center text-white hover:opacity-70 transition-opacity"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <!-- Submenu Content -->
-          <div class="flex-1">
-            <!-- Categories Header -->
-            <h3
-              class="text-gray-400 text-sm mb-6 uppercase tracking-wider font-medium"
-            >
-              Категории
-            </h3>
-
-            <!-- Categories List -->
-            <div class="space-y-0 mb-8">
-              <div
-                v-for="category in dropdownMenus[activeDropdown].categories"
-                :key="category"
-                class="text-white text-base hover:opacity-70 cursor-pointer transition-opacity py-4 border-b border-gray-800"
-                @click="
-                  navigateTo(`/${category.toLowerCase()}`);
-                  toggleMobileMenu();
-                "
-              >
-                {{ category }}
-              </div>
+                <img src="../assets/back.svg" alt="" />
+              </button>
             </div>
 
-            <!-- For Home / Deep Design Section -->
-            <div class="mb-8">
-              <div
-                class="flex items-center justify-between cursor-pointer mb-4 py-2"
-                @click="
-                  handleMobileSubMenuClick(
-                    activeDropdown === 'САНТЕХНИКА' ? 'deepDesign' : 'forHome'
-                  )
-                "
+            <!-- Submenu Content -->
+            <div class="flex-1">
+              <!-- Categories Header -->
+              <h3
+                class="text-gray-400 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
               >
-                <span
-                  class="text-gray-400 text-sm uppercase tracking-wider font-medium"
-                >
-                  {{
-                    activeDropdown === "САНТЕХНИКА" ? "Deep Design" : "Для дома"
-                  }}
-                </span>
-                <svg
-                  class="w-4 h-4 transition-transform duration-200"
-                  :class="{
-                    'rotate-90':
-                      activeSubDropdown ===
-                      (activeDropdown === 'САНТЕХНИКА'
-                        ? 'deepDesign'
-                        : 'forHome'),
-                  }"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
+                Категории
+              </h3>
 
-              <transition name="slide-down">
+              <!-- Categories List -->
+              <div class="space-y-0 mb-8 pb-4 border-b border-gray-600">
                 <div
-                  v-if="
-                    activeSubDropdown ===
-                    (activeDropdown === 'САНТЕХНИКА' ? 'deepDesign' : 'forHome')
+                  v-for="category in dropdownMenus[activeDropdown].categories"
+                  :key="category.name"
+                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase"
+                  @click="
+                    navigateTo(category.link);
+                    toggleMobileMenu();
                   "
-                  class="space-y-0"
                 >
+                  {{ category.name }}
+                </div>
+              </div>
+
+              <!-- For Home / Deep Design Section -->
+              <div class="mb-8">
+                <div class="flex items-center justify-between cursor-pointer">
+                  <span
+                    class="text-gray-400 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
+                    >Для дома
+                  </span>
+                </div>
+
+                <div class="space-y-0">
                   <div
                     v-for="subItem in activeDropdown === 'САНТЕХНИКА'
                       ? dropdownMenus[activeDropdown].deepDesign
                       : dropdownMenus[activeDropdown].forHome"
-                    :key="subItem"
-                    class="text-white text-base hover:opacity-70 cursor-pointer transition-opacity py-3 border-b border-gray-800 ml-4"
+                    :key="subItem.name"
+                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase"
                     @click="
-                      navigateTo(`/${subItem.toLowerCase()}`);
+                      navigateTo(subItem.link);
                       toggleMobileMenu();
                     "
                   >
-                    {{ subItem }}
+                    {{ subItem.name }}
                   </div>
                 </div>
-              </transition>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
 </template>
 
 <style scoped>
