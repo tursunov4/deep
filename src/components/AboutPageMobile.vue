@@ -18,7 +18,7 @@ const { t } = useI18n({ useScope: "global" });
 <template>
   <div class="">
     <div
-      class="w-[100%] font-TT text-[32px] font-bold mt-[100px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px]"
+      class="w-[100%] font-TT uppercase text-[32px] font-bold mt-[100px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px]"
     >
       {{ t("about.title_1_mobile") }}
     </div>

@@ -403,7 +403,7 @@ watch(
               :class="
                 index == subcategory?.objects_on_page.length - 1 &&
                 index % 2 == 1
-                  ? 'col-span-2 !border-r-0 aspect-[350/240] desktop:col-span-1  px-0 desktop:p-[30px] aspect-[aspect-[385/440]:'
+                  ? 'col-span-2 !border-r-0 aspect-[350/240] desktop:col-span-1 desktop:!border-r  px-0 desktop:p-[30px] aspect-[aspect-[385/440]:'
                   : ''
               "
               class="cursor-pointer even:border-r even:desktop:border-r-0 even:pl-0 odd:pr-0 even:desktop:p-[30px] odd:desktop:p-[30px] border-black border-b aspect-[175/240] desktop:aspect-[385/440] w-full flex flex-col desktop:p-[30px] p-[20px]"

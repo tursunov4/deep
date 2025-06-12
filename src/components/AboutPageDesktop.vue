@@ -21,16 +21,16 @@ const { t } = useI18n({ useScope: "global" });
       class="flex gap-8 desktop:gap-0 desktop:flex-row flex-col p-4 mt-[12vw] mb-[23px] ml-[11px]"
     >
       <div
-        class="desktop:w-1/2 leading-[40px] whitespace-pre-wrap title text-[40px] leading-[1]"
+        class="desktop:w-1/2 uppercase leading-[40px] whitespace-pre-wrap title text-[40px] leading-[1]"
       >
         {{ t("about.title_1") }}
       </div>
       <div
-        class="desktop:w-1/2 font-TT uppercase text-[18px] text-[#8B8B8B] leading-[1] pl-[22px] pr-[30px]"
+        class="desktop:w-1/2 font-TT uppercase text-[18px] text-[#8B8B8B] font-normal text-[18px] tracking-[0em] pl-[22px] pr-[30px]"
       >
-        <div class="whitespace-pre-wrap">
+        <p class="whitespace-pre-wrap font-normal text-[18px]">
           {{ t("about.title_2") }}
-        </div>
+        </p>
       </div>
     </div>
 
@@ -41,13 +41,11 @@ const { t } = useI18n({ useScope: "global" });
     <div class="w-full"></div>
     <div class="flex mt-[80px] mb-[-23px] ml-[27px] mr-[10px]">
       <div
-        class="desktop:w-1/2 whitespace-pre-wrap title text-[40px] leading-[1]"
+        class="desktop:w-1/2 whitespace-pre-wrap title text-[40px] uppercase leading-[1]"
       >
         {{ t("about.title_3") }}
       </div>
-      <div
-        class="desktop:w-1/2 font-TT uppercase text-[18px] text-[#8B8B8B] leading-[1]"
-      >
+      <div class="desktop:w-1/2 font-TT uppercase text-[18px] text-[#8B8B8B]">
         <div class="pl-[19px] pr-[30px] pb-[30px] whitespace-pre-wrap">
           {{ t("about.description_1") }}
         </div>
