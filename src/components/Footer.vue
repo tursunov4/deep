@@ -59,7 +59,7 @@ onMounted(() => {
           </ul>
         </div>
         <div class="mt-6 flex items-end justify-between">
-          <div class="text-xs text-[#6D6D6D]">© Depp Design 2024</div>
+          <div class="text-xs text-[#6D6D6D]">© Depp Design 2025</div>
           <div class="text-xs text-[#6D6D6D]">{{ t("footer.rights") }}</div>
         </div>
       </div>
@@ -118,17 +118,19 @@ onMounted(() => {
             }}</a>
           </div> -->
 
-          <div class="text-[#6D6D6D] text-xs mt-2">Часы работы</div>
+          <div class="text-[#6D6D6D] text-xs mt-2">
+            {{ t("footer.work_time") }}
+          </div>
           <div class="mt-2">
             <p class="font-bold uppercase font-TT text-[18px] mt-4">
-              Понедельник–пятница — 9:00–19:00
+              {{ t("footer.week") }}
             </p>
             <a
               class="font-bold uppercase font-TT text-[18px] mt-4 mb-2"
               href="mailto:info@depp-d.com"
             >
-              Суббота и воскресенье — выходной</a
-            >
+              {{ t("footer.weekend") }}
+            </a>
           </div>
           <div class="text-[#6D6D6D] text-xs mt-2">
             {{ t("header.menu.mail_phone") }}
@@ -145,7 +147,9 @@ onMounted(() => {
               >info@depp-d.com</a
             >
           </div>
-          <div class="text-[#6D6D6D] text-xs mt-2">Техподдержка</div>
+          <div class="text-[#6D6D6D] text-xs mt-2">
+            {{ t("footer.support") }}
+          </div>
           <div class="mt-2">
             <a
               class="font-bold font-TT uppercase text-[18px] mt-4 mb-2"
@@ -172,32 +176,39 @@ onMounted(() => {
     >
       <!-- Address -->
       <div>
-        <p class="text-xs text-[#6D6D6D] uppercase">Контактные данные</p>
+        <p class="text-xs text-[#6D6D6D] uppercase">
+          {{ t("footer.addressName") }}
+        </p>
         <p class="text-[18px] font-TT font-bold mt-1">
-          Москва, ул. Свободы 35 стр. 17
+          {{ t("footer.address") }}
         </p>
         <a
           href="https://yandex.ru/maps/-/CDqKrQYL"
           target="_blank"
           class="text-xs underline mt-1 inline-block"
-          >КАРТА</a
         >
+          {{ t("footer.map") }}
+        </a>
       </div>
 
       <!-- Work time -->
       <div>
-        <p class="text-xs text-[#6D6D6D] uppercase">Часы работы</p>
+        <p class="text-xs text-[#6D6D6D] uppercase">
+          {{ t("footer.work_time") }}
+        </p>
         <p class="text-[18px] font-TT font-bold mt-1 uppercase">
-          Понедельник–Пятница — 9:00–19:00
+          {{ t("header.week") }}
         </p>
         <p class="text-[18px] font-TT font-bold uppercase">
-          Суббота и Воскресенье — выходной
+          {{ t("header.weekend") }}
         </p>
       </div>
 
       <!-- Phone & Email -->
       <div>
-        <p class="text-xs text-[#6D6D6D] uppercase">Телефон и почта</p>
+        <p class="text-xs text-[#6D6D6D] uppercase">
+          {{ t("footer.mail_phone") }}
+        </p>
         <a
           href="tel:+79099993517"
           class="block text-[18px] font-TT font-bold mt-1"
@@ -212,7 +223,9 @@ onMounted(() => {
 
       <!-- Support -->
       <div>
-        <p class="text-xs text-[#6D6D6D] uppercase">Техподдержка</p>
+        <p class="text-xs text-[#6D6D6D] uppercase">
+          {{ t("footer.support") }}
+        </p>
         <a
           href="mailto:support@depp-d.com"
           class="block text-[18px] font-TT font-bold uppercase mt-1"

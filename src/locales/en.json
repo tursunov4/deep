@@ -142,7 +142,13 @@
     "rights": "All rights reserved",
     "sale": "SALES",
     "special_offers": "SPECIAL OFFERS",
-    "support": "SUPPORT"
+    "support": "SUPPORT",
+    "work_time": "Working Hours",
+    "week": "Monday to Friday — 9:00 AM to 7:00 PM",
+    "weekend": "Saturday and Sunday — Closed",
+    "addressName": "Contact Information",
+    "address": "Moscow, Svobody Street 35, Building 17",
+    "mail_phone": "Phone and Email"
   },
   "header": {
     "cart_button": "CART",
