@@ -7,6 +7,9 @@ export interface paths {
   "/api/catalogs/": {
     get: operations["catalogs_list"];
   };
+  "/api/main_seo/": {
+    get: operations["main_seo_retrieve"]; // ← bu `operations` tipida mavjud bo‘lishi kerak
+  };
   "/api/categories/": {
     get: operations["categories_list"];
   };
@@ -155,6 +158,22 @@ export interface components {
       eng_category_name: string;
       rus_category_name: string;
     };
+    MainSeo: {
+      meta_title_ru: string;
+      meta_title_eng: string;
+      meta_description_ru: string;
+      meta_description_eng: string;
+      meta_keywords_ru: string;
+      meta_keywords_eng: string;
+      og_title_ru: string;
+      og_title_eng: string;
+      og_description_ru: string;
+      og_description_eng: string;
+      og_image: string | null;
+      canonical_url: string;
+      robots_content: string;
+    };
+
     Author: {
       id: number;
       /** Имя автора (анг) */
@@ -1188,6 +1207,22 @@ export interface components {
       banner: string;
       product_counter: number;
     };
+    MainSeo: {
+      meta_title_ru: string;
+      meta_title_eng: string;
+      meta_description_ru: string;
+      meta_description_eng: string;
+      meta_keywords_ru: string;
+      meta_keywords_eng: string;
+      og_title_ru: string;
+      og_title_eng: string;
+      og_description_ru: string;
+      og_description_eng: string;
+      og_image: string | null;
+      canonical_url: string;
+      robots_content: string;
+    };
+
     SupportProductForInspiration: {
       product: components["schemas"]["PreviewAbstract"];
     };
@@ -1238,6 +1273,7 @@ export interface operations {
       };
     };
   };
+
   categories_list: {
     responses: {
       200: {
@@ -1268,6 +1304,15 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["List_subcategories"];
+        };
+      };
+    };
+  };
+  main_seo_retrieve: {
+    responses: {
+      200: {
+        content: {
+          "application/json": MainSeo;
         };
       };
     };
