@@ -7,7 +7,6 @@ import createClient from "openapi-fetch";
 import { components, paths } from "../types/schema";
 import { onMounted, ref, Ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-
 const { t } = useI18n({ useScope: "global" });
 
 const App = AppStore();
@@ -58,8 +57,7 @@ watch(
       <div
         class="desktop:text-[18px] uppercase desktop:min-h-[27px] hidden desktop:block text-[10px] font-TT font-bold text-center"
       >
-        <!-- {{ t("browse_category.browse_category") }} -->
-        Подкатегории
+        {{ t("browse_category.browse_category") }}
       </div>
     </div>
   </div>

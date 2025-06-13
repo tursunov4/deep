@@ -187,8 +187,3 @@ const { t } = useI18n({ useScope: "global" });
     </div>
   </div>
 </template>
-
-<style scoped>
-.debug_border {
-}
-</style>

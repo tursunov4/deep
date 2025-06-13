@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import router from "../router";
-
 const { locale } = useI18n({ useScope: "global" });
 
 const isMobileMenuOpen = ref(false);
@@ -10,7 +9,6 @@ const activeDropdown = ref(null);
 const activeSubDropdown = ref(null);
 const dropdownTimeout = ref(null);
 const mobileMenuLevel = ref(0); // 0 = main menu, 1 = submenu
-
 const menuItems = [
   { title: "САНТЕХНИКА", link: "#" },
   { title: "ОСВЕЩЕНИЕ", link: "/category/Lighting" },
@@ -34,15 +32,12 @@ const dropdownMenus = {
       { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
     ],
     deepDesign: [
-      { name: "ГЛАВНАЯ", link: "/главная" },
-      { name: "О КОМПАНИИ", link: "/о-компании" },
-      { name: "КОНТАКТЫ", link: "/контакты" },
-      { name: "КАТАЛОГИ", link: "/каталоги" },
+      { name: "Пластины и тумблеры", link: "/category/OFFSETS" },
+      { name: "Монтажные коробки", link: "/category/OFFSETS" },
     ],
     information: [
       { name: "ГЛАВНАЯ", link: "/" },
       { name: "О КОМПАНИИ", link: "/about" },
-
       { name: "КАТАЛОГИ", link: "/catalogs" },
     ],
   },
@@ -55,10 +50,8 @@ const dropdownMenus = {
       { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
     ],
     forHome: [
-      { name: "ПРОХОДНЫЕ", link: "/проходные" },
-      { name: "ЛЕСТНИЧНЫЕ", link: "/лестничные" },
-      { name: "ПЛАСТИНЫ", link: "/пластины" },
-      { name: "ТУМБЛЕРЫ", link: "/тумблеры" },
+      { name: "Пластины и тумблеры", link: "/category/OFFSETS" },
+      { name: "Монтажные коробки", link: "/category/OFFSETS" },
     ],
     information: [
       { name: "ГЛАВНАЯ", link: "/" },
