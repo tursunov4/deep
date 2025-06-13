@@ -77,9 +77,7 @@ watch(
         }}
       </li>
     </ul>
-    <!--breadcrumbs end-->
 
-    <!--list of subcategories-->
     <div
       v-if="category"
       :class="[category.subcategories.length < 2 ? 'border-t-0' : 'border-t']"
