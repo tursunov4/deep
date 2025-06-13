@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import { useHead } from "@vueuse/head";
 import router from "../../router";
 import createClient from "openapi-fetch";
 import { components, paths } from "../../types/schema";
@@ -10,7 +11,7 @@ import ProductScroller from "../ProductScroller.vue";
 
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
-const { t } = useI18n({ useScope: "global" });
+const { t, locale } = useI18n({ useScope: "global" });
 const App = AppStore();
 
 type NearItems = {
@@ -34,7 +35,71 @@ const nearItems = ref<NearItems>({
 });
 
 const imageElement = ref<HTMLImageElement | undefined>();
+const isZoomed = ref(false);
+const showItems = ref(false);
 
+const offset = reactive({
+  width: 0,
+  height: 0,
+  top: 0,
+  left: 0,
+});
+
+let resizeTimeout: number | undefined;
+
+const handleResize = () => {
+  if (!imageElement.value) return;
+  offset.top = imageElement.value.offsetTop;
+  offset.left = imageElement.value.offsetLeft;
+  offset.width = imageElement.value.offsetWidth;
+  offset.height = imageElement.value.offsetHeight;
+};
+
+const debouncedResizeHandler = () => {
+  if (resizeTimeout) clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(handleResize, 300);
+};
+
+onMounted(() => {
+  window.addEventListener("resize", debouncedResizeHandler);
+  handleResize();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", debouncedResizeHandler);
+});
+
+watch(imageElement, () => {
+  handleResize();
+});
+
+watch(isZoomed, () => {
+  if (isZoomed.value) {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }
+});
+
+// 🌐 SEO HEAD QO‘SHISH
+const applySeoHeadFromInspiration = (
+  item: components["schemas"]["Inspiration"],
+  lang: string
+) => {
+  const title = lang === "ru" ? item.rus_name : item.eng_name;
+  const description =
+    lang === "ru" ? item.description_eng : item.description_eng;
+
+  useHead({
+    title,
+    meta: [
+      { name: "description", content: description || title },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description || title },
+      { property: "og:image", content: item.image },
+    ],
+  });
+};
+
+// 🟩 DATA FETCHING FUNCTIONS
 async function fetchInspiration() {
   const { data, error } = await GET("/api/inspiration/{id}/", {
     params: {
@@ -45,6 +110,7 @@ async function fetchInspiration() {
   });
   if (error) return;
   inspiration.value = data;
+  applySeoHeadFromInspiration(data, locale.value); // SEO HEAD QO‘SHAMIZ
 }
 
 async function fetchAllInspiration() {
@@ -120,68 +186,26 @@ async function fetchNear() {
   }
 }
 
-const isZoomed = ref(false);
-const showItems = ref(false);
-
+// 🔁 ROUTE VA LOCALE UZGARGANDA QAYTA FETCH
 watch(
   router.currentRoute,
   () => {
     inspiration.value = undefined;
     fetchInspiration();
     fetchNear();
+    distributeImages(allInspirations.value, 4);
+    distributeImages(allInspirations.value, 2, true);
   },
   { immediate: true }
 );
 
-const offset = reactive({
-  width: 0,
-  height: 0,
-  top: 0,
-  left: 0,
-});
-
-let resizeTimeout: number | undefined;
-
-const handleResize = () => {
-  if (!imageElement.value) return;
-  console.log(imageElement.value);
-  offset.top = imageElement.value.offsetTop;
-  offset.left = imageElement.value.offsetLeft;
-  offset.width = imageElement.value.offsetWidth;
-  offset.height = imageElement.value.offsetHeight;
-};
-
-const debouncedResizeHandler = () => {
-  if (resizeTimeout) clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(handleResize, 300);
-};
-
-onMounted(() => {
-  window.addEventListener("resize", debouncedResizeHandler);
-  handleResize();
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", debouncedResizeHandler);
+watch(locale, (newLocale) => {
+  if (inspiration.value) {
+    applySeoHeadFromInspiration(inspiration.value, newLocale);
+  }
 });
 
 onMounted(fetchAllInspiration);
-watch(imageElement, () => {
-  handleResize();
-});
-
-watch(isZoomed, () => {
-  if (isZoomed.value) {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }
-});
-
-watch(router.currentRoute, () => {
-  if (router.currentRoute.value.params.id) {
-    distributeImages(allInspirations.value, 4);
-    distributeImages(allInspirations.value, 2, true);
-  }
-});
 </script>
 
 <template>

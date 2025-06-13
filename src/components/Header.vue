@@ -13,9 +13,9 @@ const mobileMenuLevel = ref(0); // 0 = main menu, 1 = submenu
 
 const menuItems = [
   { title: "САНТЕХНИКА", link: "#" },
-  { title: "ОСВЕЩЕНИЕ", link: "/category/OFFSETS" },
+  { title: "ОСВЕЩЕНИЕ", link: "/category/Lighting" },
   { title: "ДВЕРИ", link: "/doors" },
-  { title: "МЕБЕЛЬ", link: "/mebel" },
+  { title: "МЕБЕЛЬ", link: "/Category/Furniture" },
   { title: "ФУРНИТУРА", link: "/#" },
   { title: "КОЛЛЕКЦИИ", link: "/collections" },
   { title: "ВДОХНОВЕНИЕ", link: "/inspirations" },
