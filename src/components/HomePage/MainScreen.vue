@@ -1,22 +1,45 @@
 <script setup lang="ts">
 import router from "../../router";
 import createClient from "openapi-fetch";
-import { components, paths } from "../../types/schema";
-import { onMounted, ref, Ref, watch } from "vue";
-import { AppStore } from "../../store/AppStore.ts";
+import { onMounted, ref, watch } from "vue";
+import { AppStore } from "../../store/AppStore";
 import { useI18n } from "vue-i18n";
 import { useHead } from "@vueuse/head";
 
+// ✨ Oddiy type’lar
+type MainSeo = {
+  meta_title_ru: string;
+  meta_title_eng: string;
+  meta_description_ru: string;
+  meta_description_eng: string;
+  meta_keywords_ru: string;
+  meta_keywords_eng: string;
+  og_title_ru: string;
+  og_title_eng: string;
+  og_description_ru: string;
+  og_description_eng: string;
+  og_image: string | null;
+  canonical_url: string;
+  robots_content: string;
+};
+
+type Subcategory = {
+  id: number;
+  eng_name: string;
+  rus_name: string;
+  banner: string;
+};
+
 const HOST = import.meta.env.VITE_HOST_NAME;
-const { GET } = createClient<paths>({ baseUrl: HOST });
+const { GET } = createClient({ baseUrl: HOST });
+
 const App = AppStore();
 const { locale, t } = useI18n({ useScope: "global" });
 
-const mainSubs: Ref<components["schemas"]["Subcategories"][]> = ref([]);
-const seoData = ref<components["schemas"]["MainSeo"] | null>(null);
+const mainSubs = ref<Subcategory[]>([]);
+const seoData = ref<MainSeo | null>(null);
 
-// SEO meta ni o‘rnatish uchun alohida funksiya
-function applySeoHead(data: components["schemas"]["MainSeo"], lang: string) {
+function applySeoHead(data: MainSeo, lang: string) {
   const title = lang === "ru" ? data.meta_title_ru : data.meta_title_eng;
   const description =
     lang === "ru" ? data.meta_description_ru : data.meta_description_eng;
@@ -55,7 +78,6 @@ async function fetchSeo() {
   applySeoHead(data, locale.value);
 }
 
-// ⏱ SEO fetch qilish va til o‘zgarishiga reaktiv bo‘lish
 onMounted(() => {
   fetchMain();
   fetchSeo();

@@ -3,7 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
   "/api/catalogs/": {
     get: operations["catalogs_list"];
@@ -686,6 +685,7 @@ export interface components {
       rooms: components["schemas"]["RoomsEnum"][];
       order_by: components["schemas"]["OrderByEnum"];
     };
+
     InspirationStyle: {
       id: number;
       /** Название (рус) */
@@ -768,7 +768,9 @@ export interface components {
      * @enum {string}
      */
     MarkerEnum: "ru" | "en";
-    Object: components["schemas"]["ShowCollection"] | components["schemas"]["ColAbstract"];
+    Object:
+      | components["schemas"]["ShowCollection"]
+      | components["schemas"]["ColAbstract"];
     ObjsCollection: {
       id: number;
       /**
@@ -1227,7 +1229,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   catalogs_list: {
     responses: {
       200: {
