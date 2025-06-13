@@ -3,13 +3,11 @@ import router from "../../router";
 import createClient from "openapi-fetch";
 import { components, paths } from "../../types/schema";
 import { onMounted, ref, Ref, watch } from "vue";
-import { AppStore } from "../../store/AppStore.ts";
 import { useI18n } from "vue-i18n";
 import { useHead } from "@vueuse/head";
 
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
-const App = AppStore();
 const { locale, t } = useI18n({ useScope: "global" });
 
 const mainSubs: Ref<components["schemas"]["Subcategories"][]> = ref([]);
@@ -95,7 +93,7 @@ watch(locale, (newLocale) => {
         />
         <div class="title text-[40px] leading-[40px] desktop:leading-[60px]">
           {{
-            App.language == "ru"
+            locale == "ru"
               ? mainSubs[0].rus_name.toUpperCase()
               : mainSubs[0].eng_name.toUpperCase()
           }}
@@ -113,7 +111,7 @@ watch(locale, (newLocale) => {
         />
         <div class="title text-[40px] leading-[40px] desktop:leading-[60px]">
           {{
-            App.language == "ru"
+            locale == "ru"
               ? mainSubs[1].rus_name.toUpperCase()
               : mainSubs[1].eng_name.toUpperCase()
           }}

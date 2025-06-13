@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import router from "../router";
 
@@ -142,6 +142,10 @@ const handleMobileMenuClick = (menuTitle) => {
   }
 };
 
+function changeLang(lang) {
+  locale.value = lang;
+}
+
 const goBackToMainMenu = () => {
   mobileMenuLevel.value = 0;
   activeDropdown.value = null;
@@ -177,6 +181,15 @@ onUnmounted(() => {
   document.body.style.overflow = "";
   clearDropdownTimeout();
 });
+import { AppStore } from "../store/AppStore";
+const App = AppStore();
+
+watch(
+  () => locale.value,
+  (newVal) => {
+    App.language = newVal;
+  }
+);
 </script>
 
 <template>
@@ -220,7 +233,7 @@ onUnmounted(() => {
       <!-- Language Switch -->
       <div class="desktop:flex hidden items-center gap-2 text-[12px]">
         <button
-          @click="locale = 'en'"
+          @click="changeLang('en')"
           :class="{ 'opacity-60': locale !== 'en' }"
           class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
         >
@@ -228,7 +241,7 @@ onUnmounted(() => {
         </button>
 
         <button
-          @click="locale = 'ru'"
+          @click="changeLang('ru')"
           :class="{ 'opacity-60': locale !== 'ru' }"
           class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
         >
@@ -417,7 +430,7 @@ onUnmounted(() => {
               <!-- Language Switch -->
               <div class="flex items-center gap-4 pt-4 items-start">
                 <button
-                  @click="locale = 'ru'"
+                  @click="changeLang('ru')"
                   :class="[
                     'text-sm transition-colors font-arial duration-300',
                     locale === 'ru' ? 'text-white' : 'text-gray-400',
@@ -426,7 +439,7 @@ onUnmounted(() => {
                   RU
                 </button>
                 <button
-                  @click="locale = 'en'"
+                  @click="changeLang('en')"
                   :class="[
                     'text-sm transition-colors font-arial duration-300',
                     locale === 'en' ? 'text-white' : 'text-gray-400',
