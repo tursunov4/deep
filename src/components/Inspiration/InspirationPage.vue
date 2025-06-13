@@ -78,7 +78,6 @@ watch(isZoomed, () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
 });
-
 // 🌐 SEO HEAD QO‘SHISH
 const applySeoHeadFromInspiration = (
   item: components["schemas"]["Inspiration"],
@@ -87,7 +86,6 @@ const applySeoHeadFromInspiration = (
   const title = lang === "ru" ? item.rus_name : item.eng_name;
   const description =
     lang === "ru" ? item.description_eng : item.description_eng;
-
   useHead({
     title,
     meta: [

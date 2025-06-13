@@ -4,7 +4,8 @@ import { components, paths } from "../types/schema";
 import { nextTick, onMounted, ref } from "vue";
 import { AppStore } from "../store/AppStore.ts";
 import router from "../router";
-
+import { useI18n } from "vue-i18n";
+const { t } = useI18n({ useScope: "global" });
 const App = AppStore();
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
@@ -57,8 +58,13 @@ onMounted(fetchCatalogs);
     <div
       class="desktop:text-end text-start mx-[20px] desktop:mx-[30px] uppercase pb-5 text-[14px]"
     >
-      <RouterLink to="/">ГЛАВНАЯ</RouterLink> -
-      <a class="font-bold" href="">Каталоги</a>
+      <RouterLink to="/"> {{ t("breadcrumbs.home") }} </RouterLink> -
+      <a class="font-bold" href="">
+        <template v-if="App.language == 'ru'">
+          Ката<span class="pl-[2px]">л</span>оги
+        </template>
+        <template v-else> Catalogs </template>
+      </a>
     </div>
     <div
       v-for="catalog in catalogs"

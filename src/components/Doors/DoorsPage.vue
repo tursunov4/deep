@@ -10,7 +10,6 @@ import { ref } from "vue";
 import { AppStore } from "../../store/AppStore.ts";
 import CoversCarousel from "./CoversCarousel.vue";
 import FinishingMaterialsCarousel from "./FinishingMaterialsCarousel.vue";
-
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
 
@@ -140,8 +139,13 @@ fetchLocks();
   <div
     class="desktop:block hidden desktop:mb-[20px] mb-[10px] text-[14px] uppercase px-[20px] flex desktop:justify-end justify-start gap-3"
   >
-    <RouterLink class="text-customGray" to="/"> ГЛАВНАЯ </RouterLink>
-    - <RouterLink to="#"> Поворотные Двери</RouterLink>
+    <RouterLink class="text-customGray" to="/">
+      {{ t("breadcrumbs.home") }}
+    </RouterLink>
+    -
+    <RouterLink to="#">
+      {{ App.language === "ru" ? info?.ru_name : info?.eng_name }}
+    </RouterLink>
   </div>
   <div
     class="desktop:h-[80vh] w-full desktop:aspect-auto aspect-[390/420] desktop:mb-[65px] mb-[43px] -mt-1 desktop:mt-[40px] overflow-visible"
@@ -154,8 +158,13 @@ fetchLocks();
   <div
     class="desktop:hidden desktop:mb-[20px] mb-[10px] text-[14px] uppercase px-[20px] flex desktop:justify-end justify-start gap-3"
   >
-    <RouterLink class="text-customGray" to="/"> ГЛАВНАЯ </RouterLink>
-    - <RouterLink to="#"> Поворотные Двери</RouterLink>
+    <RouterLink class="text-customGray" to="/">
+      {{ t("breadcrumbs.home") }}
+    </RouterLink>
+    -
+    <RouterLink to="#">
+      {{ App.language === "ru" ? info?.ru_name : info?.eng_name }}</RouterLink
+    >
   </div>
 
   <div class="desktop:hidden w-2/3 px-[20px]">
