@@ -23,6 +23,11 @@ const headerClasses = computed(() => {
   const baseClasses =
     "w-full flex items-center justify-between px-6 desktop:px-[30px] p-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300";
 
+  // If mobile menu is open, always use white text/icons on black background
+  if (isMobileMenuOpen.value) {
+    return `${baseClasses} text-white`;
+  }
+
   // If dropdown is active, always use white text/icons
   if (activeDropdown.value) {
     return `${baseClasses} text-white`;
@@ -38,6 +43,11 @@ const headerClasses = computed(() => {
 });
 
 const backgroundClasses = computed(() => {
+  // If mobile menu is open, always black background
+  if (isMobileMenuOpen.value) {
+    return "bg-black";
+  }
+
   if (activeDropdown.value) {
     return "bg-black";
   }
@@ -50,9 +60,14 @@ const backgroundClasses = computed(() => {
 });
 
 const logoSrc = computed(() => {
+  // If mobile menu is open, use white logo (on black background)
+  if (isMobileMenuOpen.value) {
+    return "/logo-black.svg"; // Changed to white logo for better visibility
+  }
+
   // If dropdown is active, always use white logo (on black background)
   if (activeDropdown.value) {
-    return "/logo-black.svg";
+    return "/logo-black.svg"; // Changed to white logo for better visibility
   }
   // Otherwise use logic based on page
   return isMainPage.value ? "/logo-black.svg" : "/logo.svg";
@@ -60,9 +75,14 @@ const logoSrc = computed(() => {
 
 // Cart icon logic
 const cartIconSrc = computed(() => {
+  // If mobile menu is open, use white icon (on black background)
+  if (isMobileMenuOpen.value) {
+    return "/cart-black.svg"; // Changed to white cart icon
+  }
+
   // If dropdown is active, use white icon (on black background)
   if (activeDropdown.value) {
-    return "/cart-black.svg";
+    return "/cart-black.svg"; // Changed to white cart icon
   }
   // Otherwise use logic based on page
   return isMainPage.value ? "/cart-black.svg" : "/cart-white.svg";
@@ -71,15 +91,12 @@ const cartIconSrc = computed(() => {
 // Hamburger icon logic
 const hamburgerIconSrc = computed(() => {
   if (isMobileMenuOpen.value) {
-    // Close icon
-    if (activeDropdown.value) {
-      return "/close.svg";
-    }
-    return isMainPage.value ? "/close.svg" : "/close.svg";
+    // Close icon - always white on black background
+    return "/close.svg"; // Make sure you have a white close icon
   } else {
     // Hamburger icon
     if (activeDropdown.value) {
-      return "/hambur-black.svg";
+      return "/hambur-white.svg"; // Changed to white hamburger icon
     }
     return isMainPage.value ? "/hambur-black.svg" : "/hambur-white.svg";
   }
@@ -87,6 +104,14 @@ const hamburgerIconSrc = computed(() => {
 
 // Text color classes for menu items and language buttons
 const textColorClasses = computed(() => {
+  // If mobile menu is open, always white
+  if (isMobileMenuOpen.value) {
+    return {
+      menuHover: "text-white hover:text-[#CCCCCC]",
+      langButton: "text-white",
+    };
+  }
+
   // If dropdown is active, always white
   if (activeDropdown.value) {
     return {
@@ -455,6 +480,7 @@ watch(
       <div
         v-if="isMobileMenuOpen"
         class="fixed inset-0 z-40 bg-black text-white overflow-y-auto pb-5"
+        style="background-color: rgba(0, 0, 0, 0.95)"
       >
         <!-- Mobile Menu Content -->
         <div class="px-6 py-6 pt-[95px] h-full">
@@ -463,7 +489,7 @@ watch(
             <!-- Categories Header -->
             <div class="flex-1">
               <h3
-                class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+                class="text-gray-300 pt-8 border-t border-gray-600 text-[12px] mb-5 tracking-wider font-medium"
               >
                 Категории
               </h3>
@@ -471,13 +497,13 @@ watch(
               <div class="space-y-0">
                 <div v-for="item in menuItems" :key="item.title" class="block">
                   <div
-                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:opacity-70 transition-all duration-300"
+                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:text-gray-300 transition-all duration-300"
                     @click="handleMobileMenuClick(item.title)"
                   >
                     <span>{{ item.title }}</span>
                     <svg
                       v-if="dropdownMenus[item.title]"
-                      class="w-5 h-5"
+                      class="w-5 h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -499,13 +525,13 @@ watch(
               <!-- Deep Design Section -->
               <div class="mb-6">
                 <h4
-                  class="text-gray-400 pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+                  class="text-gray-300 pt-8 border-t border-gray-600 text-[12px] mb-5 tracking-wider font-medium"
                 >
                   Deep Design
                 </h4>
                 <div class="space-y-0">
                   <div
-                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/');
                       toggleMobileMenu();
@@ -514,7 +540,7 @@ watch(
                     ГЛАВНАЯ
                   </div>
                   <div
-                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/about');
                       toggleMobileMenu();
@@ -523,7 +549,7 @@ watch(
                     О КОМПАНИИ
                   </div>
                   <div
-                    class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/catalogs');
                       toggleMobileMenu();
@@ -558,8 +584,8 @@ watch(
 
               <div class="grid grid-cols-2 pb-5">
                 <!-- Contact Info -->
-                <div class="text-gray-400 text-sm">
-                  <div class="mb-2">+7 909 999 3517</div>
+                <div class="text-gray-300 text-sm">
+                  <div class="mb-2 text-white">+7 909 999 3517</div>
                   <div class="space-y-1">
                     <div>Москва, ул. Свободы 35</div>
                     <div>стр. 17</div>
@@ -570,7 +596,7 @@ watch(
                 <div class="flex gap-4 pt-4 flex-wrap">
                   <a href="https://www.instagram.com/depp_d/" target="_blank">
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/inst.svg"
                       alt="Instagram"
                   /></a>
@@ -579,25 +605,25 @@ watch(
                     target="_blank"
                   >
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/faceb.svg"
                       alt="Facebook"
                   /></a>
                   <a href="https://www.youtube.com/@deppdesign" target="_blank">
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/youtube.svg"
                       alt="Youtube"
                   /></a>
                   <a href="https://t.me/deppdesign" target="_blank">
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/tgwhite.svg"
                       alt="Telegram"
                   /></a>
                   <a href="https://wa.me/79099993517" target="_blank">
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/WhatsAppwhite.svg"
                       alt="WhatsApp"
                   /></a>
@@ -606,7 +632,7 @@ watch(
                     target="_blank"
                   >
                     <img
-                      class="w-[35px]"
+                      class="w-[35px] filter brightness-100"
                       src="../assets/printestw.svg"
                       alt="Pinterest"
                   /></a>
@@ -624,9 +650,13 @@ watch(
             <div class="flex justify-end items-center mb-6">
               <button
                 @click="goBackToMainMenu"
-                class="flex items-center text-white hover:opacity-70 transition-opacity"
+                class="flex items-center text-white hover:text-gray-300 transition-opacity"
               >
-                <img src="../assets/back.svg" alt="" />
+                <img
+                  src="../assets/back.svg"
+                  alt="Back"
+                  class="filter brightness-100"
+                />
               </button>
             </div>
 
@@ -634,7 +664,7 @@ watch(
             <div class="flex-1">
               <!-- Categories Header -->
               <h3
-                class="text-gray-400 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
+                class="text-gray-300 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
               >
                 Категории
               </h3>
@@ -644,7 +674,7 @@ watch(
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.name"
-                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:opacity-70 transition-opacity"
+                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-gray-300 transition-opacity"
                   @click="
                     navigateTo(category.link);
                     toggleMobileMenu();
@@ -658,7 +688,7 @@ watch(
               <div class="mb-8">
                 <div class="flex items-center justify-between cursor-pointer">
                   <span
-                    class="text-gray-400 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
+                    class="text-gray-300 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
                     >Для дома
                   </span>
                 </div>
@@ -669,7 +699,7 @@ watch(
                       ? dropdownMenus[activeDropdown].deepDesign
                       : dropdownMenus[activeDropdown].forHome"
                     :key="subItem.name"
-                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:opacity-70 transition-opacity"
+                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-gray-300 transition-opacity"
                     @click="
                       navigateTo(subItem.link);
                       toggleMobileMenu();
@@ -719,5 +749,16 @@ watch(
     rgba(243, 243, 243, 0.16) 82.5%,
     rgba(231, 231, 231, 0) 100%
   );
+}
+
+/* Additional mobile menu visibility fixes */
+.mobile-menu-overlay {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Ensure all text is visible on mobile menu */
+.mobile-menu-text {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 </style>
