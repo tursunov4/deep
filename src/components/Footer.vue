@@ -11,6 +11,8 @@ import Telegramicon from "../assets/telegram.svg";
 import Facebookicon from "../assets/Facebook.svg";
 import Instagramicon from "../assets/Instagramm.svg";
 import Youtubeicon from "../assets/youtube.svg";
+import { useModal } from "../composables/useModal";
+const { openModal } = useModal();
 const { t } = useI18n({ useScope: "global" });
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
@@ -51,7 +53,9 @@ onMounted(() => {
               <a class="cursor-pointer">{{ t("footer.services") }}</a>
             </li>
             <li>
-              <a class="cursor-pointer">{{ t("footer.architect_program") }}</a>
+              <a @click="openModal" class="cursor-pointer">{{
+                t("footer.architect_program")
+              }}</a>
             </li>
             <li>
               <a class="cursor-pointer">{{ t("footer.become_dealer") }}</a>
@@ -242,7 +246,9 @@ onMounted(() => {
           }}</a>
           <a class="cursor-pointer">{{ t("footer.inspiration") }}</a>
           <a class="cursor-pointer">{{ t("footer.services") }}</a>
-          <a class="cursor-pointer">{{ t("footer.architect_program") }}</a>
+          <a @click="openModal" class="cursor-pointer">
+            {{ t("footer.architect_program") }}
+          </a>
           <a class="cursor-pointer">{{ t("footer.become_dealer") }}</a>
         </div>
       </div>

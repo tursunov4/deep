@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Footer from "./components/Footer.vue";
 import Header from "./components/Header.vue";
-
+import ArchitectModal from "./components/ArchitectModal.vue";
 const App = AppStore();
 import { useI18n } from "vue-i18n";
 import { onMounted, ref } from "vue";
@@ -18,6 +18,7 @@ onMounted(() => {
 <template>
   <div class="overflow-x-hidden font-arial text-[12px] relative">
     <div id="collection-button" class="absolute" />
+    <ArchitectModal />
     <Header
       :cartVisible="showCart"
       @show-cart="showCart = true"

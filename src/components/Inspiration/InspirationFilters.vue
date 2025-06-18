@@ -264,7 +264,7 @@ watch(showCount, () => {
   <div v-if="!isDesktop && !isOpened">
     <div
       @click="$emit('toggleFilter')"
-      class="mx-[20px] h-[40px] mb-[20px] flex items-center title text-lg border border-black"
+      class="mx-[20px] h-[40px] py-[20px] desktop:py-[0] mb-[20px] flex items-center title text-lg border border-black"
     >
       <div class="w-full text-center uppercase">{{ t("filter.filter") }}</div>
       <div
@@ -472,7 +472,7 @@ watch(showCount, () => {
                   author.id
                 ),
               }"
-              class="w-full border-black/0 border p-[3px] text-black object-cover aspect-square"
+              class="w-full rounded-full border-black/0 border p-[3px] text-black object-cover aspect-square"
             />
             <div
               class="text-center font-TT tracking-[0.045rem] font-bold text-[14px] break-words mt-[10px]"
@@ -672,7 +672,7 @@ watch(showCount, () => {
             emits('toggleFilter');
           }
         "
-        class="desktop:tracking-[0.035vw] w-full font-TT hover:bg-black font-bold hover:text-white p-2 flex justify-center items-center desktop:border-t border desktop:mx-0 mx-5 border-black mt-6 mx-auto text-[18px] desktop:p-[23px]"
+        class="desktop:tracking-[0.035vw] w-full font-TT hover:bg-black font-bold hover:text-white p-2 flex justify-center items-center desktop:border-t desktop:border-b-0 desktop:border-l-0 desktop:border-r-0 border desktop:mx-0 mx-5 border-black mt-6 mx-auto text-[18px] desktop:p-[23px]"
       >
         <span class="pt-[0.1875vw]">
           {{ t("filter.show") }}

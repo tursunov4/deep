@@ -1,14 +1,114 @@
 <script setup lang="js">
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, onUnmounted, watch, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRoute } from "vue-router";
 import router from "../router";
+
 const { locale } = useI18n({ useScope: "global" });
+const route = useRoute();
 
 const isMobileMenuOpen = ref(false);
 const activeDropdown = ref(null);
 const activeSubDropdown = ref(null);
 const dropdownTimeout = ref(null);
 const mobileMenuLevel = ref(0); // 0 = main menu, 1 = submenu
+
+// Check if current page is main page
+const isMainPage = computed(() => {
+  return route.path === "/" || route.path === "/home";
+});
+
+// Dynamic styling based on page and dropdown state
+const headerClasses = computed(() => {
+  const baseClasses =
+    "w-full flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300";
+
+  // If dropdown is active, always use white text/icons
+  if (activeDropdown.value) {
+    return `${baseClasses} text-white`;
+  }
+
+  if (isMainPage.value) {
+    // Main page: white text/icons
+    return `${baseClasses} text-white`;
+  } else {
+    // Other pages: black text/icons
+    return `${baseClasses} text-black`;
+  }
+});
+
+const backgroundClasses = computed(() => {
+  if (activeDropdown.value) {
+    return "bg-black";
+  }
+
+  if (isMainPage.value) {
+    return "bg-custom-gradient"; // or bg-white if needed
+  } else {
+    return "bg-custom-gradientWhite";
+  }
+});
+
+const logoSrc = computed(() => {
+  // If dropdown is active, always use white logo (on black background)
+  if (activeDropdown.value) {
+    return "/logo-black.svg";
+  }
+  // Otherwise use logic based on page
+  return isMainPage.value ? "/logo-black.svg" : "/logo.svg";
+});
+
+// Cart icon logic
+const cartIconSrc = computed(() => {
+  // If dropdown is active, use white icon (on black background)
+  if (activeDropdown.value) {
+    return "/cart-black.svg";
+  }
+  // Otherwise use logic based on page
+  return isMainPage.value ? "/cart-black.svg" : "/cart-white.svg";
+});
+
+// Hamburger icon logic
+const hamburgerIconSrc = computed(() => {
+  if (isMobileMenuOpen.value) {
+    // Close icon
+    if (activeDropdown.value) {
+      return "/close.svg";
+    }
+    return isMainPage.value ? "/close.svg" : "/close.svg";
+  } else {
+    // Hamburger icon
+    if (activeDropdown.value) {
+      return "/hambur-black.svg";
+    }
+    return isMainPage.value ? "/hambur-black.svg" : "/hambur-white.svg";
+  }
+});
+
+// Text color classes for menu items and language buttons
+const textColorClasses = computed(() => {
+  // If dropdown is active, always white
+  if (activeDropdown.value) {
+    return {
+      menuHover: "text-white hover:text-[#CCCCCC]",
+      langButton: "text-white",
+    };
+  }
+
+  // Otherwise based on page
+  if (isMainPage.value) {
+    return {
+      menuHover: "text-white hover:text-[#CCCCCC]",
+      langButton: "text-white",
+    };
+  } else {
+    return {
+      menuHover: "text-black hover:text-[#666666]",
+      langButton: "text-black",
+    };
+  }
+});
+
 const menuItems = [
   { title: "САНТЕХНИКА", link: "#" },
   { title: "ОСВЕЩЕНИЕ", link: "/category/Lighting" },
@@ -56,7 +156,6 @@ const dropdownMenus = {
     information: [
       { name: "ГЛАВНАЯ", link: "/" },
       { name: "О КОМПАНИИ", link: "/about" },
-
       { name: "КАТАЛОГИ", link: "/catalogs" },
     ],
   },
@@ -73,12 +172,10 @@ const clearDropdownTimeout = () => {
 // Handle dropdown hover with improved logic
 const handleMouseEnter = (menuTitle) => {
   clearDropdownTimeout();
-  // Always set the activeDropdown - if no dropdown exists, it will be null
   if (dropdownMenus[menuTitle]) {
     activeDropdown.value = menuTitle;
     activeSubDropdown.value = null;
   } else {
-    // If hovering over a menu item without dropdown, clear active dropdown
     activeDropdown.value = null;
     activeSubDropdown.value = null;
   }
@@ -174,6 +271,7 @@ onUnmounted(() => {
   document.body.style.overflow = "";
   clearDropdownTimeout();
 });
+
 import { AppStore } from "../store/AppStore";
 const App = AppStore();
 
@@ -187,16 +285,16 @@ watch(
 
 <template>
   <header
-    class="w-full text-white flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300"
     :class="[
-      activeDropdown ? 'bg-black' : 'bg-custom-gradient',
+      headerClasses,
+      backgroundClasses,
       isMobileMenuOpen ? 'pb-[10px]' : 'pb-[100px]',
     ]"
   >
     <!-- Left: Logo + Desktop Menu -->
     <div class="flex items-center gap-[20px] z-50 relative">
       <img
-        src="/logo-black.svg"
+        :src="logoSrc"
         class="h-[30px] desktop:h-[35px] z-50 cursor-pointer hover:opacity-80 transition-opacity duration-300"
         @click="navigateTo('/')"
         alt="Logo"
@@ -213,7 +311,10 @@ watch(
         >
           <RouterLink
             :to="item.link"
-            class="hover:text-[#8D8D8D] text-[#FFFFFF] transition-all font-bold text-[18px] leading-[100%] tracking-[0.02em] text-right uppercase duration-300 cursor-pointer py-2 px-1 rounded"
+            :class="[
+              'transition-all font-bold text-[18px] leading-[100%] tracking-[0.02em] text-right uppercase duration-300 cursor-pointer py-2 px-1 rounded',
+              textColorClasses.menuHover,
+            ]"
           >
             {{ item.title }}
           </RouterLink>
@@ -227,16 +328,22 @@ watch(
       <div class="desktop:flex hidden items-center gap-2 text-[12px]">
         <button
           @click="changeLang('en')"
-          :class="{ 'opacity-60': locale !== 'en' }"
-          class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
+          :class="[
+            'hover:opacity-80 font-arial transition-opacity duration-300 p-1',
+            locale !== 'en' ? 'opacity-60' : '',
+            textColorClasses.langButton,
+          ]"
         >
           EN
         </button>
 
         <button
           @click="changeLang('ru')"
-          :class="{ 'opacity-60': locale !== 'ru' }"
-          class="hover:opacity-80 font-arial transition-opacity duration-300 p-1"
+          :class="[
+            'hover:opacity-80 font-arial transition-opacity duration-300 p-1',
+            locale !== 'ru' ? 'opacity-60' : '',
+            textColorClasses.langButton,
+          ]"
         >
           RU
         </button>
@@ -244,7 +351,7 @@ watch(
 
       <!-- Cart -->
       <img
-        src="../assets/basket-black.svg"
+        :src="cartIconSrc"
         alt="Cart"
         class="h-[35px] w-[35px] cursor-pointer z-50 hover:opacity-80 transition-opacity duration-300"
         @click="$emit('showCart')"
@@ -253,19 +360,13 @@ watch(
       <!-- Toggle Hamburger/Close -->
       <button class="desktop:hidden relative z-50" @click="toggleMobileMenu">
         <img
-          v-if="isMobileMenuOpen"
-          src="../assets/close.svg"
-          alt="close menu"
-          class="h-[25px] w-[25px] transition-transform duration-300"
-        />
-        <img
-          v-else
-          src="../assets/hambur.png"
-          alt="open menu"
+          :src="hamburgerIconSrc"
+          :alt="isMobileMenuOpen ? 'close menu' : 'open menu'"
           class="h-[35px] w-[35px] transition-transform duration-300"
         />
       </button>
     </div>
+
     <!-- Full Width Desktop Dropdown -->
     <transition name="fade">
       <div
@@ -304,7 +405,7 @@ watch(
                     ? dropdownMenus[activeDropdown].deepDesign
                     : dropdownMenus[activeDropdown].forHome"
                   :key="item.link"
-                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white uppercase hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${item.link}`)"
                 >
                   {{ item.name }}
@@ -348,6 +449,8 @@ watch(
         </div>
       </div>
     </transition>
+
+    <!-- Mobile Menu -->
     <transition name="fade">
       <div
         v-if="isMobileMenuOpen"
@@ -403,17 +506,28 @@ watch(
                 <div class="space-y-0">
                   <div
                     class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    @click="
+                      navigateTo('/');
+                      toggleMobileMenu();
+                    "
                   >
                     ГЛАВНАЯ
                   </div>
                   <div
                     class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    @click="
+                      navigateTo('/about');
+                      toggleMobileMenu();
+                    "
                   >
                     О КОМПАНИИ
                   </div>
-
                   <div
                     class="text-white text-[15px] hover:opacity-70 cursor-pointer transition-opacity py-1"
+                    @click="
+                      navigateTo('/catalogs');
+                      toggleMobileMenu();
+                    "
                   >
                     КАТАЛОГИ
                   </div>
@@ -530,7 +644,7 @@ watch(
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.name"
-                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase"
+                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:opacity-70 transition-opacity"
                   @click="
                     navigateTo(category.link);
                     toggleMobileMenu();
@@ -555,7 +669,7 @@ watch(
                       ? dropdownMenus[activeDropdown].deepDesign
                       : dropdownMenus[activeDropdown].forHome"
                     :key="subItem.name"
-                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase"
+                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:opacity-70 transition-opacity"
                     @click="
                       navigateTo(subItem.link);
                       toggleMobileMenu();
@@ -571,14 +685,11 @@ watch(
       </div>
     </transition>
   </header>
-
-  <!-- Mobile Menu Overlay -->
 </template>
 
 <style scoped>
 .router-link-active {
   opacity: 1;
-  font-weight: 500;
 }
 
 .fade-enter-active,
@@ -601,6 +712,12 @@ watch(
   max-height: 0;
   opacity: 0;
 }
-
-/* Custom gradient class agar Tailwind'da yo'q bo'lsa */
+.bg-custom-gradientWhite {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(243, 243, 243, 0.16) 82.5%,
+    rgba(231, 231, 231, 0) 100%
+  );
+}
 </style>
