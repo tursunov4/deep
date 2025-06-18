@@ -21,7 +21,7 @@ const isMainPage = computed(() => {
 // Dynamic styling based on page and dropdown state
 const headerClasses = computed(() => {
   const baseClasses =
-    "w-full flex items-center justify-between px-6 desktop:px-[30px] pt-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300";
+    "w-full flex items-center justify-between px-6 desktop:px-[30px] p-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300";
 
   // If dropdown is active, always use white text/icons
   if (activeDropdown.value) {
@@ -288,7 +288,7 @@ watch(
     :class="[
       headerClasses,
       backgroundClasses,
-      isMobileMenuOpen ? 'pb-[10px]' : 'pb-[100px]',
+      isMobileMenuOpen ? 'pb-[10px]' : '',
     ]"
   >
     <!-- Left: Logo + Desktop Menu -->

@@ -1,38 +1,39 @@
 <script setup lang="ts">
-import {Swiper, SwiperSlide} from 'swiper/vue';
-import 'swiper/css';
-import "swiper/css/pagination"
-import {Pagination} from 'swiper/modules';
-import {components} from "../types/schema";
-const modules = [Pagination]
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import { components } from "../types/schema";
+const modules = [Pagination];
 defineProps<{
-  images: components["schemas"]["Image"][]
-}>()
-
-const HOST = import.meta.env.VITE_HOST_NAME
+  images: components["schemas"]["Image"][];
+}>();
 </script>
 
 <template>
-    <swiper id="mySwiper" :pagination="{
+  <swiper
+    id="mySwiper"
+    :pagination="{
       type: 'progressbar',
-    }" :modules="modules" class="mySwiper">
-      <swiper-slide v-for="image in images" @click=""
-      ><img class="w-full h-full object-cover"
-            :src="HOST + image.photo"/>
-      </swiper-slide>
-    </swiper>
+    }"
+    :modules="modules"
+    class="mySwiper"
+  >
+    <swiper-slide v-for="image in images" @click=""
+      ><img class="w-full h-full object-cover" :src="image.photo" />
+    </swiper-slide>
+  </swiper>
 </template>
 
 <style>
-
-:root{
+:root {
   --swiper-pagination-bottom: 0px;
   --swiper-theme-color: #000000;
-  --swiper-pagination-progressbar-bg-color: #FFFFFF;
+  --swiper-pagination-progressbar-bg-color: #ffffff;
   --swiper-pagination-progressbar-size: 2px;
 }
 
-.mySwiper .swiper-pagination-progressbar.swiper-pagination-horizontal{
+.mySwiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
   width: 50%;
   top: auto;
   bottom: 30px;
@@ -41,7 +42,6 @@ const HOST = import.meta.env.VITE_HOST_NAME
   margin-left: auto;
   margin-right: auto;
 }
-
 
 .mySwiper .swiper-slide {
   position: relative;
@@ -65,20 +65,20 @@ const HOST = import.meta.env.VITE_HOST_NAME
   height: 100%;
 }
 
-.mySwiper .swiper-wrapper{
+.mySwiper .swiper-wrapper {
   display: flex;
   align-items: stretch;
 }
 
-.mySwiper .swiper-wrapper{
+.mySwiper .swiper-wrapper {
   height: 100%;
 }
 
-.mySwiper{
+.mySwiper {
   overflow: visible;
 }
 
-.mySwiper .swiper-pagination-bullet{
+.mySwiper .swiper-pagination-bullet {
   background-color: white;
   border: solid 1px black;
   opacity: 1;
@@ -86,9 +86,8 @@ const HOST = import.meta.env.VITE_HOST_NAME
   height: 10px;
 }
 
-.mySwiper .swiper-pagination-bullet-active{
+.mySwiper .swiper-pagination-bullet-active {
   background-color: black;
   border: solid 1px black;
 }
-
 </style>

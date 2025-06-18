@@ -142,6 +142,16 @@ onMounted(async () => {
   setFilters();
 });
 
+/**
+ * Gets the amount of images that correspond to the current filter selection
+ * and updates the resultAmount state with the amount.
+ *
+ * @remarks
+ * The amount is retrieved by making a POST request to the /count_pages/ API endpoint
+ * with the current filter selection as the request body. If the response is successful
+ * and the amount is greater than 0, the resultAmount state is updated with the amount.
+ * Otherwise, the resultAmount state is not updated.
+ */
 async function getCount() {
   const isFilterActive =
     filters.styles.selected.length > 0 ||

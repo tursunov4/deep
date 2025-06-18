@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // @ts-nocheck
-import { computed, ref, Ref, watch } from "vue";
+import { computed, ref, Ref, watch, onMounted } from "vue";
 import InspirationFilters from "./InspirationFilters.vue";
 import router from "../../router";
 import { AppStore } from "../../store/AppStore.ts";
@@ -8,11 +8,10 @@ import { components, paths } from "../../types/schema";
 import createClient from "openapi-fetch";
 import { useI18n } from "vue-i18n";
 import { useWindowWidth } from "../../composables/isDesktop.ts";
-
 const { t } = useI18n({ useScope: "global" });
 const App = AppStore();
 const HOST = import.meta.env.VITE_HOST_NAME;
-const { POST } = createClient<paths>({ baseUrl: HOST });
+const { POST, GET } = createClient<paths>({ baseUrl: HOST });
 
 const inspirationList = ref<components["schemas"]["PreviewInspiration"][]>([]);
 const distributedImages = ref<components["schemas"]["PreviewInspiration"][][]>(
@@ -21,6 +20,14 @@ const distributedImages = ref<components["schemas"]["PreviewInspiration"][][]>(
 const distributedImagesMobile = ref<
   components["schemas"]["PreviewInspiration"][][]
 >([]);
+
+// Filter lists from API
+const filterLists = ref({
+  building: [],
+  authors: [],
+  styles: [],
+  rooms: [],
+});
 
 type Filters = {
   building: string[] | undefined;
@@ -42,14 +49,90 @@ const subcategory: Ref<components["schemas"]["List-collections"] | undefined> =
 
 const filters: Ref<Filters | undefined> = computed(() => {
   let obj = router.currentRoute.value?.query;
-  Object.keys(obj).map((filter) => {
+
+  // Create a new object to ensure reactivity
+  const newObj = {};
+
+  Object.keys(obj).forEach((filter) => {
     try {
-      obj[filter] = JSON.parse(obj[filter]);
+      newObj[filter] = JSON.parse(obj[filter]);
     } catch (e) {
-      return console.error(e); // error in the above string (in this case, yes)!
+      newObj[filter] = obj[filter];
     }
   });
-  return obj;
+
+  console.log("Filters computed:", newObj);
+  return newObj;
+});
+
+// Fetch filter lists from API
+async function fetchFilter() {
+  const { data, error } = await GET("/api/inspiration/filter_list/", {});
+  if (error) return;
+  if (data) {
+    filterLists.value.building = data.building_types;
+    filterLists.value.authors = data.authors;
+    filterLists.value.styles = data.styles;
+    filterLists.value.rooms = data.rooms;
+  }
+}
+
+// Get selected authors from filter IDs
+const selectedAuthors = computed(() => {
+  // Force reactivity by explicitly accessing values
+  const currentFilters = filters.value;
+  const currentFilterLists = filterLists.value;
+
+  console.log("Computing selectedAuthors:", {
+    filtersAuthors: currentFilters?.authors,
+    authorsListLength: currentFilterLists.authors.length,
+  });
+
+  if (!currentFilters?.authors?.length || !currentFilterLists.authors.length) {
+    return [];
+  }
+
+  const result = currentFilterLists.authors.filter(
+    (author) =>
+      currentFilters.authors.includes(author.id.toString()) ||
+      currentFilters.authors.includes(author.id)
+  );
+
+  console.log("Selected authors result:", result);
+  return result;
+});
+
+// Get selected buildings from filter IDs
+const selectedBuildings = computed(() => {
+  if (!filters.value?.building?.length || !filterLists.value.building.length) {
+    return [];
+  }
+
+  return filterLists.value.building.filter((building) =>
+    filters.value.building.includes(building.id.toString())
+  );
+});
+
+// Get selected styles from filter IDs
+const selectedStyles = computed(() => {
+  if (!filters.value?.styles?.length || !filterLists.value.styles.length) {
+    return [];
+  }
+
+  return filterLists.value.styles.filter((style) =>
+    filters.value.styles.includes(style.id.toString())
+  );
+});
+
+// Get selected rooms from filter IDs
+const selectedRooms = computed(() => {
+  if (!filters.value?.rooms?.length || !filterLists.value.rooms.length) {
+    return [];
+  }
+
+  return filterLists.value.rooms.filter((room) =>
+    filters.value.rooms.includes(room.id.toString())
+  );
 });
 
 async function getInspiration() {
@@ -71,7 +154,7 @@ async function getInspiration() {
         building: filters.value?.building?.length
           ? filters.value?.building
           : undefined,
-        order_by: filters.value?.sort.toLowerCase(),
+        order_by: filters.value?.sort?.toLowerCase(),
       },
     });
     if (data) {
@@ -90,7 +173,7 @@ async function getInspiration() {
       building: filters.value?.building?.length
         ? filters.value?.building
         : undefined,
-      order_by: filters.value?.sort.toLowerCase(),
+      order_by: filters.value?.sort?.toLowerCase(),
     },
   });
   if (data) {
@@ -127,10 +210,41 @@ async function distributeImages(imageUrls, columnCount, forMobile) {
 
 const filterContainer = ref(null);
 
-watch(filters, () => {
-  currentPage.value = 1;
-  getInspiration();
+// Initialize data on component mount
+onMounted(async () => {
+  await fetchFilter();
+  await getInspiration();
 });
+
+// Watch filters to trigger computed updates
+watch(
+  filters,
+  () => {
+    currentPage.value = 1;
+    getInspiration();
+  },
+  { deep: true }
+);
+
+// Watch filterLists to trigger computed updates
+watch(
+  filterLists,
+  () => {
+    // Bu computed propertylarni yangilanishga majbur qiladi
+    console.log("Filter lists updated, triggering computed updates");
+  },
+  { deep: true }
+);
+
+// Watch route query changes
+watch(
+  () => router.currentRoute.value.query,
+  () => {
+    // Route query o'zgarsa, filterlar ham o'zgaradi
+    console.log("Route query changed, filters should update");
+  },
+  { deep: true }
+);
 
 watch(currentPage, () => {
   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -170,6 +284,9 @@ watch(currentPage, () => {
         }}
       </li>
     </ul>
+
+    <!-- Filter bo'yicha tanlangan authorlar -->
+
     <div>
       <div class="desktop:hidden border-black mt-6">
         <div class="w-full">
@@ -181,6 +298,44 @@ watch(currentPage, () => {
             v-if="showFilters"
             class="desktop:hidden h-[2px] border-b border-black mx-[20px] my-[20px]"
           />
+        </div>
+      </div>
+      <div class="main-p-sides mt-4">
+        <div v-if="selectedAuthors.length" class="mb-4">
+          <div class="flex flex-wrap gap-4">
+            <div
+              v-for="author in selectedAuthors"
+              :key="author.id"
+              class="border border-black p-5 w-full desktop:w-[370px] flex items-center gap-[30px] wrap"
+            >
+              <!-- Avatar -->
+              <div
+                class="w-[96px] h-[96px] rounded-full overflow-hidden border-2 border-black mb-3"
+              >
+                <img
+                  :src="author.icon"
+                  alt="Author Icon"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+
+              <div class="flex flex-col gap-[20px] justify-between">
+                <!-- Author Name -->
+                <div class="font-bold uppercase text-sm">
+                  {{
+                    App.language == "ru"
+                      ? author.author_name_ru
+                      : author.author_name_en
+                  }}
+                </div>
+
+                <!-- Architecture / Design -->
+                <div class="text-xs tracking-wide font-medium">
+                  АРХИТЕКТУРА, ДИЗАЙН
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="flex gap-[20px] min-h-screen main-p-sides desktop:mt-6">
@@ -231,6 +386,7 @@ watch(currentPage, () => {
             <InspirationFilters
               @toggle-filter="showFilters = !showFilters"
               :is-opened="showFilters"
+              :filter-lists="filterLists"
             />
           </div>
         </teleport>
