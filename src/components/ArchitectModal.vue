@@ -64,15 +64,15 @@
           v-model="form.comment"
           :placeholder="t('architectModal.comment')"
           rows="4"
-          class="border px-[10px] mt-5 border-[#6D6D6D] placeholder:text-[#8B8B8B] w-full desktop:text-[18px] text-[12px] font-normal py-3 outline-none"
+          class="border px-[10px] mt-5 font-TT border-[#6D6D6D] placeholder:text-[#8B8B8B] w-full desktop:text-[18px] text-[12px] font-normal py-3 outline-none"
           :style="{ borderColor: form.comment ? '#101010' : '#6D6D6D' }"
         ></textarea>
 
         <!-- Error / Success -->
-        <div v-if="error" class="text-red-600 text-sm text-center">
+        <div v-if="error" class="text-red-600 font-TT text-sm text-center">
           {{ error }}
         </div>
-        <div v-if="success" class="text-green-600 text-sm text-center">
+        <div v-if="success" class="text-green-600 font-TT text-sm text-center">
           {{ success }}
         </div>
 
@@ -81,7 +81,7 @@
           <button
             type="submit"
             :disabled="!isFormValid || loading"
-            class="border border-[#6D6D6D] mt-5 px-[10px] font-bold text-[16px] desktop:text-[18px] desktop:w-[324px] w-full uppercase py-[10px] tracking-wider"
+            class="border border-[#6D6D6D] mt-5 px-[10px] font-bold font-TT text-[16px] desktop:text-[18px] desktop:w-[324px] w-full uppercase h-[35px] pt-[10px] pb-[11px] tracking-wider"
             :class="{
               'text-[#101010]': isFormValid,
               'text-[#8B8B8B]': !isFormValid,
@@ -128,7 +128,7 @@ const isFormValid = computed(() => {
 // Input field dynamic class
 function inputClass(value) {
   return [
-    "border-b px-[10px] w-full desktop:text-[18px] text-[12px] font-normal py-3 outline-none placeholder:text-[#8B8B8B]",
+    "border-b px-[10px] w-full font-TT desktop:text-[18px] text-[12px] font-normal py-3 outline-none placeholder:text-[#8B8B8B]",
     value ? "border-[#101010]" : "border-[#6D6D6D]",
   ];
 }
