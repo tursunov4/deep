@@ -40,7 +40,9 @@ onMounted(() => {
       >
         <div>
           <div class="text-xs text-[#6D6D6D] mb-4">Depp Design</div>
-          <ul class="font-bold font-TT text-[18px] flex flex-col gap-1">
+          <ul
+            class="font-bold font-TT text-[18px] flex uppercase flex-col gap-1"
+          >
             <li>
               <a @click="router.push('/about')" class="cursor-pointer">{{
                 t("header.menu.about")

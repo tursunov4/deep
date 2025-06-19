@@ -71,11 +71,23 @@ onMounted(() => {
             <ProductCard :product-group="collection.products[1]" />
           </div>
         </div>
-        <div
+        <div class="w-full flex desktop:aspect-[2/1] aspect-[350/240]">
+          <div
+            class="cursor-pointer w-1/2 h-full pl-0 desktop:p-[30px] p-[20px] border border-t-0 border-l-0 border-black"
+          >
+            <ProductCard :product-group="collection.products[2]" />
+          </div>
+          <div
+            class="cursor-pointer w-1/2 h-full pr-0 desktop:p-[30px] p-[20px] border-y border-t-0 border-black"
+          >
+            <ProductCard :product-group="collection.products[3]" />
+          </div>
+        </div>
+        <!-- <div
           class="cursor-pointer w-full desktop:aspect-[2/1] aspect-[350/240] px-0 desktop:p-[30px] p-[20px] desktop:border-b border-black"
         >
           <ProductCard :product-group="collection.products[2]" />
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

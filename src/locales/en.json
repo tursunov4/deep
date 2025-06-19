@@ -148,7 +148,11 @@
     "weekend": "Saturday and Sunday — Closed",
     "addressName": "Contact Information",
     "address": "Moscow, Svobody Street 35, Building 17",
-    "mail_phone": "Phone and Email"
+    "mail_phone": "Phone and Email",
+    "inspiration": "Inspiration company",
+    "services": "Services",
+    "architect_program": "program for architects",
+    "become_dealer": "to become a dealer"
   },
   "header": {
     "cart_button": "CART",
@@ -220,5 +224,19 @@
     "about": "ABOUT",
     "name": "DEPP DESIGN",
     "showreel": "SHOWREEL"
+  },
+  "architectModal": {
+    "error": "Please fill in all required fields.",
+    "success": "Request sent successfully!",
+    "loading": "Sending...",
+    "submit": "Send a request",
+    "comment": "Comment (optional)",
+    "email": "Email",
+    "phone": "Phone number",
+    "post": "Post",
+    "company": "Company",
+    "fcs": "FCS",
+    "description": " We offer fast and reliable    delivery throughout the country. Please contact our managers for    detailed information about the delivery time and cost.",
+    "header": "A Program for Architects"
   }
 }
