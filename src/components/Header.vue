@@ -107,7 +107,7 @@ const textColorClasses = computed(() => {
   // If mobile menu is open, always white
   if (isMobileMenuOpen.value) {
     return {
-      menuHover: "text-white hover:text-[#CCCCCC]",
+      menuHover: "text-[#8D8D8D] hover:text-white",
       langButton: "text-white",
     };
   }
@@ -115,16 +115,16 @@ const textColorClasses = computed(() => {
   // If dropdown is active, always white
   if (activeDropdown.value) {
     return {
-      menuHover: "text-white hover:text-[#CCCCCC]",
-      langButton: "text-white",
+      menuHover: "text-[#8D8D8D] hover:text-white",
+      langButton: "text-[#8D8D8D]",
     };
   }
 
   // Otherwise based on page
   if (isMainPage.value) {
     return {
-      menuHover: "text-white hover:text-[#CCCCCC]",
-      langButton: "text-white",
+      menuHover: "text-[#8D8D8D] hover:text-white",
+      langButton: "text-[#8D8D8D]",
     };
   } else {
     return {
@@ -350,13 +350,15 @@ watch(
     <!-- Right: Lang, Cart, Hamburger -->
     <div class="flex items-center gap-4 relative">
       <!-- Language Switch -->
-      <div class="desktop:flex hidden items-center gap-2 text-[12px]">
+      <div
+        v-if="isMainPage || activeDropdown"
+        class="desktop:flex hidden items-center gap-2 text-[12px]"
+      >
         <button
           @click="changeLang('en')"
           :class="[
-            'hover:opacity-80 font-arial transition-opacity duration-300 p-1',
-            locale !== 'en' ? 'opacity-60' : '',
-            textColorClasses.langButton,
+            'hover:text-white font-normal font-arial transition-opacity duration-300 p-1',
+            locale !== 'en' ? 'text-[#9F9F9F]' : 'text-white',
           ]"
         >
           EN
@@ -365,9 +367,8 @@ watch(
         <button
           @click="changeLang('ru')"
           :class="[
-            'hover:opacity-80 font-arial transition-opacity duration-300 p-1',
-            locale !== 'ru' ? 'opacity-60' : '',
-            textColorClasses.langButton,
+            'font-arial font-normal hover:text-white  transition-opacity duration-300 p-1',
+            locale !== 'ru' ? 'text-[#9F9F9F]' : 'text-white',
           ]"
         >
           RU
@@ -378,7 +379,7 @@ watch(
       <img
         :src="cartIconSrc"
         alt="Cart"
-        class="h-[35px] w-[35px] cursor-pointer z-50 hover:opacity-80 transition-opacity duration-300"
+        class="h-[35px] w-[35px] cursor-pointer z-50 transition-opacity duration-300"
         @click="$emit('showCart')"
       />
 
@@ -401,7 +402,7 @@ watch(
         @mouseleave="handleDropdownLeave"
       >
         <div class="w-full mx-auto px-[94px] py-[40px]">
-          <div class="grid grid-cols-6 gap-12 border-b border-gray-600 pb-5">
+          <div class="grid grid-cols-6 border-b border-gray-600 pb-5">
             <!-- Column 1 -->
             <div class="col-span-1">
               <h3 class="text-gray-400 text-[12px] font-normal mb-6">
@@ -411,7 +412,7 @@ watch(
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.link"
-                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white hover:text-[#8D8D8D] cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${category.link}`)"
                 >
                   {{ category.name }}
@@ -430,7 +431,7 @@ watch(
                     ? dropdownMenus[activeDropdown].deepDesign
                     : dropdownMenus[activeDropdown].forHome"
                   :key="item.link"
-                  class="text-white uppercase hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white uppercase hover:text-[#8D8D8D] cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${item.link}`)"
                 >
                   {{ item.name }}
