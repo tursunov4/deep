@@ -239,6 +239,36 @@ onMounted(async () => {
     </div>
 
     <div
+      class="w-full desktop:aspect-[385/242] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
+    >
+      <h3
+        class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
+      >
+        {{ t("filter.style") }}
+      </h3>
+      <div v-for="collection in collections" class="">
+        <label
+          class="desktop:tracking-[0.035vw] desktop:flex-[1_1_40%] desktop:h-[1.7vw] whitespace-nowrap mr-6 cursor-pointer gap-[10px] font-TT text-lg desktop:text-[0.8750vw] accent-white flex items-center desktop:mb-[10px]"
+          ><input
+            v-model="selectedCollections"
+            @change="setPreview"
+            :value="collection.id"
+            type="checkbox"
+            class=""
+          />
+          <span
+            class="font-TT font-bold text-[3.5897vw] leading-[7.5897vw] desktop:text-[0.8750vw] desktop:leading-[0.8750vw]"
+          >
+            {{
+              App.language == "ru"
+                ? collection.rus_filter_name
+                : collection.eng_filter_name
+            }}
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
       class="w-full desktop:aspect-[3.15] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
     >
       <h3
@@ -269,38 +299,6 @@ onMounted(async () => {
         {{ t("filter.featured") }}
       </label>
     </div>
-
-    <div
-      class="w-full desktop:aspect-[385/242] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
-    >
-      <h3
-        class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
-      >
-        {{ t("filter.style") }}
-      </h3>
-      <div v-for="collection in collections" class="">
-        <label
-          class="desktop:tracking-[0.035vw] desktop:flex-[1_1_40%] desktop:h-[1.7vw] whitespace-nowrap mr-6 cursor-pointer gap-[10px] font-TT text-lg desktop:text-[0.8750vw] accent-white flex items-center desktop:mb-[10px]"
-          ><input
-            v-model="selectedCollections"
-            @change="setPreview"
-            :value="collection.id"
-            type="checkbox"
-            class=""
-          />
-          <span
-            class="font-TT font-bold text-[3.5897vw] leading-[7.5897vw] desktop:text-[0.8750vw] desktop:leading-[0.8750vw]"
-          >
-            {{
-              App.language == "ru"
-                ? collection.rus_filter_name
-                : collection.eng_filter_name
-            }}
-          </span>
-        </label>
-      </div>
-    </div>
-
     <div
       id="scrollbar"
       class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
@@ -402,7 +400,7 @@ onMounted(async () => {
     </div>
     <button
       @click="clearFilter"
-      class="m-auto desktop:block hidden pb-[30px] desktop:text-[0.75vw]"
+      class="m-auto desktop:block hidden text-[#6D6D6D] pb-[30px] desktop:text-[0.75vw]"
     >
       {{ t("filter.clear") }}
     </button>

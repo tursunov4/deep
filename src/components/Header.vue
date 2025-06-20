@@ -5,6 +5,7 @@ import { useRoute } from "vue-router";
 import router from "../router";
 
 const { locale } = useI18n({ useScope: "global" });
+const { t } = useI18n({ useScope: "global" });
 const route = useRoute();
 
 const isMobileMenuOpen = ref(false);
@@ -134,57 +135,92 @@ const textColorClasses = computed(() => {
   }
 });
 
-const menuItems = [
-  { title: "САНТЕХНИКА", link: "#" },
-  { title: "ОСВЕЩЕНИЕ", link: "/category/Lighting" },
-  { title: "ДВЕРИ", link: "/doors" },
-  { title: "МЕБЕЛЬ", link: "/Category/Furniture" },
-  { title: "ФУРНИТУРА", link: "/#" },
-  { title: "КОЛЛЕКЦИИ", link: "/collections" },
-  { title: "ВДОХНОВЕНИЕ", link: "/inspirations" },
-  { title: "КАТАЛОГИ", link: "/catalogs" },
-  { title: "О НАС", link: "/about" },
-];
+const menuItems = computed(() => [
+  { title: t("header.santexnika"), link: "#" },
+  { title: t("header.lighting"), link: "/category/Lighting" },
+  { title: t("header.doors"), link: "/doors" },
+  { title: t("header.furniture"), link: "/Category/Furniture" },
+  { title: t("header.fur"), link: "/#" },
+  { title: t("header.collections"), link: "/collections" },
+  { title: t("header.inspiration"), link: "/inspirations" },
+  { title: t("header.catalog"), link: "/catalogs" },
+  { title: t("header.about"), link: "/about" },
+]);
 
-// Full width dropdown menu data structure
-const dropdownMenus = {
+const dropdownMenus = computed(() => ({
   САНТЕХНИКА: {
     categories: [
-      { name: "ДИММЕРЫ", link: "/category/OFFSETS" },
-      { name: "РОЗЕТКИ", link: "/category/OFFSETS" },
-      { name: "ВЫКЛЮЧАТЕЛИ", link: "/category/OFFSETS" },
-      { name: "ТЁПЛЫЙ ПОЛ", link: "/category/OFFSETS" },
-      { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
+      { name: t("header.dimmers"), link: "/category/OFFSETS" },
+      { name: t("header.sokets"), link: "/category/OFFSETS" },
+      { name: t("header.switches"), link: "/category/OFFSETS" },
+      { name: t("header.floor"), link: "/category/OFFSETS" },
+      { name: t("header.lights"), link: "/category/OFFSETS" },
     ],
     deepDesign: [
-      { name: "Пластины и тумблеры", link: "/category/OFFSETS" },
-      { name: "Монтажные коробки", link: "/category/OFFSETS" },
+      { name: t("header.plastic"), link: "/category/OFFSETS" },
+      { name: t("header.box"), link: "/category/OFFSETS" },
     ],
     information: [
-      { name: "ГЛАВНАЯ", link: "/" },
-      { name: "О КОМПАНИИ", link: "/about" },
-      { name: "КАТАЛОГИ", link: "/catalogs" },
+      { name: t("header.main"), link: "/" },
+      { name: t("header.about"), link: "/about" },
+      { name: t("header.catalog"), link: "/catalogs" },
+    ],
+  },
+  PLUMBING: {
+    categories: [
+      { name: t("header.dimmers"), link: "/category/OFFSETS" },
+      { name: t("header.sokets"), link: "/category/OFFSETS" },
+      { name: t("header.switches"), link: "/category/OFFSETS" },
+      { name: t("header.floor"), link: "/category/OFFSETS" },
+      { name: t("header.lights"), link: "/category/OFFSETS" },
+    ],
+    forHome: [
+      { name: t("header.plastic"), link: "/category/OFFSETS" },
+      { name: t("header.box"), link: "/category/OFFSETS" },
+    ],
+    information: [
+      { name: t("header.main"), link: "/" },
+      { name: t("header.about"), link: "/about" },
+      { name: t("header.catalog"), link: "/catalogs" },
     ],
   },
   ФУРНИТУРА: {
     categories: [
-      { name: "ДИММЕРЫ", link: "/category/OFFSETS" },
-      { name: "РОЗЕТКИ", link: "/category/OFFSETS" },
-      { name: "ВЫКЛЮЧАТЕЛИ", link: "/category/OFFSETS" },
-      { name: "ТЁПЛЫЙ ПОЛ", link: "/category/OFFSETS" },
-      { name: "ПОТОЛОЧНЫЕ СВЕТИЛЬНИКИ", link: "/category/OFFSETS" },
+      { name: t("header.dimmers"), link: "/category/OFFSETS" },
+      { name: t("header.sokets"), link: "/category/OFFSETS" },
+      { name: t("header.switches"), link: "/category/OFFSETS" },
+      { name: t("header.floor"), link: "/category/OFFSETS" },
+      { name: t("header.lights"), link: "/category/OFFSETS" },
     ],
     forHome: [
-      { name: "Пластины и тумблеры", link: "/category/OFFSETS" },
-      { name: "Монтажные коробки", link: "/category/OFFSETS" },
+      { name: t("header.plastic"), link: "/category/OFFSETS" },
+      { name: t("header.box"), link: "/category/OFFSETS" },
     ],
     information: [
-      { name: "ГЛАВНАЯ", link: "/" },
-      { name: "О КОМПАНИИ", link: "/about" },
-      { name: "КАТАЛОГИ", link: "/catalogs" },
+      { name: t("header.main"), link: "/" },
+      { name: t("header.about"), link: "/about" },
+      { name: t("header.catalog"), link: "/catalogs" },
     ],
   },
-};
+  Hardware: {
+    categories: [
+      { name: t("header.dimmers"), link: "/category/OFFSETS" },
+      { name: t("header.sokets"), link: "/category/OFFSETS" },
+      { name: t("header.switches"), link: "/category/OFFSETS" },
+      { name: t("header.floor"), link: "/category/OFFSETS" },
+      { name: t("header.lights"), link: "/category/OFFSETS" },
+    ],
+    forHome: [
+      { name: t("header.plastic"), link: "/category/OFFSETS" },
+      { name: t("header.box"), link: "/category/OFFSETS" },
+    ],
+    information: [
+      { name: t("header.main"), link: "/" },
+      { name: t("header.about"), link: "/about" },
+      { name: t("header.catalog"), link: "/catalogs" },
+    ],
+  },
+}));
 
 // Clear any existing timeout
 const clearDropdownTimeout = () => {
@@ -197,7 +233,7 @@ const clearDropdownTimeout = () => {
 // Handle dropdown hover with improved logic
 const handleMouseEnter = (menuTitle) => {
   clearDropdownTimeout();
-  if (dropdownMenus[menuTitle]) {
+  if (dropdownMenus.value[menuTitle]) {
     activeDropdown.value = menuTitle;
     activeSubDropdown.value = null;
   } else {
@@ -245,15 +281,19 @@ const toggleMobileMenu = () => {
 };
 
 const handleMobileMenuClick = (menuTitle) => {
-  if (dropdownMenus[menuTitle]) {
+  // Check if this menu item has dropdown content
+  if (dropdownMenus.value[menuTitle]) {
+    // This item has submenu, show it
     activeDropdown.value = menuTitle;
     activeSubDropdown.value = null;
     mobileMenuLevel.value = 1;
   } else {
-    router.push(
-      menuItems.find((item) => item.title === menuTitle)?.link || "/"
-    );
-    toggleMobileMenu();
+    // This item doesn't have submenu, navigate directly
+    const menuItem = menuItems.value.find((item) => item.title === menuTitle);
+    if (menuItem && menuItem.link) {
+      navigateTo(menuItem.link);
+      toggleMobileMenu(); // Close mobile menu after navigation
+    }
   }
 };
 
@@ -296,6 +336,10 @@ onUnmounted(() => {
   document.body.style.overflow = "";
   clearDropdownTimeout();
 });
+const closeMenuAndNavigate = (path) => {
+  navigateTo(path);
+  toggleMobileMenu();
+};
 
 import { AppStore } from "../store/AppStore";
 const App = AppStore();
@@ -402,17 +446,17 @@ watch(
         @mouseleave="handleDropdownLeave"
       >
         <div class="w-full mx-auto px-[94px] py-[40px]">
-          <div class="grid grid-cols-6 border-b border-gray-600 pb-5">
+          <div class="grid grid-cols-6 border-b border-[#9F9F9F] pb-5">
             <!-- Column 1 -->
             <div class="col-span-1">
-              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
-                Компоненты
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+                {{ t("header.component") }}
               </h3>
               <div class="space-y-4">
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.link"
-                  class="text-white hover:text-[#8D8D8D] cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white hover:text-[#9F9F9F] cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${category.link}`)"
                 >
                   {{ category.name }}
@@ -422,8 +466,8 @@ watch(
 
             <!-- Column 2 -->
             <div class="col-span-1">
-              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
-                Сопутствующие товары
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+                {{ t("header.tovar") }}
               </h3>
               <div class="space-y-4">
                 <div
@@ -431,7 +475,7 @@ watch(
                     ? dropdownMenus[activeDropdown].deepDesign
                     : dropdownMenus[activeDropdown].forHome"
                   :key="item.link"
-                  class="text-white uppercase hover:text-[#8D8D8D] cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white uppercase hover:text-[#9F9F9F] cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${item.link}`)"
                 >
                   {{ item.name }}
@@ -441,14 +485,14 @@ watch(
 
             <!-- Column 3 -->
             <div class="col-span-1">
-              <h3 class="text-gray-400 text-[12px] font-normal mb-6">
-                Информация
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+                {{ t("header.info") }}
               </h3>
               <div class="space-y-4">
                 <div
                   v-for="info in dropdownMenus[activeDropdown].information"
                   :key="info.link"
-                  class="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300 text-[18px]"
+                  class="text-white uppercase hover:text-[#9F9F9F] cursor-pointer transition-colors duration-300 text-[18px]"
                   @click="navigateTo(`${info.link}`)"
                 >
                   {{ info.name }}
@@ -457,18 +501,14 @@ watch(
             </div>
 
             <!-- Column 4 -->
-            <div class="col-span-3 border-l border-gray-600 pl-[94.5px]">
+            <div class="col-span-3 border-l border-[#9F9F9F] pl-[94.5px]">
               <img
                 class="mb-3"
                 src="../assets/deppdesign.svg"
                 alt="deep design"
               />
-              <p class="text-gray-400 text-xs leading-relaxed font-light">
-                Разрабатывая и производя продукцию Depp-design мы стремимся
-                создать детали, которые дополнят ваше пространство, создавая
-                тонкую лаконичную атмосферу как для знаковых событий, так и для
-                повседневной рутины. Ведь наша жизнь состоит из множества
-                маленьких событий, которые складываются в единое целое.
+              <p class="text-[#8D8D8D] text-xs leading-relaxed font-light">
+                {{ t("header.description") }}
               </p>
             </div>
           </div>
@@ -490,15 +530,15 @@ watch(
             <!-- Categories Header -->
             <div class="flex-1">
               <h3
-                class="text-gray-300 pt-8 border-t border-gray-600 text-[12px] mb-5 tracking-wider font-medium"
+                class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
               >
-                Категории
+                {{ t("header.category") }}
               </h3>
 
               <div class="space-y-0">
                 <div v-for="item in menuItems" :key="item.title" class="block">
                   <div
-                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:text-gray-300 transition-all duration-300"
+                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:text-[#9F9F9F] transition-all duration-300"
                     @click="handleMobileMenuClick(item.title)"
                   >
                     <span>{{ item.title }}</span>
@@ -522,41 +562,41 @@ watch(
             </div>
 
             <!-- Footer Section -->
-            <div class="mt-auto pt-5 border-gray-800 space-y-4">
+            <div class="mt-auto pt-5 border-[#9F9F9F] space-y-4">
               <!-- Deep Design Section -->
               <div class="mb-6">
                 <h4
-                  class="text-gray-300 pt-8 border-t border-gray-600 text-[12px] mb-5 tracking-wider font-medium"
+                  class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
                 >
                   Deep Design
                 </h4>
                 <div class="space-y-0">
                   <div
-                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
+                    class="text-white uppercase text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/');
                       toggleMobileMenu();
                     "
                   >
-                    ГЛАВНАЯ
+                    {{ t("header.main") }}
                   </div>
                   <div
-                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
+                    class="text-white text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/about');
                       toggleMobileMenu();
                     "
                   >
-                    О КОМПАНИИ
+                    {{ t("header.about") }}
                   </div>
                   <div
-                    class="text-white text-[15px] hover:text-gray-300 cursor-pointer transition-opacity py-1"
+                    class="text-white text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/catalogs');
                       toggleMobileMenu();
                     "
                   >
-                    КАТАЛОГИ
+                    {{ t("header.catalog") }}
                   </div>
                 </div>
               </div>
@@ -567,7 +607,7 @@ watch(
                   @click="changeLang('ru')"
                   :class="[
                     'text-sm transition-colors font-arial duration-300',
-                    locale === 'ru' ? 'text-white' : 'text-gray-400',
+                    locale === 'ru' ? 'text-white' : 'text-[#9F9F9F]',
                   ]"
                 >
                   RU
@@ -576,7 +616,7 @@ watch(
                   @click="changeLang('en')"
                   :class="[
                     'text-sm transition-colors font-arial duration-300',
-                    locale === 'en' ? 'text-white' : 'text-gray-400',
+                    locale === 'en' ? 'text-white' : 'text-[#9F9F9F]',
                   ]"
                 >
                   EN
@@ -585,12 +625,11 @@ watch(
 
               <div class="grid grid-cols-2 pb-5">
                 <!-- Contact Info -->
-                <div class="text-gray-300 text-sm">
+                <div class="text-[#9F9F9F] text-sm">
                   <div class="mb-2 text-white">+7 909 999 3517</div>
                   <div class="space-y-1">
-                    <div>Москва, ул. Свободы 35</div>
-                    <div>стр. 17</div>
-                    <div>будни с 9:00—19:00</div>
+                    <div>{{ t("header.menu.address") }}</div>
+                    <div>{{ t("header.den") }}</div>
                   </div>
                 </div>
                 <!-- Social Icons -->
@@ -665,9 +704,9 @@ watch(
             <div class="flex-1">
               <!-- Categories Header -->
               <h3
-                class="text-gray-300 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
+                class="text-[#9F9F9F] font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
               >
-                Категории
+                {{ t("header.category") }}
               </h3>
 
               <!-- Categories List -->
@@ -675,7 +714,7 @@ watch(
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.name"
-                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-gray-300 transition-opacity"
+                  class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-[#9F9F9F] transition-opacity"
                   @click="
                     navigateTo(category.link);
                     toggleMobileMenu();
@@ -689,8 +728,9 @@ watch(
               <div class="mb-8">
                 <div class="flex items-center justify-between cursor-pointer">
                   <span
-                    class="text-gray-300 font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
-                    >Для дома
+                    class="text-[#9F9F9F] font-normal font-arial mb-5 text-[12px] leading-[1] tracking-[0] align-middle"
+                  >
+                    {{ t("header.forhome") }}
                   </span>
                 </div>
 
@@ -700,7 +740,7 @@ watch(
                       ? dropdownMenus[activeDropdown].deepDesign
                       : dropdownMenus[activeDropdown].forHome"
                     :key="subItem.name"
-                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-gray-300 transition-opacity"
+                    class="text-white font-normal text-[20px] leading-[15px] pb-5 tracking-[0] uppercase cursor-pointer hover:text-[#9F9F9F] transition-opacity"
                     @click="
                       navigateTo(subItem.link);
                       toggleMobileMenu();

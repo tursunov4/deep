@@ -274,12 +274,14 @@ watch(showCount, () => {
   <div v-if="!isDesktop && !isOpened">
     <div
       @click="$emit('toggleFilter')"
-      class="mx-[20px] h-[40px] py-[20px] desktop:py-[0] mb-[20px] flex items-center title text-lg border border-black"
+      class="mx-[20px] h-[40px] py-[20px] relative desktop:py-[0] mb-[20px] flex items-center title text-lg border border-black"
     >
-      <div class="w-full text-center uppercase">{{ t("filter.filter") }}</div>
+      <div :class="['text-center uppercase', showCount ? 'w-4/5' : 'w-full']">
+        {{ t("filter.filter") }}
+      </div>
       <div
         v-if="showCount"
-        class="w-1/5 bg-black font-TT h-full flex justify-center items-center text-white"
+        class="w-1/5 bg-black absolute right-0 h-[40px] font-TT h-full flex justify-center items-center text-white"
       >
         {{ resultAmount }}
       </div>
