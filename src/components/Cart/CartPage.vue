@@ -85,22 +85,14 @@ const { isDesktop } = useWindowWidth();
       ref="top"
       class="flex flex-col items-center desktop:mt-[155px] mt-[120px] desktop:mb-[45px] mb-[50px]"
     >
-      <div
-        class="flex flex-col items-center gap-[14px] desktop:gap-[30px] mx-auto my-auto"
-      >
-        <h1
-          class="title text-center desktop:text-[80px] uppercase desktop:leading-[80px] text-[40px] leading-[40px]"
-        >
+      <div class="flex flex-col gap-[10px] items-center mx-auto my-auto">
+        <h1 class="title text-center desktop:text-[40px] uppercase text-[40px]">
           {{ t("cart.cart") }}
         </h1>
         <div
-          class="desktop:text-[18px] desktop:min-h-[27px] hidden desktop:block text-[10px] font-TT font-bold text-center"
+          class="desktop:text-[18px] fonnt-bold text-[18px] uppercase desktop:block text-[10px] font-TT font-bold text-center"
         >
-          {{
-            Cart.products.reduce((sum, product) => sum + product.amount, 0) > 0
-              ? Cart.products.reduce((sum, product) => sum + product.amount, 0)
-              : ""
-          }}
+          товары
         </div>
       </div>
     </div>
@@ -240,10 +232,12 @@ const { isDesktop } = useWindowWidth();
         v-if="isDesktop"
         class="flex font-TT font-bold px-[29px] py-[1.8750vw]"
       >
-        <div class="w-1/2 whitespace-pre-wrap text-[5vw] leading-[5vw]">
+        <div
+          class="w-1/2 whitespace-pre-wrap font-bold text-[#8B8B8B] text-[40px] h-[280px] flex items-center justify-center"
+        >
           {{ t("cart.cart_empty").toUpperCase() }}
         </div>
-        <div class="w-1/2 whitespace-pre-wrap text-[2.5vw] leading-[2.5vw]">
+        <div class="w-1/2 whitespace-pre-wrap text-[40px] leading-[2.5vw]">
           {{ t("cart.cart_empty_description").toUpperCase() }}
           <div
             @click="
@@ -254,7 +248,7 @@ const { isDesktop } = useWindowWidth();
               Cart.products.reduce((sum, product) => sum + product.amount, 0) ==
               0
             "
-            class="font-TT font-bold mt-[5vw] mb-[6vw] text-[1.1250vw] leading-[1.1250vw] w-[15vw] h-[3.1250vw] hover:bg-black hover:text-white flex justify-center items-center border border-black"
+            class="font-TT font-bold mt-[50px] mb-[6vw] text-[1.1250vw] w-[240px] h-[35px] hover:bg-black hover:text-white flex justify-center items-center border border-black"
           >
             {{ t("cart.shop_now").toUpperCase() }}
           </div>

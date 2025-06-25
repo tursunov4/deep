@@ -131,6 +131,12 @@ function clearFilter() {
   filters.rooms.selected = [];
   filters.styles.selected = [];
   filters.authors.selected = [];
+
+  // 🔁 query'dan tozalangan filterlarni router orqali yangilash
+  setFilters();
+
+  // 🔄 natija sonini ham yangilash (0 yoki undefined qilinadi)
+  resultAmount.value = undefined;
 }
 
 onMounted(async () => {

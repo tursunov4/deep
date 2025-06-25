@@ -10,7 +10,7 @@ import Printericon from "../assets/pinterest.svg";
 import Telegramicon from "../assets/telegram.svg";
 import Facebookicon from "../assets/Facebook.svg";
 import Instagramicon from "../assets/Instagramm.svg";
-import Youtubeicon from "../assets/youtube.svg";
+import Youtubeicon from "../assets/yt.svg";
 import { useModal } from "../composables/useModal";
 const { openModal } = useModal();
 const { t } = useI18n({ useScope: "global" });
@@ -35,10 +35,10 @@ onMounted(() => {
     class="w-full hidden desktop:flex flex-wrap border-t border-black text-black"
   >
     <!-- Desktop -->
-    <div class="w-full hidden pl-[30px] desktop:flex">
+    <div class="w-full hidden desktop:flex">
       <!-- Column 1: Company -->
       <div
-        class="w-1/4 border-r border-black flex flex-col justify-between py-10 px-4"
+        class="w-1/4 border-r border-black flex flex-col justify-between py-10 px-4 pl-[30px]"
       >
         <div>
           <div class="text-xs text-[#6D6D6D] mb-4">Depp Design</div>
@@ -130,11 +130,13 @@ onMounted(() => {
             {{ t("footer.work_time") }}
           </div>
           <div class="mt-2">
-            <p class="font-bold uppercase font-TT text-[18px] mt-4">
+            <p
+              class="font-bold uppercase text-[#6D6D6D] font-TT text-[18px] mt-4"
+            >
               {{ t("footer.week") }}
             </p>
             <a
-              class="font-bold uppercase font-TT text-[18px] mt-4 mb-2"
+              class="font-bold uppercase text-[#6D6D6D] font-TT text-[18px] mt-4 mb-2"
               href="mailto:info@depp-d.com"
             >
               {{ t("footer.weekend") }}
@@ -167,7 +169,7 @@ onMounted(() => {
             >
           </div>
         </div>
-        <div class="flex gap-3 mt-6">
+        <div class="flex justify-end gap-3 mt-6">
           <img class="w-[27.9px] h-[27.9px]" :src="WhatsAppicon" />
           <img class="w-[27.9px] h-[27.9px]" :src="Telegramicon" />
           <img class="w-[27.9px] h-[27.9px]" :src="Printericon" />

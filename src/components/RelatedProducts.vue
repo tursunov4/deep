@@ -3,7 +3,6 @@ import { components } from "../types/schema";
 import { useI18n } from "vue-i18n";
 import ProductScroller from "./ProductScroller.vue";
 const { t } = useI18n({ useScope: "global" });
-
 defineProps<{
   related: components["schemas"]["PreviewAbstract"][];
 }>();

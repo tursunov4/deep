@@ -32,7 +32,9 @@ onMounted(() => {
 <template>
   <div class="w-full block-gap">
     <div class="flex main-p-sides justify-between">
-      <div class="title text-[40px] leading-10 w-1/3 desktop:w-auto">
+      <div
+        class="title desktop:text-[40px] text-[32px] leading-10 w-1/3 desktop:w-auto"
+      >
         {{ t("new_products.new_products") }}
       </div>
     </div>
