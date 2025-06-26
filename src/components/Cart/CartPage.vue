@@ -99,9 +99,9 @@ const { isDesktop } = useWindowWidth();
 
     <!--Отрисовка верхней шапки для мобильной версии-->
     <div
-      class="desktop:hidden font-TT font-bold p-6 flex justify-between items-center text-[3.5897vw] leading-[4.4872vw] border-b border-black"
+      class="font-TT desktop:justify-end justify-end font-bold p-6 flex gap-[10px] items-center text-[14px] leading-[14px] desktop:border-0 border-b border-black"
     >
-      <div>
+      <!-- <div>
         {{ step != "formed" ? t("cart.check_order") : t("cart.cart") }}
       </div>
       <div
@@ -115,7 +115,15 @@ const { isDesktop } = useWindowWidth();
         }"
       >
         {{ t("cart.delete_all") }}
-      </div>
+      </div> -->
+
+      <RouterLink class="text-customGray" to="/">
+        {{ t("breadcrumbs.home") }}
+      </RouterLink>
+      -
+      <RouterLink to="/cart">
+        {{ t("cart.cart") }}
+      </RouterLink>
     </div>
 
     <div class="p-6 desktop:p-0">
@@ -188,22 +196,11 @@ const { isDesktop } = useWindowWidth();
           >
             {{ t("cart.check_order") }}
           </div>
-          <div
-            @click="Cart.clearCart()"
-            v-if="
-              step == 'cart' &&
-              Cart.products.reduce((sum, product) => sum + product.amount, 0) >
-                0
-            "
-            class="cursor-pointer"
-          >
-            {{ t("cart.delete_all") }}
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="desktop:mt-0 mt-[-4.6154vw]">
+    <div class="desktop:mt-0">
       <CartProducts
         v-if="
           step == 'cart' &&
@@ -227,7 +224,6 @@ const { isDesktop } = useWindowWidth();
       <!--Прокручиваем страницу вверх-->
       {{ scrollToTop() }}
 
-      <!--Отрисовка empty page на десктопе-->
       <div
         v-if="isDesktop"
         class="flex font-TT font-bold px-[29px] py-[1.8750vw]"
