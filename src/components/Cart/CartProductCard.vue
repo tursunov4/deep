@@ -25,7 +25,7 @@ defineProps<{
         <div class="w-full">
           <div class="flex relative w-full items-start gap-5 justify-between">
             <div>
-              <div class="flex items-start dekstop:items-center gap-5">
+              <div class="flex items-start desktop:items-center gap-5">
                 <div
                   class="w-[103px] h-[119px] desktop:w-[120px] desktop:h-[138px] self-start aspect-square"
                 >
@@ -47,7 +47,7 @@ defineProps<{
               </div>
             </div>
             <div>
-              <div class="dekstop:flex hidden items-center">
+              <!-- <div class="desktop:flex hidden items-center">
                 <div
                   class="desktop:mr-6 w-[20%] desktop:w-auto font-TT font-semibold desktop:text-[1.1250vw] desktop:leading-[1.4063vw] text-[4.6154vw] leading-[5.7692vw]"
                 >
@@ -80,7 +80,7 @@ defineProps<{
                     }}
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div
               @click="Cart.deleteProduct(product.product.id)"
@@ -94,7 +94,9 @@ defineProps<{
                 height="15"
               />
             </div>
-            <div class="absolute w-auto right-0 bottom-0 flex items-center">
+            <div
+              class="absolute desktop:hidden w-auto right-0 bottom-0 flex items-center"
+            >
               <div
                 class="desktop:mr-6 w-[20%] desktop:w-auto font-TT font-semibold desktop:text-[1.1250vw] desktop:leading-[1.4063vw] text-[4.6154vw] leading-[5.7692vw]"
               >
@@ -126,10 +128,10 @@ defineProps<{
         </div>
 
         <div
-          class="flex items-center dekstop:flex-row flex-row-reverse justify-between gap-3 mt-[14px] desktop:ml-[140px]"
+          class="flex items-center desktop:flex-row flex-row-reverse justify-between gap-3 mt-[14px] desktop:ml-[140px]"
         >
           <div
-            class="flex desktop:w-[220px] dekstop:flex-row flex-row-reverse items-center gap-5"
+            class="flex desktop:w-[220px] desktop:flex-row flex-row-reverse items-center gap-5"
           >
             <img
               :src="product.product.colour.photo"
@@ -139,7 +141,7 @@ defineProps<{
               {{ product.product.colour.rus_name }}
             </div>
           </div>
-          <div class="dekstop:flex hidden items-center">
+          <div class="desktop:flex hidden items-center">
             <div
               class="desktop:mr-6 w-[20%] desktop:w-auto font-TT font-semibold desktop:text-[1.1250vw] desktop:leading-[1.4063vw] text-[4.6154vw] leading-[5.7692vw]"
             >
