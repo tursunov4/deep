@@ -84,49 +84,16 @@ watch(
 
 <template>
   <div v-if="selectedProduct" class="w-full flex flex-wrap mt-44">
-    <!-- <div class="w-1/2 z-20 main-p-sides flex gap-4 pb-[26px]">
-      <span @click="router.push('/')" class="cursor-pointer">{{
-        t("breadcrumbs.home")
-      }}</span
-      ><span @click="router.push('/collections')" class="cursor-pointer">{{
-        t("breadcrumbs.collections")
-      }}</span
-      ><span>{{
-        App.language == "ru"
-          ? productGroup.rus_collection_name.toUpperCase()
-          : productGroup.eng_collection_name.toUpperCase()
-      }}</span
-      ><span>{{
-        App.language == "ru"
-          ? productGroup.rus_subcategory_name.toUpperCase()
-          : productGroup.eng_subcategory_name.toUpperCase()
-      }}</span>
-    </div> -->
-
-    <!--product id-->
-    <!-- <div class="w-1/2 flex z-0 gap-4 -ml-[1px] main-p-sides">
-      id {{ selectedProduct.id_code }}
-    </div> -->
-
-    <!--product view-->
     <div class="w-full relative flex">
-      <!--left part of product view-->
       <div
         class="w-1/2 aspect-square border-r border-b border-black pb-[35px] pl-[30px] pr-[1.575vw]"
       >
         <PhotoCarousel :images="[...selectedProduct.product_images]" />
       </div>
-      <!--end left part of product view-->
 
-      <!--right part of product view-->
       <div
         class="w-1/2 flex flex-col aspect-square border-black border-b main-p-sides pt-0"
       >
-        <!-- product price -->
-
-        <!--end product price-->
-
-        <!--product name-->
         <div
           class="title font-normal text-[40px] font-TT uppercase leading-[1.05] mt-[2px]"
         >
@@ -226,116 +193,118 @@ watch(
         </div>
         <!--end title and description-->
 
-        <div
-          class="-mx-[30px] flex flex-grow mt-[20px] justify-between items-end"
-        >
+        <div class="border border-black mt-[50px]">
           <div
-            :class="{
-              'bg-[#8B8B8B] text-white underline underline-offset-[16px]':
-                selectedInfo.section === 'tech',
-            }"
-            class="px-[30px] duration-150 transition-all py-[12px] cursor-pointer"
-            @mouseleave="
-              selectedInfo.clicked ? null : (selectedInfo.section = null)
+            v-on-click-outside="
+              () => {
+                (selectedInfo.section = null), (selectedInfo.clicked = false);
+              }
             "
-            @mouseover="
-              selectedInfo.clicked ? null : (selectedInfo.section = 'tech')
-            "
-            @click="
-              selectedInfo.section = 'tech';
-              selectedInfo.clicked = true;
-            "
+            :class="{ '': selectedInfo.section }"
+            class="h-[100px] text-[12px] text-[#6D6D6D] duration-150 transition-all font-arial px-[30px] py-[24px]"
           >
-            {{ t("product_page.guarantee") }}
+            <div class="w-full h-full overflow-hidden overflow-ellipsis">
+              <template v-if="selectedInfo.section === 'tech'">{{
+                App.language == "ru"
+                  ? selectedProduct.guarantee_ru
+                  : selectedProduct.guarantee_eng
+              }}</template>
+              <template v-if="selectedInfo.section === 'shipping'">{{
+                App.language == "ru"
+                  ? selectedProduct.delivery_ru
+                  : selectedProduct.delivery_eng
+              }}</template>
+              <template v-if="selectedInfo.section === 'support'">{{
+                App.language == "ru"
+                  ? selectedProduct.support_ru
+                  : selectedProduct.support_eng
+              }}</template>
+              <template v-if="selectedInfo.section === 'returns'">{{
+                App.language == "ru"
+                  ? selectedProduct.refund_ru
+                  : selectedProduct.refund_eng
+              }}</template>
+            </div>
           </div>
-          <div
-            :class="{
-              'bg-[#8B8B8B] text-white underline underline-offset-[16px]':
-                selectedInfo.section === 'shipping',
-            }"
-            class="px-[30px] duration-150 transition-all py-[12px] cursor-pointer"
-            @mouseleave="
-              selectedInfo.clicked ? null : (selectedInfo.section = null)
-            "
-            @mouseover="
-              selectedInfo.clicked ? null : (selectedInfo.section = 'shipping')
-            "
-            @click="
-              selectedInfo.section = 'shipping';
-              selectedInfo.clicked = true;
-            "
-          >
-            {{ t("product_page.shipping") }}
-          </div>
-          <div
-            :class="{
-              'bg-[#8B8B8B] text-white underline underline-offset-[16px]':
-                selectedInfo.section === 'support',
-            }"
-            class="px-[30px] duration-150 transition-all py-[12px] cursor-pointer"
-            @mouseleave="
-              selectedInfo.clicked ? null : (selectedInfo.section = null)
-            "
-            @mouseover="
-              selectedInfo.clicked ? null : (selectedInfo.section = 'support')
-            "
-            @click="
-              selectedInfo.section = 'support';
-              selectedInfo.clicked = true;
-            "
-          >
-            {{ t("product_page.support") }}
-          </div>
-          <div
-            :class="{
-              'bg-[#8B8B8B] text-white underline underline-offset-[16px]':
-                selectedInfo.section === 'returns',
-            }"
-            class="px-[30px] duration-150 transition-all py-[12px] cursor-pointer"
-            @mouseleave="
-              selectedInfo.clicked ? null : (selectedInfo.section = null)
-            "
-            @mouseover="
-              selectedInfo.clicked ? null : (selectedInfo.section = 'returns')
-            "
-            @click="
-              selectedInfo.section = 'returns';
-              selectedInfo.clicked = true;
-            "
-          >
-            {{ t("product_page.returns") }}
-          </div>
-        </div>
-        <div
-          v-on-click-outside="
-            () => {
-              (selectedInfo.section = null), (selectedInfo.clicked = false);
-            }
-          "
-          :class="{ 'bg-[#8B8B8B]': selectedInfo.section }"
-          class="h-[100px] text-[12px] duration-150 transition-all font-arial -mx-[30px] px-[30px] py-[24px] text-white"
-        >
-          <div class="w-full h-full overflow-hidden overflow-ellipsis">
-            <template v-if="selectedInfo.section === 'tech'">{{
-              App.language == "ru"
-                ? selectedProduct.guarantee_ru
-                : selectedProduct.guarantee_eng
-            }}</template>
-            <template v-if="selectedInfo.section === 'shipping'">{{
-              App.language == "ru"
-                ? selectedProduct.delivery_ru
-                : selectedProduct.delivery_eng
-            }}</template>
-            <template v-if="selectedInfo.section === 'support'">{{
-              App.language == "ru"
-                ? selectedProduct.support_ru
-                : selectedProduct.support_eng
-            }}</template>
-            <template v-if="selectedInfo.section === 'returns'">{{
-              App.language == "ru"
-                ? selectedProduct.refund_ru
-                : selectedProduct.refund_eng
-            }}</template>
+          <div class="flex flex-grow justify-between items-end">
+            <div
+              :class="{
+                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  selectedInfo.section === 'tech',
+              }"
+              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+              @mouseleave="
+                selectedInfo.clicked ? null : (selectedInfo.section = null)
+              "
+              @mouseover="
+                selectedInfo.clicked ? null : (selectedInfo.section = 'tech')
+              "
+              @click="
+                selectedInfo.section = 'tech';
+                selectedInfo.clicked = true;
+              "
+            >
+              {{ t("product_page.guarantee") }}
+            </div>
+            <div
+              :class="{
+                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  selectedInfo.section === 'shipping',
+              }"
+              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+              @mouseleave="
+                selectedInfo.clicked ? null : (selectedInfo.section = null)
+              "
+              @mouseover="
+                selectedInfo.clicked
+                  ? null
+                  : (selectedInfo.section = 'shipping')
+              "
+              @click="
+                selectedInfo.section = 'shipping';
+                selectedInfo.clicked = true;
+              "
+            >
+              {{ t("product_page.shipping") }}
+            </div>
+            <div
+              :class="{
+                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  selectedInfo.section === 'support',
+              }"
+              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+              @mouseleave="
+                selectedInfo.clicked ? null : (selectedInfo.section = null)
+              "
+              @mouseover="
+                selectedInfo.clicked ? null : (selectedInfo.section = 'support')
+              "
+              @click="
+                selectedInfo.section = 'support';
+                selectedInfo.clicked = true;
+              "
+            >
+              {{ t("product_page.support") }}
+            </div>
+            <div
+              :class="{
+                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  selectedInfo.section === 'returns',
+              }"
+              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+              @mouseleave="
+                selectedInfo.clicked ? null : (selectedInfo.section = null)
+              "
+              @mouseover="
+                selectedInfo.clicked ? null : (selectedInfo.section = 'returns')
+              "
+              @click="
+                selectedInfo.section = 'returns';
+                selectedInfo.clicked = true;
+              "
+            >
+              {{ t("product_page.returns") }}
+            </div>
           </div>
         </div>
       </div>
@@ -501,92 +470,6 @@ watch(
         </div>
       </div>
     </div>
-
-    <!-- <div class="w-full mt-[80px] main-p-sides">
-      <div class="border-black border-t flex">
-        <div class="w-1/2 py-6">
-          <div class="title text-[40px] w-[45%]">
-            {{
-              App.language == "ru"
-                ? productGroup.rus_name.toUpperCase()
-                : productGroup.eng_name.toUpperCase()
-            }}
-          </div>
-        </div>
-        <div class="w-1/2 pb-6">
-          <div class="w-full border-black flex">
-            <div
-              class="w-1/2 border-black flex flex-col py-6 main-p-sides gap-6"
-            >
-              <div>{{ t("product_page.summary") }}</div>
-              <div class="title text-lg w-1/2">
-                {{
-                  App.language == "ru"
-                    ? selectedProduct.rus_name.toUpperCase()
-                    : selectedProduct.eng_name.toUpperCase()
-                }}
-              </div>
-            </div>
-            <div class="w-1/2">
-              <div
-                class="w-full flex border-black border-b border-l flex-col main-p-sides py-6 pr-0"
-              >
-                <div class="mb-6">{{ t("product_page.shop_by_colors") }}</div>
-                <div
-                  @click="
-                    router.push({
-                      path:
-                        '/sub-category/' + productGroup.eng_subcategory_name,
-                      query: { color: color.id },
-                    })
-                  "
-                  v-for="color in colors"
-                  class="flex title uppercase cursor-pointer text-base justify-between"
-                >
-                  <div>
-                    {{ App.language == "ru" ? color.rus_name : color.eng_name }}
-                  </div>
-                  <div>{{ color.count }}</div>
-                </div>
-              </div>
-       
-              <div class="flex border-l border-black">
-                <a
-                  v-if="
-                    selectedProduct.collection_file_ru ||
-                    selectedProduct.collection_file_eng
-                  "
-                  :href="
-                    App.language == 'ru'
-                      ? selectedProduct.collection_file_ru ?? ''
-                      : selectedProduct.collection_file_eng ?? ''
-                  "
-                  target="_blank"
-                >
-                  <div class="pl-[30px] mb-[60px]">
-                    <div
-                      class="w-[60px] aspect-square border border-black p-[11px] mt-[30px]"
-                    >
-                      <div
-                        class="w-full h-full bg-contain bg-center bg-no-repeat bg-[url('./assets/PDF.png')]"
-                      />
-                    </div>
-                  </div>
-                </a>
-                <div>
-                  <div
-                    class="mt-[30px] font-TT text-[18px] font-bold whitespace-pre-wrap leading-[1.2] pl-[21px]"
-                  >
-                    {{ t("DEPP\nCOLLECTION") }}
-                  </div>
-                  <div class="pl-[21px] pt-[4px] font-TT text-[12px]">PDF</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
 
     <div class="w-full mt-[10px]">
       <SeeAlso

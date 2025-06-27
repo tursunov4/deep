@@ -519,78 +519,76 @@ const ru_options = [
 <template>
   <div class="w-full flex p-6">
     <div class="desktop:w-full w-full">
-      <form class="grid grid-cols-1 desktop:grid-cols-2 w-full">
-        <div>
+      <form class="grid grid-cols-1 desktop:grid-cols-2 gap-[62px] w-full">
+        <div class="flex desktop:flex-row flex-col justify-between items-start">
           <h2 class="font-TT text-3xl w-1/4">
             {{ t("cart.personal_info") }}
           </h2>
-          <div
-            class="grid desktop:grid-cols-2 grid-cols-1 gap-x-6 mt-6 gap-y-4"
-          >
+          <div class="grid gap-x-6 desktop:w-[323px] w-full mt-6 gap-y-4">
             <input
               v-model="orderData.first_name"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.first_name')"
             />
             <input
               v-model="orderData.second_name"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.second_name')"
             />
             <input
               v-model="orderData.patronymic"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.patronymic')"
             />
             <input
               v-model="orderData.email"
               type="email"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.email')"
             />
             <input
               v-model="orderData.phone"
               type="tel"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.phone')"
             />
           </div>
         </div>
-        <div>
-          <h3 class="text-base font-TT desktop:mt-12 mt-6">
-            {{ t("cart.delivery_type") }}
-          </h3>
-          <div
-            class="flex desktop:w-1/2 font-TT font-semibold desktop:my-6 my-3 mr-auto text-black border border-black text-base"
-          >
-            <div
-              @click="orderData.delivery_type = 'delivery'"
-              :class="{
-                'bg-black text-white': orderData.delivery_type == 'delivery',
-              }"
-              class="border-r border-black w-full py-2 flex justify-center items-center"
-            >
-              {{ t("cart.delivery") }}
-            </div>
-            <div
-              @click="orderData.delivery_type = 'pickup'"
-              :class="{
-                'bg-black text-white': orderData.delivery_type == 'pickup',
-              }"
-              class="w-full text-black py-2 flex justify-center items-center"
-            >
-              {{ t("cart.pickup") }}
+        <div
+          class="flex w-full desktop:flex-row flex-col justify-between items-start"
+        >
+          <div class="w-full flex desktop:flex-col gap-[40px] flex-col-reverse">
+            <h2 class="font-TT text-3xl">
+              {{ t("cart.delivery_address") }}
+            </h2>
+            <div class="flex desktop:w-[256px] w-full border border-black">
+              <div
+                @click="orderData.delivery_type = 'delivery'"
+                :class="{
+                  'bg-black cursor-pointer text-white':
+                    orderData.delivery_type == 'delivery',
+                }"
+                class="border-r border-black w-full py-2 flex justify-center items-center"
+              >
+                {{ t("cart.delivery") }}
+              </div>
+              <div
+                @click="orderData.delivery_type = 'pickup'"
+                :class="{
+                  'bg-black cursor-pointer text-white':
+                    orderData.delivery_type == 'pickup',
+                }"
+                class="w-full text-black py-2 flex justify-center items-center"
+              >
+                {{ t("cart.pickup") }}
+              </div>
             </div>
           </div>
-          <h2 class="font-TT text-3xl desktop:mt-12 mt-6">
-            {{ t("cart.delivery_address") }}
-          </h2>
-          <div
-            class="grid desktop:grid-cols-2 grid-cols-1 gap-x-6 mt-6 font-TT text-base gap-y-4"
-          >
+
+          <div class="grid gap-x-6 w-full desktop:w-[323px] mt-6 gap-y-4">
             <VueMultiselect
               v-model="orderData.country"
               :options="App.language == 'ru' ? ru_options : en_options"
@@ -605,27 +603,27 @@ const ru_options = [
             <input
               v-model="orderData.city"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.city')"
             />
             <input
               v-model="orderData.street_name"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.street')"
             />
-            <div class="hidden desktop:block" />
+
             <input
               v-model="orderData.zip_code"
               type="text"
-              class="border-black w-1/2 border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.zip')"
             />
-            <div class="hidden desktop:block" />
+
             <input
               v-model="orderData.comment"
               type="text"
-              class="border-black grow border-b font-TT text-base placeholder-gray-400"
+              class="border-black pb-3 border-[#8B8B8B] grow border-b font-arial text-[12px] placeholder-[#6D6D6D]"
               :placeholder="t('cart.comment')"
             />
             <div />
@@ -634,7 +632,7 @@ const ru_options = [
       </form>
       <div
         @click="$emit('sendOrder', orderData)"
-        class="desktop:w-1/2 mt-12 title text-base h-12 hover:bg-black hover:text-white flex justify-center items-center border border-black"
+        class="w-[324px] mt-12 mx-auto title text-base h-[35px] cursor-pointer hover:bg-black hover:text-white flex justify-center items-center border border-black"
       >
         {{ t("cart.place_order") }}
       </div>
@@ -644,7 +642,8 @@ const ru_options = [
 
 <style>
 .multiselect {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #6d6d6d !important;
+  padding-bottom: 12px;
   position: relative;
 }
 
@@ -663,9 +662,9 @@ const ru_options = [
 }
 
 .multiselect__element {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #6d6d6d !important;
   width: 100%;
-  padding: 8px;
+  padding-bottom: 16px;
 }
 
 .multiselect__option {
