@@ -321,7 +321,7 @@ watch(
       </div>
       <div class="flex main-p-sides mt-6">
         <div
-          class="grid grid-flow-row-dense border-black desktop:border-t [&>*]:desktop:border-black [&>*]:desktop:border-l [&>*]:desktop:border-b items-stretch desktop:grid-cols-4 desktop:grid-rows-3 grid-cols-2 auto-rows-min w-full h-min"
+          class="grid grid-flow-row-dense border-black desktop:border-t [&>*]:desktop:border-black [&>*]:desktop:border-b items-stretch desktop:grid-cols-4 desktop:grid-rows-3 grid-cols-2 auto-rows-min w-full h-min"
         >
           <div
             v-if="preferredCollection && currentPage == 1"
@@ -375,7 +375,7 @@ watch(
               :class="
                 currentPage == 1 ? 'col-span-2 aspect-[2/1]' : 'col-span-1'
               "
-              class="w-full desktop:aspect-auto"
+              class="w-full desktop:border-l desktop:aspect-auto"
             >
               <div
                 class="relative w-full h-full text-white darker flex flex-col p-4"
@@ -400,13 +400,20 @@ watch(
             </div>
             <div
               v-else-if="currentPage == 1"
-              :class="
-                index == subcategory?.objects_on_page.length - 1 &&
-                index % 2 == 1
-                  ? 'col-span-2 aspect-[350/240] desktop:col-span-1   px-0 desktop:p-[30px] aspect-[aspect-[385/440]:'
-                  : ''
-              "
-              class="cursor-pointer even:border-r even:desktop:border-r-0 even:pl-0 odd:pr-0 even:desktop:p-[30px] odd:desktop:p-[30px] border-black border-b aspect-[175/240] desktop:aspect-[385/440] w-full flex flex-col desktop:p-[30px] p-[20px]"
+              :class="[
+                // Agar oxirgi element bo‘lsa va u juft bo‘lsa, col-span-2 holat qo‘shiladi
+                index === subcategory?.objects_on_page.length - 1 &&
+                index % 2 === 1
+                  ? 'col-span-2 aspect-[350/240] desktop:col-span-1 px-0 desktop:p-[30px] aspect-[385/440]'
+                  : '',
+
+                // Agar bu oxirgi element bo‘lsa, border-r qo‘shiladi (agar kerak bo‘lsa)
+                index == subcategory?.objects_on_page.length - 1
+                  ? 'desktop:border-r'
+                  : '',
+                index == 7 ? 'desktop:border-r-0' : '',
+              ]"
+              class="cursor-pointer desktop:border-l even:pl-0 odd:pr-0 even:desktop:p-[30px] odd:desktop:p-[30px] border-black border-b aspect-[175/240] desktop:aspect-[385/440] w-full flex flex-col desktop:p-[30px] p-[20px]"
             >
               <ProductCard :product-group="product" />
             </div>
@@ -419,13 +426,13 @@ watch(
                   : '',
                 index == subcategory?.objects_on_page.length - 1 ? '' : '',
               ]"
-              class="cursor-pointer odd:pl-0 even:pr-0 even:desktop:p-[30px] odd:desktop:p-[30px] border-black border-b aspect-[175/240] desktop:aspect-[385/440] w-full flex flex-col desktop:p-[30px] p-[20px]"
+              class="cursor-pointer desktop:border-l odd:pl-0 even:pr-0 even:desktop:p-[30px] odd:desktop:p-[30px] border-black border-b aspect-[175/240] desktop:aspect-[385/440] w-full flex flex-col desktop:p-[30px] p-[20px]"
             >
               <ProductCard :product-group="product" />
             </div>
           </template>
           <div
-            class="overflow-auto border-black border-r col-start-4 row-start-1 row-span-full self-start desktop:block hidden bg-black-general content-start"
+            class="overflow-auto border-black border-l border-r col-start-4 row-start-1 row-span-full self-start desktop:block hidden bg-black-general content-start"
           >
             <Filters
               @preview="(filters) => fetchPages(filters)"
