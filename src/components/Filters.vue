@@ -178,7 +178,7 @@ onMounted(async () => {
     </div>
 
     <div
-      class="flex flex-col gap-4 w-full desktop:aspect-[1.8] border-b border-black py-[20px] pt-0 desktop:py-[1.8750vw] desktop:pb-[1.5625vw] mt-[20px] desktop:mt-[-1.5vw]"
+      class="flex flex-col gap-4 w-full desktop:aspect-[1.8] border-b border-[#6D6D6D] py-[20px] pt-0 desktop:py-[1.8750vw] desktop:pb-[1.5625vw] mt-[20px] desktop:mt-[-1.5vw]"
     >
       <h3 class="font-TT text-[18px] desktop:text-[1.1250vw]">
         {{ t("filter.price") }}
@@ -239,7 +239,7 @@ onMounted(async () => {
     </div>
 
     <div
-      class="w-full desktop:aspect-[385/242] border-b border-black py-[15px]"
+      class="w-full desktop:aspect-[385/242] border-b border-[#6D6D6D] py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
@@ -269,7 +269,7 @@ onMounted(async () => {
       </div>
     </div>
     <div
-      class="w-full desktop:aspect-[3.15] border-b border-black desktop:py-[0.75vw] py-[15px]"
+      class="w-full desktop:aspect-[3.15] border-b border-[#6D6D6D] desktop:py-[0.75vw] py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
@@ -301,7 +301,7 @@ onMounted(async () => {
     </div>
     <div
       id="scrollbar"
-      class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-black desktop:py-[0.75vw] py-[15px]"
+      class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-[#6D6D6D] desktop:py-[0.75vw] py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.6250vm]"
