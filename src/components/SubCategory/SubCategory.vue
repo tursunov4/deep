@@ -295,7 +295,7 @@ watch(
       </li>
     </ul>
     <div>
-      <div class="desktop:hidden mx-[20px] mt-6">
+      <div class="desktop:hidden h-full mx-[20px] mt-6">
         <div class="border-black w-full h-full">
           <keep-alive>
             <Filters
@@ -442,7 +442,7 @@ watch(
           </div>
         </div>
       </div>
-      <div class="main-p-sides mt-[80px]">
+      <div class="main-p-sides mt-[30px]">
         <vue-awesome-paginate
           class="font-TT desktop:mt-auto w-full"
           :total-items="pagesAmount"
@@ -452,7 +452,7 @@ watch(
         />
       </div>
     </div>
-    <NewProducts class="mt-6" />
+    <NewProducts class="mt-[50px]" />
     <div class="w-full flex">
       <div class="desktop:w-1/2 w-full aspect-[4/3] z-[0]">
         <Map />
@@ -471,11 +471,15 @@ watch(
 }
 
 .paginate-buttons {
-  height: 40px;
-  width: 40px;
+  height: 20px;
+  width: 20px;
   cursor: pointer;
   background-color: white;
   border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 100%;
   color: black;
 }
 

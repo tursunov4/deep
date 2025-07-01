@@ -153,10 +153,10 @@ onMounted(async () => {
 
 <template>
   <div
-    class="z-[99] -mx-[20px] desktop:m-0 desktop:w-full h-full desktop:z-0 flex flex-col bg-white overflow-y-auto desktop:p-0"
+    class="z-[99] -mx-[20px] desktop:m-0 desktop:w-full h-full desktop:z-0 flex flex-col bg-white overflow-y-auto px-5"
   >
     <div
-      class="flex w-full desktop:uppercase items-center pb-0 gap-8 desktop:p-[1.8750vw] p-[20px]"
+      class="flex w-full desktop:uppercase items-center pb-0 gap-8 desktop:py-[1.8750vw] py-[20px]"
     >
       <h2
         class="desktop:text-[18px] desktop:title font-arial font-medium text-[12px]"
@@ -178,7 +178,7 @@ onMounted(async () => {
     </div>
 
     <div
-      class="flex flex-col gap-4 w-full desktop:aspect-[1.8] border-b border-black p-[20px] pt-0 desktop:p-[1.8750vw] desktop:pb-[1.5625vw] mt-[20px] desktop:mt-[-1.5vw]"
+      class="flex flex-col gap-4 w-full desktop:aspect-[1.8] border-b border-black py-[20px] pt-0 desktop:py-[1.8750vw] desktop:pb-[1.5625vw] mt-[20px] desktop:mt-[-1.5vw]"
     >
       <h3 class="font-TT text-[18px] desktop:text-[1.1250vw]">
         {{ t("filter.price") }}
@@ -239,7 +239,7 @@ onMounted(async () => {
     </div>
 
     <div
-      class="w-full border-b border-black desktop:px-[1.8750vw] p-[15px] px-[20px]"
+      class="w-full desktop:aspect-[385/242] border-b border-black py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
@@ -269,7 +269,7 @@ onMounted(async () => {
       </div>
     </div>
     <div
-      class="w-full desktop:aspect-[3.15] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
+      class="w-full desktop:aspect-[3.15] border-b border-black desktop:py-[0.75vw] py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
@@ -301,7 +301,7 @@ onMounted(async () => {
     </div>
     <div
       id="scrollbar"
-      class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
+      class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-black desktop:py-[0.75vw] py-[15px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.6250vm]"
@@ -332,16 +332,8 @@ onMounted(async () => {
       </div>
     </div>
 
-    <!--    <div class="w-full flex flex-wrap p-6 border-b border-black desktop:border-white gap-1">
-          <h3 class="font-TT text-xl w-full mb-4">CATEGORIES</h3>
-          <div @click="selectCategory('MIRRORS')" :class="{'desktop:bg-white desktop:text-black bg-black-general text-white': selectedCategories.includes('MIRRORS')}" class=" cursor-pointer border border-black desktop:border-white p-2">MIRRORS</div>
-          <div @click="selectCategory('TOILET ROLL HOLDERS')" :class="{'desktop:bg-white desktop:text-black bg-black-general text-white': selectedCategories.includes('TOILET ROLL HOLDERS')}" class=" cursor-pointer border border-black desktop:border-white p-2">TOILET ROLL HOLDERS</div>
-          <div @click="selectCategory('SHOWER PULLS')" :class="{'desktop:bg-white desktop:text-black bg-black-general text-white': selectedCategories.includes('SHOWER PULLS')}" class=" cursor-pointer border border-black desktop:border-white p-2">SHOWER PULLS</div>
-          <div @click="selectCategory('SHELVES')" :class="{'desktop:bg-white desktop:text-black bg-black-general text-white': selectedCategories.includes('SHELVES')}" class=" cursor-pointer border border-black desktop:border-white p-2">SHELVES</div>
-          <div @click="selectCategory('TOWER RAILS')" :class="{'desktop:bg-white desktop:text-black bg-black-general text-white': selectedCategories.includes('TOWEL RAILS')}" class=" cursor-pointer border border-black desktop:border-white p-2">TOWEL RAILS</div>
-        </div>-->
     <div
-      class="w-full flex flex-wrap desktop:aspect-[2.5] font-TT text-[18px] tracking-[0.56px] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] desktop:pt-[2.5625vm] py-[40px] px-[20px]"
+      class="w-full flex flex-wrap desktop:aspect-[2.5] font-TT text-[18px] tracking-[0.56px] border-b border-[#6D6D6D] desktop:py-[0.75vw] desktop:pt-[2.5625vm] py-[40px]"
     >
       <h3 class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw]">
         {{ t("filter.sort") }}
@@ -380,7 +372,7 @@ onMounted(async () => {
           <label class="w-2/5 cursor-pointer  font-TT text-lg accent-white flex gap-1 items-center"><input type="checkbox"
                                                                                      class="">FEATURED</label>
         </div>-->
-    <div class="px-6 grow flex items-center desktop:aspect-[385/133]">
+    <div class="grow flex items-center desktop:aspect-[385/133]">
       <button
         @click="
           () => {
