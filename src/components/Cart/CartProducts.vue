@@ -59,25 +59,29 @@ function getTax() {
   if (App.language == "ru") {
     return (
       "₽" +
-      Cart.products.reduce((sum, product) => {
-        if (product.product?.rub_cost && tax.value) {
-          return (
-            sum + product.amount * product.product.rub_cost * 0.01 * tax.value
-          );
-        } else return sum;
-      }, 0)
+      Cart.products
+        .reduce((sum, product) => {
+          if (product.product?.rub_cost && tax.value) {
+            return (
+              sum + product.amount * product.product.rub_cost * 0.01 * tax.value
+            );
+          } else return sum;
+        }, 0)
+        .toFixed(2)
     );
   } else
     return (
       "€" +
-      Cart.products.reduce(
-        (sum, product) =>
-          tax.value
-            ? sum +
-              product.amount * product.product.euro_cost * 0.01 * tax.value
-            : sum,
-        0
-      )
+      Cart.products
+        .reduce(
+          (sum, product) =>
+            tax.value
+              ? sum +
+                product.amount * product.product.euro_cost * 0.01 * tax.value
+              : sum,
+          0
+        )
+        .toFixed(2)
     );
 }
 

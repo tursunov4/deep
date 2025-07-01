@@ -92,218 +92,228 @@ watch(
       </div>
 
       <div
-        class="w-1/2 flex flex-col aspect-square border-black border-b main-p-sides pt-0"
+        class="w-1/2 flex flex-col pb-[30px] justify-between aspect-square border-black border-b main-p-sides pt-0"
       >
-        <div
-          class="title font-normal text-[40px] font-TT uppercase leading-[1.05] mt-[2px]"
-        >
-          {{
-            App.language == "ru" ? productGroup.rus_name : productGroup.eng_name
-          }}
-        </div>
-        <div class="font-bold font-TT text-[18px] text-black uppercase">
-          артикул товара: {{ selectedProduct.id_code }}
-        </div>
-        <!--end product name-->
-
-        <!--colors-->
-        <div class="flex gap-[4px] mt-[37px] mb-[31px]">
+        <div>
           <div
-            v-for="(product, index) in productGroup.colored_products"
-            @click.stop="selected = index"
-            class="text-center font-TT text-[0.875rem] font-bold w-[4.375rem]"
+            class="title font-normal text-[40px] font-TT uppercase leading-[1.05] mt-[2px]"
           >
-            <img
-              :src="product.colour.photo"
-              :class="{ 'border border-black': index == selected }"
-              class="w-[4.375rem] h-[4.375rem] z-10 p-[4px] mb-[5px] object-fill self-end aspect-square"
-              alt=""
-            />
             {{
               App.language == "ru"
-                ? product.colour.rus_name.toUpperCase()
-                : product.colour.eng_name.toUpperCase()
+                ? productGroup.rus_name
+                : productGroup.eng_name
             }}
           </div>
-        </div>
-        <!--end colors-->
-
-        <!--add to card-->
-        <div class="flex justify-end items-center gap-6 w-full">
-          <div class="title text-[18px]">
-            {{
-              App.language == "ru"
-                ? selectedProduct.rub_cost + "₽"
-                : selectedProduct.euro_cost + "€"
-            }}
+          <div class="font-bold font-TT text-[18px] text-black uppercase">
+            артикул товара: {{ selectedProduct.id_code }}
           </div>
+          <!--end product name-->
 
-          <button
-            v-if="
-              !Cart.products.find(
-                (product) => product.product.id === selectedProduct?.id
-              )
-            "
-            @click="addToCart"
-            class="border cursor-pointer border-black flex justify-center whitespace-nowrap items-center title text-lg pt-1 min-w-[240px] h-[35px] px-3"
-          >
-            {{ t("product_page.add_to_card") }}
-          </button>
-          <div v-else class="flex items-center h-[35px]">
-            <div class="desktop:mr-6 w-3 font-TT text-base font-semibold">
+          <!--colors-->
+          <div class="flex gap-[4px] mt-[37px] mb-[31px]">
+            <div
+              v-for="(product, index) in productGroup.colored_products"
+              @click.stop="selected = index"
+              class="text-center font-TT text-[0.875rem] font-bold w-[4.375rem]"
+            >
+              <img
+                :src="product.colour.photo"
+                :class="{ 'border border-black': index == selected }"
+                class="w-[4.375rem] h-[4.375rem] z-10 p-[4px] mb-[5px] object-fill self-end aspect-square"
+                alt=""
+              />
               {{
-                Cart.products.find(
-                  (product) => product.product.id === selectedProduct?.id
-                )?.amount
+                App.language == "ru"
+                  ? product.colour.rus_name.toUpperCase()
+                  : product.colour.eng_name.toUpperCase()
               }}
             </div>
-            <div
-              @click="Cart.changeAmount(selectedProduct?.id, false)"
-              class="desktop:mr-3 flex hover:bg-black hover:text-white text-3xl font-light w-[35px] h-[35px] border-black border items-center before:content-[''] before:w-1/2 before:bg-black before:h-[2px] hover:before:bg-white justify-center"
-            ></div>
-            <div
-              @click="Cart.changeAmount(selectedProduct?.id, true)"
-              class="flex relative hover:bg-black hover:text-white text-3xl font-light w-[35px] h-[35px] border-black border items-center justify-center before:content-[''] before:w-1/2 before:absolute before:bg-black before:h-[2px] hover:before:bg-white after:content-[''] after:w-1/2 after:bg-black after:h-[2px] hover:after:bg-white after:rotate-90"
-            ></div>
+          </div>
+          <!--end colors-->
+
+          <!--add to card-->
+          <div class="flex justify-end items-center gap-6 w-full">
+            <div class="title text-[18px]">
+              {{
+                App.language == "ru"
+                  ? selectedProduct.rub_cost + "₽"
+                  : selectedProduct.euro_cost + "€"
+              }}
+            </div>
+
             <button
-              class="border ml-5 uppercase cursor-pointer border-black flex justify-center whitespace-nowrap items-center title text-lg pt-1 min-w-[157px] h-[35px] px-3"
-              @click="navigateTo('/cart')"
+              v-if="
+                !Cart.products.find(
+                  (product) => product.product.id === selectedProduct?.id
+                )
+              "
+              @click="addToCart"
+              class="border cursor-pointer border-black flex justify-center whitespace-nowrap items-center title text-lg pt-1 min-w-[240px] h-[35px] px-3"
             >
-              в корзину
+              {{ t("product_page.add_to_card") }}
             </button>
+            <div v-else class="flex items-center h-[35px]">
+              <div class="desktop:mr-6 w-3 font-TT text-base font-semibold">
+                {{
+                  Cart.products.find(
+                    (product) => product.product.id === selectedProduct?.id
+                  )?.amount
+                }}
+              </div>
+              <div
+                @click="Cart.changeAmount(selectedProduct?.id, false)"
+                class="desktop:mr-3 flex hover:bg-black hover:text-white text-3xl font-light w-[35px] h-[35px] border-black border items-center before:content-[''] before:w-1/2 before:bg-black before:h-[2px] hover:before:bg-white justify-center"
+              ></div>
+              <div
+                @click="Cart.changeAmount(selectedProduct?.id, true)"
+                class="flex relative hover:bg-black hover:text-white text-3xl font-light w-[35px] h-[35px] border-black border items-center justify-center before:content-[''] before:w-1/2 before:absolute before:bg-black before:h-[2px] hover:before:bg-white after:content-[''] after:w-1/2 after:bg-black after:h-[2px] hover:after:bg-white after:rotate-90"
+              ></div>
+              <button
+                class="border ml-5 uppercase cursor-pointer border-black flex justify-center whitespace-nowrap items-center title text-lg pt-1 min-w-[157px] h-[35px] px-3"
+                @click="navigateTo('/cart')"
+              >
+                в корзину
+              </button>
+            </div>
           </div>
         </div>
 
-        <!--title and description-->
-        <div class="flex flex-col gap-4 mt-[42px]">
-          <div class="title text-[18px] leading-[22.5px] w-[240px]">
-            {{
-              App.language == "ru"
-                ? selectedProduct.rus_title.toUpperCase()
-                : selectedProduct.eng_title.toUpperCase()
-            }}
+        <div>
+          <!--title and description-->
+          <div class="flex flex-col gap-4 mt-[42px]">
+            <div class="title text-[18px] leading-[22.5px] w-full">
+              {{
+                App.language == "ru"
+                  ? selectedProduct.rus_title.toUpperCase()
+                  : selectedProduct.eng_title.toUpperCase()
+              }}
+            </div>
+            <div class="leading-[13.8px]">
+              {{
+                App.language == "ru"
+                  ? selectedProduct.rus_description
+                  : selectedProduct.eng_description
+              }}
+            </div>
           </div>
-          <div class="leading-[13.8px]">
-            {{
-              App.language == "ru"
-                ? selectedProduct.rus_description
-                : selectedProduct.eng_description
-            }}
-          </div>
-        </div>
-        <!--end title and description-->
+          <!--end title and description-->
 
-        <div class="border border-black mt-[50px]">
-          <div
-            v-on-click-outside="
-              () => {
-                (selectedInfo.section = null), (selectedInfo.clicked = false);
-              }
-            "
-            :class="{ '': selectedInfo.section }"
-            class="h-[100px] text-[12px] text-[#6D6D6D] duration-150 transition-all font-arial px-[30px] py-[24px]"
-          >
-            <div class="w-full h-full overflow-hidden overflow-ellipsis">
-              <template v-if="selectedInfo.section === 'tech'">{{
-                App.language == "ru"
-                  ? selectedProduct.guarantee_ru
-                  : selectedProduct.guarantee_eng
-              }}</template>
-              <template v-if="selectedInfo.section === 'shipping'">{{
-                App.language == "ru"
-                  ? selectedProduct.delivery_ru
-                  : selectedProduct.delivery_eng
-              }}</template>
-              <template v-if="selectedInfo.section === 'support'">{{
-                App.language == "ru"
-                  ? selectedProduct.support_ru
-                  : selectedProduct.support_eng
-              }}</template>
-              <template v-if="selectedInfo.section === 'returns'">{{
-                App.language == "ru"
-                  ? selectedProduct.refund_ru
-                  : selectedProduct.refund_eng
-              }}</template>
-            </div>
-          </div>
-          <div class="flex flex-grow justify-between items-end">
+          <div class="border border-black mt-[50px]">
             <div
-              :class="{
-                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
-                  selectedInfo.section === 'tech',
-              }"
-              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
-              @mouseleave="
-                selectedInfo.clicked ? null : (selectedInfo.section = null)
+              v-on-click-outside="
+                () => {
+                  (selectedInfo.section = null), (selectedInfo.clicked = false);
+                }
               "
-              @mouseover="
-                selectedInfo.clicked ? null : (selectedInfo.section = 'tech')
-              "
-              @click="
-                selectedInfo.section = 'tech';
-                selectedInfo.clicked = true;
-              "
+              :class="{ '': selectedInfo.section }"
+              class="h-[100px] text-[12px] text-[#6D6D6D] duration-150 transition-all font-arial px-[30px] py-[24px]"
             >
-              {{ t("product_page.guarantee") }}
+              <div class="w-full h-full overflow-hidden overflow-ellipsis">
+                <template v-if="selectedInfo.section === 'tech'">{{
+                  App.language == "ru"
+                    ? selectedProduct.guarantee_ru
+                    : selectedProduct.guarantee_eng
+                }}</template>
+                <template v-if="selectedInfo.section === 'shipping'">{{
+                  App.language == "ru"
+                    ? selectedProduct.delivery_ru
+                    : selectedProduct.delivery_eng
+                }}</template>
+                <template v-if="selectedInfo.section === 'support'">{{
+                  App.language == "ru"
+                    ? selectedProduct.support_ru
+                    : selectedProduct.support_eng
+                }}</template>
+                <template v-if="selectedInfo.section === 'returns'">{{
+                  App.language == "ru"
+                    ? selectedProduct.refund_ru
+                    : selectedProduct.refund_eng
+                }}</template>
+              </div>
             </div>
-            <div
-              :class="{
-                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
-                  selectedInfo.section === 'shipping',
-              }"
-              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
-              @mouseleave="
-                selectedInfo.clicked ? null : (selectedInfo.section = null)
-              "
-              @mouseover="
-                selectedInfo.clicked
-                  ? null
-                  : (selectedInfo.section = 'shipping')
-              "
-              @click="
-                selectedInfo.section = 'shipping';
-                selectedInfo.clicked = true;
-              "
-            >
-              {{ t("product_page.shipping") }}
-            </div>
-            <div
-              :class="{
-                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
-                  selectedInfo.section === 'support',
-              }"
-              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
-              @mouseleave="
-                selectedInfo.clicked ? null : (selectedInfo.section = null)
-              "
-              @mouseover="
-                selectedInfo.clicked ? null : (selectedInfo.section = 'support')
-              "
-              @click="
-                selectedInfo.section = 'support';
-                selectedInfo.clicked = true;
-              "
-            >
-              {{ t("product_page.support") }}
-            </div>
-            <div
-              :class="{
-                'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
-                  selectedInfo.section === 'returns',
-              }"
-              class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
-              @mouseleave="
-                selectedInfo.clicked ? null : (selectedInfo.section = null)
-              "
-              @mouseover="
-                selectedInfo.clicked ? null : (selectedInfo.section = 'returns')
-              "
-              @click="
-                selectedInfo.section = 'returns';
-                selectedInfo.clicked = true;
-              "
-            >
-              {{ t("product_page.returns") }}
+            <div class="flex flex-grow justify-between items-end">
+              <div
+                :class="{
+                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                    selectedInfo.section === 'tech',
+                }"
+                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                @mouseleave="
+                  selectedInfo.clicked ? null : (selectedInfo.section = null)
+                "
+                @mouseover="
+                  selectedInfo.clicked ? null : (selectedInfo.section = 'tech')
+                "
+                @click="
+                  selectedInfo.section = 'tech';
+                  selectedInfo.clicked = true;
+                "
+              >
+                {{ t("product_page.guarantee") }}
+              </div>
+              <div
+                :class="{
+                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                    selectedInfo.section === 'shipping',
+                }"
+                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                @mouseleave="
+                  selectedInfo.clicked ? null : (selectedInfo.section = null)
+                "
+                @mouseover="
+                  selectedInfo.clicked
+                    ? null
+                    : (selectedInfo.section = 'shipping')
+                "
+                @click="
+                  selectedInfo.section = 'shipping';
+                  selectedInfo.clicked = true;
+                "
+              >
+                {{ t("product_page.shipping") }}
+              </div>
+              <div
+                :class="{
+                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                    selectedInfo.section === 'support',
+                }"
+                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                @mouseleave="
+                  selectedInfo.clicked ? null : (selectedInfo.section = null)
+                "
+                @mouseover="
+                  selectedInfo.clicked
+                    ? null
+                    : (selectedInfo.section = 'support')
+                "
+                @click="
+                  selectedInfo.section = 'support';
+                  selectedInfo.clicked = true;
+                "
+              >
+                {{ t("product_page.support") }}
+              </div>
+              <div
+                :class="{
+                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                    selectedInfo.section === 'returns',
+                }"
+                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                @mouseleave="
+                  selectedInfo.clicked ? null : (selectedInfo.section = null)
+                "
+                @mouseover="
+                  selectedInfo.clicked
+                    ? null
+                    : (selectedInfo.section = 'returns')
+                "
+                @click="
+                  selectedInfo.section = 'returns';
+                  selectedInfo.clicked = true;
+                "
+              >
+                {{ t("product_page.returns") }}
+              </div>
             </div>
           </div>
         </div>

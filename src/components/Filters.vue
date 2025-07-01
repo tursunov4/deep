@@ -197,7 +197,7 @@ onMounted(async () => {
             }
           "
           v-model="rangeValue[0]"
-          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black py-3 px-5 desktop:px-[1.1875vw] desktop:h-[3.1875vw] h-[50px]"
+          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black py-3 px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
         />
         <input
           type="text"
@@ -209,7 +209,7 @@ onMounted(async () => {
             }
           "
           v-model="rangeValue[1]"
-          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black py-3 px-5 desktop:px-[1.1875vw] desktop:h-[3.1875vw] h-[50px]"
+          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
         />
       </div>
 
@@ -230,16 +230,16 @@ onMounted(async () => {
         </div>
 
         <div
-          class="desktop:w-full mx-[13px] desktop:mx-auto mt-4 flex justify-between desktop:mt-[0.5625vw] desktop:text-[0.75vw]"
+          class="desktop:w-full mx-[13px] desktop:mx-auto mt-4 flex justify-between desktop:mt-[0.5625vw] desktop:text-[16px]"
         >
-          <div>0</div>
-          <div>99 999</div>
+          <div>{{ Number(rangeValue[0]).toLocaleString("ru-RU") }}</div>
+          <div>{{ Number(rangeValue[1]).toLocaleString("ru-RU") }}</div>
         </div>
       </div>
     </div>
 
     <div
-      class="w-full desktop:aspect-[385/242] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
+      class="w-full border-b border-black desktop:px-[1.8750vw] p-[15px] px-[20px]"
     >
       <h3
         class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
