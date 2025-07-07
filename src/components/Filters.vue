@@ -35,7 +35,7 @@ const emits = defineEmits([
 type IRange = [number | string, number | string];
 
 const rangeValue: Ref<IRange> = ref([0, 99999]);
-const filterOptions: string[] = ["DATE" /*, 'POPULARITY', 'RATING'*/];
+const filterOptions: string[] = ["DATE", "POPULARITY", "RATING"];
 const selectedOption: Ref<string> = ref("DATE");
 const selectedColors: Ref<string[]> = ref(
   route.query?.color ? [route.query?.color as string] : []
@@ -153,11 +153,9 @@ onMounted(async () => {
 
 <template>
   <div
-    class="z-[99] -mx-[20px] desktop:m-0 desktop:w-full h-full desktop:z-0 flex flex-col bg-white overflow-y-auto"
+    class="z-[99] relative -mx-[20px] desktop:m-0 desktop:w-full h-full desktop:z-0 flex flex-col bg-white overflow-y-auto px-5"
   >
-    <div
-      class="flex w-full desktop:uppercase items-center pb-0 gap-8 desktop:p-[1.8750vw] p-[20px]"
-    >
+    <div class="flex w-full desktop:uppercase items-center pb-0 gap-8 py-5">
       <h2
         class="desktop:text-[18px] desktop:title font-arial font-medium text-[12px]"
       >
@@ -177,15 +175,13 @@ onMounted(async () => {
       </button>
     </div>
 
-    <div
-      class="flex flex-col gap-4 w-full desktop:aspect-[1.8] border-b border-black p-[20px] pt-0 desktop:p-[1.8750vw] desktop:pb-[1.5625vw] mt-[20px] desktop:mt-[-1.5vw]"
-    >
-      <h3 class="font-TT text-[18px] desktop:text-[1.1250vw]">
+    <div class="flex flex-col gap-4 w-full border-b border-[#6D6D6D] py-5">
+      <h3 class="font-TT text-[18px] uppercase desktop:text-[1.1250vw]">
         {{ t("filter.price") }}
       </h3>
 
       <div
-        class="flex w-full desktop:gap-6 gap-[18px] justify-between desktop:justify-start desktop:mt-[-0.0625vw]"
+        class="flex justify-between w-full desktop:gap-6 gap-[18px] justify-between desktop:mt-[-0.0625vw]"
       >
         <input
           type="text"
@@ -197,7 +193,7 @@ onMounted(async () => {
             }
           "
           v-model="rangeValue[0]"
-          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black py-3 px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
+          class="desktop:w-3/5 text-center w-full font-TT text-xl desktop:text-[1.1250vw] border border-black py-3 px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
         />
         <input
           type="text"
@@ -209,7 +205,7 @@ onMounted(async () => {
             }
           "
           v-model="rangeValue[1]"
-          class="desktop:w-2/5 w-full font-TT text-xl desktop:text-[1.1250vw] border border-black px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
+          class="desktop:w-3/5 w-full text-center font-TT text-xl desktop:text-[1.1250vw] border border-black px-5 desktop:px-[1.1875vw] desktop:h-[35px] h-[35px]"
         />
       </div>
 
@@ -238,11 +234,9 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div
-      class="w-full desktop:aspect-[385/242] border-b border-black desktop:px-[1.8750vw] p-[15px] px-[20px]"
-    >
+    <div class="w-full border-b border-[#6D6D6D] py-5">
       <h3
-        class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
+        class="font-TT text-[18px] w-full mb-4 uppercase desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
       >
         {{ t("filter.style") }}
       </h3>
@@ -268,11 +262,9 @@ onMounted(async () => {
         </label>
       </div>
     </div>
-    <div
-      class="w-full desktop:aspect-[3.15] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
-    >
+    <div class="w-full border-b border-[#6D6D6D] py-5">
       <h3
-        class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
+        class="font-TT uppercase text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.9375vw]"
       >
         {{ t("filter.options") }}
       </h3>
@@ -301,10 +293,10 @@ onMounted(async () => {
     </div>
     <div
       id="scrollbar"
-      class="w-full desktop:aspect-[358/400] overflow-y-auto border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] p-[15px] px-[20px]"
+      class="w-full overflow-y-auto border-b border-[#6D6D6D] py-5"
     >
       <h3
-        class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.6250vm]"
+        class="font-TT uppercase text-[18px] w-full mb-4 desktop:text-[1.1250vw] desktop:mb-[0.6250vm]"
       >
         {{ t("filter.color") }}
       </h3>
@@ -333,30 +325,44 @@ onMounted(async () => {
     </div>
 
     <div
-      class="w-full flex flex-wrap desktop:aspect-[2.5] font-TT text-[18px] tracking-[0.56px] border-b border-black desktop:px-[1.8750vw] desktop:p-[0.75vw] desktop:pt-[2.5625vm] py-[40px] px-[20px]"
+      class="w-full flex flex-wrap font-TT text-[18px] tracking-[0.56px] py-5"
     >
-      <h3 class="font-TT text-[18px] w-full mb-4 desktop:text-[1.1250vw]">
+      <h3
+        class="font-TT text-[18px] w-full mb-4 uppercase desktop:text-[1.1250vw]"
+      >
         {{ t("filter.sort") }}
       </h3>
       <div class="relative w-full">
         <Listbox v-model="selectedOption">
           <ListboxButton
-            class="w-full pb-2 border-b border-black flex justify-between items-center desktop:pb-[0.1vw] desktop:text-[1.1250vw]"
+            :class="[
+              'w-full px-1 py-[6px]  flex justify-between items-center uppercase font-bold tracking-wide border-b border-black',
+              'desktop:text-[18px]',
+              'bg-white text-black',
+            ]"
           >
             {{ t("filter.by") + " " + t(`filter.${selectedOption}`) }}
-            <span class="triangle"> </span
-          ></ListboxButton>
+            <span class="ml-2 text-black transform rotate-180">▲</span>
+          </ListboxButton>
+
           <div
-            class="w-full absolute top-full desktop:top-[2.3vw] bg-white left-0"
+            class="w-full absolute z-10 left-0 bg-white border-x border-black border-t desktop:top-[39px]"
           >
             <ListboxOptions>
               <ListboxOption
                 v-for="option in filterOptions"
                 :key="option"
                 :value="option"
-                class="py-2 border-black border-b desktop:py-[0.1vw] desktop:text-[1.1250vw]"
+                v-slot="{ selected }"
               >
-                {{ t(`filter.${option}`) }}
+                <div
+                  :class="[
+                    'w-full px-1 py-[6px] uppercase font-bold tracking-wide border-b border-black cursor-pointer desktop:text-[18px]',
+                    selected ? 'bg-black text-white' : 'bg-white text-black',
+                  ]"
+                >
+                  {{ t(`filter.${option}`) }}
+                </div>
               </ListboxOption>
             </ListboxOptions>
           </div>
@@ -372,30 +378,36 @@ onMounted(async () => {
           <label class="w-2/5 cursor-pointer  font-TT text-lg accent-white flex gap-1 items-center"><input type="checkbox"
                                                                                      class="">FEATURED</label>
         </div>-->
-    <div class="px-6 grow flex items-center desktop:aspect-[385/133]">
+    <div
+      class="desktop:absolute w-full bottom-0 desktop:left-5 desktop:w-[calc(100%-40px)]"
+    >
+      <div class="grow flex items-center">
+        <button
+          @click="
+            () => {
+              setFilters();
+              emits('hideFilters');
+            }
+          "
+          class="desktop:tracking-[0.035vw] h-[35px] w-full font-TT hover:bg-white font-bold hover:text-black text-lg p-2 flex justify-center items-center border border-black my-6 mx-auto desktop:text-[1.1250vw] desktop:p-[0.9vw]"
+        >
+          <span class="pt-[0.1875vw]">
+            {{ t("filter.show") }}
+            {{
+              firstView && !route.query?.sale && !route.query?.color
+                ? ""
+                : count
+            }}
+          </span>
+        </button>
+      </div>
       <button
-        @click="
-          () => {
-            setFilters();
-            emits('hideFilters');
-          }
-        "
-        class="desktop:tracking-[0.035vw] w-full font-TT hover:bg-white font-bold hover:text-black text-lg p-2 flex justify-center items-center border border-black my-6 mx-auto desktop:text-[1.1250vw] desktop:p-[0.9vw]"
+        @click="clearFilter"
+        class="m-auto desktop:block hidden text-[#6D6D6D] pb-[30px] desktop:text-[0.75vw]"
       >
-        <span class="pt-[0.1875vw]">
-          {{ t("filter.show") }}
-          {{
-            firstView && !route.query?.sale && !route.query?.color ? "" : count
-          }}
-        </span>
+        {{ t("filter.clear") }}
       </button>
     </div>
-    <button
-      @click="clearFilter"
-      class="m-auto desktop:block hidden text-[#6D6D6D] pb-[30px] desktop:text-[0.75vw]"
-    >
-      {{ t("filter.clear") }}
-    </button>
   </div>
 </template>
 

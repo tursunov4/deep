@@ -15,6 +15,7 @@ const Catalogs = () => import("../components/CatalogsPage.vue");
 
 const Inspirations = () =>
   import("../components/Inspiration/InspirationsPage.vue");
+
 const Inspiration = () =>
   import("../components/Inspiration/InspirationPage.vue");
 const routes = [

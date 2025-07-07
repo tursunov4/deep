@@ -12,7 +12,6 @@ import CoversCarousel from "./CoversCarousel.vue";
 import FinishingMaterialsCarousel from "./FinishingMaterialsCarousel.vue";
 const HOST = import.meta.env.VITE_HOST_NAME;
 const { GET } = createClient<paths>({ baseUrl: HOST });
-
 const { t } = useI18n({ useScope: "global" });
 const info = ref<components["schemas"]["DoorPage"] | null>();
 const covers = ref<components["schemas"]["Cover"][]>([]);
@@ -137,7 +136,7 @@ fetchLocks();
     </div>
   </div>
   <div
-    class="desktop:block hidden desktop:mb-[20px] mb-[10px] text-[14px] uppercase px-[20px] flex desktop:justify-end justify-start gap-3"
+    class="desktop:flex justify-end hidden desktop:mb-[20px] mb-[10px] text-[14px] uppercase px-[20px] flex desktop:justify-end justify-start gap-3"
   >
     <RouterLink class="text-customGray" to="/">
       {{ t("breadcrumbs.home") }}

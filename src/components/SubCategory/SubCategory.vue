@@ -278,7 +278,7 @@ watch(
       </div>
     </div>
     <ul
-      class="flex desktop:gap-5 main-p-sides gap-[30px] mt-[60px] desktop:mt-0 self-start"
+      class="flex desktop:gap-5 main-p-sides gap-[30px] mt-[60px] desktop:mt-0 justify-start desktop:justify-end"
     >
       <li @click="router.push('/')" class="cursor-pointer">
         {{ t("breadcrumbs.home") }}
@@ -297,7 +297,7 @@ watch(
     <div>
       <div class="desktop:hidden h-full mx-[20px] mt-6">
         <div class="border-black w-full h-full">
-          <keep-alive>
+          <keep-alive class="h-full">
             <Filters
               @clear-filter="productsAmount = undefined"
               @hideFilters="closeFilter"
@@ -321,7 +321,7 @@ watch(
       </div>
       <div class="flex main-p-sides mt-6">
         <div
-          class="grid grid-flow-row-dense border-black desktop:border-t [&>*]:desktop:border-black [&>*]:desktop:border-b items-stretch desktop:grid-cols-4 desktop:grid-rows-3 grid-cols-2 auto-rows-min w-full h-min"
+          class="grid grid-flow-row-dense border-black desktop:border-t [&>*]:desktop:border-black [&>*]:desktop:border-b items-stretch desktop:grid-cols-3 desktop:grid-rows-3 grid-cols-2 w-full"
         >
           <div
             v-if="preferredCollection && currentPage == 1"
@@ -431,15 +431,15 @@ watch(
               <ProductCard :product-group="product" />
             </div>
           </template>
-          <div
-            class="overflow-auto border-black border-l border-r col-start-4 row-start-1 row-span-full self-start desktop:block hidden bg-black-general content-start"
-          >
-            <Filters
-              @preview="(filters) => fetchPages(filters)"
-              @set-filters="(newFilters) => (filters = newFilters)"
-              :count="productsAmount"
-            />
-          </div>
+        </div>
+        <div
+          class="overflow-auto border-black border col-start-4 row-start-1 desktop:block hidden bg-black-general content-start"
+        >
+          <Filters
+            @preview="(filters) => fetchPages(filters)"
+            @set-filters="(newFilters) => (filters = newFilters)"
+            :count="productsAmount"
+          />
         </div>
       </div>
       <div class="main-p-sides mt-[30px]">

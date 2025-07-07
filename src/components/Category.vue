@@ -64,7 +64,7 @@ watch(
   <div>
     <!--breadcrumbs-->
     <ul
-      class="flex px-4 gap-5 self-start mt-0 text-[12px] desktop:ml-[13px] ml-[4px]"
+      class="flex px-4 gap-5 justify-start desktop:justify-end mt-0 text-[12px] desktop:ml-[13px] ml-[4px]"
     >
       <li @click="router.push('/')" class="cursor-pointer">
         {{ t("breadcrumbs.home") }}
