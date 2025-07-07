@@ -479,6 +479,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 3px;
   line-height: 100%;
   color: black;
 }
