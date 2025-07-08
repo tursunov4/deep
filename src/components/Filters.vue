@@ -303,7 +303,11 @@ onMounted(async () => {
       <div
         class="grid desktop:grid-cols-4 grid-cols-5 gap-x-[5px] gap-y-[15px] justify-stretch desktop:gap-y-[1.5625vw] desktop:gap-x-[0.6vw]"
       >
-        <div v-for="color in colors">
+        <div
+          :class="{ border: selectedColors.includes(color.id.toString()) }"
+          class="border-black"
+          v-for="color in colors"
+        >
           <img
             @click="
               () => {
@@ -311,12 +315,11 @@ onMounted(async () => {
                 setPreview();
               }
             "
-            :class="{ border: selectedColors.includes(color.id.toString()) }"
             :src="color.photo"
             class="border-black cursor-pointer w-full aspect-square p-[3px] desktop:p-[0.1875vw]"
           />
           <div
-            class="uppercase text-center mt-[6px] font-TT text-[14px] leading-4 tracking-[0.56px] desktop:text-[0.8750vw] desktop:mt-[0.2525vw] desktop:leading-[1vw]"
+            class="text-center mt-[6px] font-normal font-arial text-[12px] leading-[100%] tracking-[0%] desktop:text-[12px] desktop:mt-[0.2525vw]"
           >
             {{ App.language == "ru" ? color.rus_name : color.eng_name }}
           </div>
