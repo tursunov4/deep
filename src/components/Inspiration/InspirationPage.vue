@@ -411,7 +411,7 @@ onMounted(fetchAllInspiration);
               {{
                 App.language == "ru"
                   ? author.author_name_ru
-                  : author?.author_name_en
+                  : author?.author_name
               }}
             </div>
 
