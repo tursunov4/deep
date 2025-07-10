@@ -224,8 +224,10 @@ onMounted(fetchAllInspiration);
     class="desktop:h-screen relative desktop:px-[30px] px-[20px] flex flex-col"
   >
     <div class="mt-[130px] flex pb-[20px] desktop:pb-[15px] gap-4">
-      <RouterLink to="/">{{ t("breadcrumbs.home") }}</RouterLink>
-      <RouterLink to="/inspirations">{{
+      <RouterLink class="desktop:hidden" to="/">{{
+        t("breadcrumbs.home")
+      }}</RouterLink>
+      <RouterLink class="desktop:hidden" to="/inspirations">{{
         t("breadcrumbs.inspiration")
       }}</RouterLink>
     </div>
@@ -352,20 +354,74 @@ onMounted(fetchAllInspiration);
     </div>
     <div class="flex flex-col desktop:items-center mt-[20px] mb-[30px]">
       <div
-        class="uppercase desktop:font-medium desktop:font-arial desktop:text-[12px] font-TT font-bold text-[18px] desktop:"
+        class="block uppercase desktop:hidden desktop:font-normal font-arial desktop:text-[12px] font-TT font-bold mb-5 text-[18px] desktop:"
       >
         {{
           App.language == "ru" ? inspiration?.rus_name : inspiration?.eng_name
         }}
       </div>
       <div
-        class="uppercase whitespace-pre-wrap desktop:text-center"
+        class="block desktop:hidden font-arial desktop:text-[12px] font-TT whitespace-pre-wrap desktop:text-center"
         v-html="
           App.language == 'ru'
             ? inspiration?.description_ru
             : inspiration?.description_eng
         "
       />
+    </div>
+  </div>
+  <div
+    class="border-b grid desktop:grid-cols-2 border-black pb-[30px] px-5 desktop:px-[30px]"
+  >
+    <h2
+      class="font-arial hidden mr-[30px] desktop:block text-[40px] font-bold leading-[100%] uppercase"
+    >
+      {{ App.language == "ru" ? inspiration?.rus_name : inspiration?.eng_name }}
+    </h2>
+    <h3
+      class="font-arial text-[12px] font-normal leading-[100%] block desktop:hidden"
+    >
+      {{ t("inspiration.author") }}:
+    </h3>
+    <div class="col-span-1" v-if="inspiration?.author">
+      <div
+        class="grid gap-[30px] desktop:grid-cols-2 desktop:border-b-0 flex-wrap py-5 desktop:p-0"
+      >
+        <div
+          v-for="author in inspiration.author"
+          :key="author.id"
+          class="desktop:border col-span-1 relative ml-[31.5px] desktop:ml-0 w-[calc(100%-31.5px)] desktop:w-full bg-[#F7F7F7] h-[54px] desktop:h-auto desktop:bg-white border-black pl-[90px] desktop:p-5 w-full flex items-center gap-[30px] wrap"
+        >
+          <!-- Avatar -->
+          <div
+            class="desktop:w-[96px] desktop:mb-3 desktop:ml-0 absolute left-[-31.5px] top-[-4.5px] desktop:static w-[63px] desktop:h-[96px] h-[63px] rounded-full overflow-hidden border-2 border-black mb-3"
+          >
+            <img
+              :src="author.icon"
+              alt="Author Icon"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <div
+            class="flex flex-col gap-[5px] desktop:gap-[20px] justify-between"
+          >
+            <!-- Author Name -->
+            <div class="font-bold uppercase text-sm">
+              {{
+                App.language == "ru"
+                  ? author.author_name_ru
+                  : author?.author_name_en
+              }}
+            </div>
+
+            <!-- Architecture / Design -->
+            <div class="text-xs tracking-wide font-medium">
+              АРХИТЕКТУРА, ДИЗАЙН
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div v-if="inspiration?.products_in?.length">
@@ -392,7 +448,7 @@ onMounted(fetchAllInspiration);
   </div>
   <div>
     <div
-      class="flex gap-[20px] main-p-sides border-black border-t desktop:mt-[60px] mt-[40px] desktop:pt-[40px] pt-[20px]"
+      class="flex gap-[20px] main-p-sides desktop:mt-[60px] mt-[40px] desktop:pt-[40px] pt-[20px]"
     >
       <div class="grid grid-cols-2 desktop:grid-cols-4 gap-[20px] w-full">
         <div

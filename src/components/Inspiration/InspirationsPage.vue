@@ -268,7 +268,7 @@ watch(currentPage, () => {
       </div>
     </div>
     <ul
-      class="flex justify-end text-[14px] desktop:gap-5 main-p-sides gap-[30px] mt-[10px] self-start"
+      class="flex justify-start desktop:justify-end text-[14px] desktop:gap-5 main-p-sides gap-[30px] mt-[10px] self-start"
     >
       <li @click="router.push('/')" class="cursor-pointer text-customGray">
         {{ t("breadcrumbs.home") }}
@@ -302,15 +302,17 @@ watch(currentPage, () => {
       </div>
       <div class="main-p-sides mt-4">
         <div v-if="selectedAuthors.length" class="mb-4">
-          <div class="flex flex-wrap gap-4">
+          <div
+            class="flex border-b border-black desktop:border-b-0 flex-wrap py-5 desktop:p-0 gap-4"
+          >
             <div
               v-for="author in selectedAuthors"
               :key="author.id"
-              class="border border-black p-5 w-full desktop:w-[370px] flex items-center gap-[30px] wrap"
+              class="desktop:border relative bg-[#F7F7F7] h-[54px] desktop:h-auto desktop:bg-white border-black pl-[90px] desktop:p-5 w-full desktop:w-[370px] flex items-center gap-[30px] wrap"
             >
               <!-- Avatar -->
               <div
-                class="w-[96px] h-[96px] rounded-full overflow-hidden border-2 border-black mb-3"
+                class="desktop:w-[96px] desktop:mb-3 ml-[31.5px] desktop:ml-0 absolute left-[-31.5px] top-[-4.5px] desktop:static w-[63px] desktop:h-[96px] h-[63px] rounded-full overflow-hidden border-2 border-black mb-3"
               >
                 <img
                   :src="author.icon"
@@ -319,7 +321,9 @@ watch(currentPage, () => {
                 />
               </div>
 
-              <div class="flex flex-col gap-[20px] justify-between">
+              <div
+                class="flex flex-col gap-[5px] desktop:gap-[20px] justify-between"
+              >
                 <!-- Author Name -->
                 <div class="font-bold uppercase text-sm">
                   {{
