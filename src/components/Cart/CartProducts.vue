@@ -161,7 +161,7 @@ onMounted(() => {
             </div>
           </div>
           <div
-            class="w-full flex desktop:mb-[0.25vw] mb-0 desktop:text-[1.1250vw] desktop:leading-[1.4063vw] leading-[4.4872vw] text-[3.5897vw]"
+            class="w-full flex desktop:mb-[0.25vw] mb-0 font-bold text-[14px] desktop:text-[18px] leading-[100%] tracking-[0.04em] uppercase"
           >
             <div class="desktop:w-1/3 w-[35%]">
               {{ t("cart.product_total") }}
@@ -205,7 +205,7 @@ onMounted(() => {
             </div>
           </div>
           <div
-            class="w-full flex desktop:mb-[0.25vw] mb-0 desktop:text-[1.1250vw] desktop:leading-[1.4063vw] leading-[4.4872vw] text-[3.5897vw]"
+            class="w-full flex desktop:mb-[0.25vw] mb-0 font-bold text-[14px] desktop:text-[18px] leading-[100%] tracking-[0.04em] uppercase"
           >
             <div class="desktop:w-1/3 w-[35%]">
               {{ t("cart.delivery") }}
@@ -216,7 +216,7 @@ onMounted(() => {
             <div class="ml-auto">0</div>
           </div>
           <div
-            class="w-full flex desktop:mb-4 mb-2 desktop:text-[1.1250vw] desktop:leading-[1.4063vw] leading-[4.4872vw] text-[3.5897vw]"
+            class="w-full flex desktop:mb-4 mb-2 font-bold text-[14px] desktop:text-[18px] leading-[100%] tracking-[0.04em] uppercase"
           >
             <div class="desktop:w-1/3 w-[35%]">
               {{ t("cart.tax") }}
@@ -230,7 +230,9 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        <div class="desktop:py-6 flex justify-between items-start">
+        <div
+          class="desktop:pt-6 desktop:mb-[53px] flex justify-between items-start"
+        >
           <div>
             <h3 class="font-bold text-[40px] font-TT">
               {{
@@ -252,7 +254,7 @@ onMounted(() => {
               }}
             </h3>
 
-            <p class="text-[18px] font-TT mt-[10px]">
+            <p class="text-[18px] font-bold text-[#101010] font-TT mt-[10px]">
               {{ t("cart.total_price") }}
             </p>
           </div>
@@ -272,11 +274,11 @@ onMounted(() => {
         </div>
       </div>
       <div
-        class="py-12 gap-6 flex desktop:flex-row flex-col items-center title text-base"
+        class="pb-12 gap-6 flex desktop:flex-row flex-col items-center title text-base"
       >
         <div
           @click="getPdf"
-          class="desktop:w-1/2 w-full h-[35px] hover:bg-black hover:text-white flex justify-center items-center border border-black"
+          class="desktop:w-[324px] w-full h-[35px] hover:bg-black hover:text-white flex justify-center items-center border border-black"
         >
           {{ t("cart.place_order") }}
         </div>
@@ -288,7 +290,9 @@ onMounted(() => {
             class="h-full bg-[url('./assets/PDF.png')] p-2 border border-black bg-origin-content bg-no-repeat bg-contain bg-center aspect-square"
           ></div>
           <div class="flex flex-col">
-            <div class="title text-base w-[80%]">
+            <div
+              class="title text-[18px] font-bold text-[18px] leading-[100%] tracking-[0.04em] uppercase w-[80%]"
+            >
               {{ t("cart.download_pdf") }}
             </div>
           </div>

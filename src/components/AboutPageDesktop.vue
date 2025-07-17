@@ -115,7 +115,9 @@ const { t } = useI18n({ useScope: "global" });
         </div>
         <div class="w-1/2 pt-[30px]">
           <div class="border-b border-black mr-[30px]">
-            <div class="font-TT text-[12px] text-[#8B8B8B] mb-[24px] pl-[30px]">
+            <div
+              class="font-arial text-[12px] text-[#101010] mb-[24px] pl-[30px]"
+            >
               {{ t("about.market_by_colors") }}
             </div>
             <template v-for="category in categories">

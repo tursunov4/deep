@@ -402,7 +402,6 @@ onMounted(fetchAllInspiration);
               class="w-full h-full object-cover"
             />
           </div>
-
           <div
             class="flex flex-col gap-[5px] desktop:gap-[20px] justify-between"
           >

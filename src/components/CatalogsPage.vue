@@ -36,33 +36,33 @@ onMounted(fetchCatalogs);
   <div class="w-full mb-[80px]">
     <div class="">
       <div
-        class="flex flex-col items-center desktop:mt-[155px] mt-[120px] mb-[65px]"
+        class="flex flex-col items-center desktop:mt-[155px] mt-[120px] mb-[30px]"
       >
         <div
           class="flex flex-col uppercase items-center gap-[14px] desktop:gap-[10px] mx-auto my-auto"
         >
           <h1
-            class="title text-center desktop:text-[40px] desktop:leading-[80px] text-[32px] leading-[40px]"
+            class="title text-center desktop:text-[40px] text-[32px] leading-[40px]"
           >
             <template v-if="App.language == 'ru'">
               Ката<span class="pl-[2px]">л</span>оги
             </template>
             <template v-else> Catalogs </template>
           </h1>
-          <div
-            class="desktop:text-[18px] desktop:min-h-[27px] text-[10px] font-TT font-bold text-center"
-          />
         </div>
       </div>
     </div>
     <div
-      class="desktop:text-end text-start mx-[20px] desktop:mx-[30px] uppercase pb-5 text-[14px]"
+      class="desktop:text-end flex items-center justify-start gap-[5px] desktop:justify-end font-TT text-start mx-[20px] desktop:mx-[30px] uppercase pb-5 font-normal text-[14px] leading-[100%] tracking-[0.04em] text-right uppercase"
     >
-      <RouterLink to="/"> {{ t("breadcrumbs.home") }} </RouterLink> -
+      <RouterLink class="text-[#6D6D6D]" to="/">
+        {{ t("breadcrumbs.home") }}
+      </RouterLink>
+      <span
+        class="h-[2px] hidden desktop:block w-[11px] mb-[3px] bg-[#6D6D6D]"
+      ></span>
       <a class="font-bold" href="">
-        <template v-if="App.language == 'ru'">
-          Ката<span class="pl-[2px]">л</span>оги
-        </template>
+        <template v-if="App.language == 'ru'"> Каталоги </template>
         <template v-else> Catalogs </template>
       </a>
     </div>

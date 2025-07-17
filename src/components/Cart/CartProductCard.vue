@@ -143,7 +143,7 @@ defineProps<{
           </div>
           <div class="desktop:flex hidden items-center">
             <div
-              class="desktop:mr-6 w-[20%] desktop:w-auto font-TT font-semibold desktop:text-[1.1250vw] desktop:leading-[1.4063vw] text-[4.6154vw] leading-[5.7692vw]"
+              class="desktop:mr-6 w-[20%] desktop:w-auto font-TT font-bold desktop:text-[18px] text-[4.6154vw] leading-[100%]"
             >
               {{ product.amount }}
             </div>

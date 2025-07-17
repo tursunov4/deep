@@ -18,12 +18,12 @@ const { t } = useI18n({ useScope: "global" });
 <template>
   <div class="">
     <div
-      class="w-[100%] font-TT uppercase text-[32px] font-bold mt-[100px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px]"
+      class="w-[100%] font-TT uppercase text-[32px] font-bold mt-[100px] whitespace-pre-wrap leading-[1.1] pl-[22px] pr-[18px]"
     >
       {{ t("about.title_1_mobile") }}
     </div>
     <div
-      class="w-[100%] font-TT text-[18px] mt-[23px] mb-[40px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px] text-[#8B8B8B]"
+      class="w-[100%] font-TT text-[18px] mt-[23px] mb-[40px] whitespace-pre-wrap leading-[1.1] pl-[22px] pr-[18px] text-[#8B8B8B]"
     >
       {{ t("about.title_2_mobile").toUpperCase() }}
     </div>
@@ -32,13 +32,13 @@ const { t } = useI18n({ useScope: "global" });
     </div>
 
     <div
-      class="w-[100%] font-TT text-[32px] mt-[40px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px] font-bold"
+      class="w-[260px] font-TT text-[32px] mt-[40px] whitespace-pre-wrap leading-[1.1] pl-[22px] pr-[18px] font-bold"
     >
       {{ t("about.title_3_mobile").toUpperCase() }}
     </div>
 
     <div
-      class="w-[100%] font-TT text-[18px] mt-[24px] mb-[55px] whitespace-pre-wrap leading-[1.1] pl-[18px] pr-[18px] text-[#8B8B8B]"
+      class="w-[100%] font-TT text-[18px] mt-[24px] mb-[55px] whitespace-pre-wrap leading-[1.1] pl-[22px] pr-[18px] text-[#8B8B8B]"
     >
       {{ t("about.title_4_mobile").toUpperCase() }}
     </div>
@@ -72,14 +72,14 @@ const { t } = useI18n({ useScope: "global" });
     </div>
 
     <div
-      class="w-[100%] font-TT text-[6.2vi] mt-[62px] whitespace-pre-wrap leading-[1] pl-[18px] font-bold"
+      class="w-[100%] font-TT text-[6.2vi] mt-[62px] whitespace-pre-wrap leading-[1] pl-[22px] font-bold"
     >
       {{ t("about.products").toUpperCase() }}
     </div>
     <div class="w-full mb-[19px]">
       <div class="ml-[18px] mr-[18px] border-b border-black"></div>
     </div>
-    <div class="font-TT text-[2.976vi] pl-[18px] mb-[19px]">
+    <div class="font-TT text-[2.976vi] pl-[22px] mb-[19px]">
       {{ t("about.market_by_colors") }}
     </div>
     <template v-for="category in categories">
@@ -116,7 +116,7 @@ const { t } = useI18n({ useScope: "global" });
     <!--    PDF     -->
     <div class="flex">
       <a href="https://depp-d.com/media/catalog/catalog.pdf" target="_blank">
-        <div class="pl-[18px] mb-[63px] aspect-square">
+        <div class="pl-[22px] mb-[63px] aspect-square">
           <div
             class="w-[60px] h-[60px] aspect-square border border-black p-[11px] mt-[20px]"
           >

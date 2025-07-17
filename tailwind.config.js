@@ -33,7 +33,7 @@ export default {
     },
     backgroundImage: {
       "custom-gradient":
-        " linear-gradient(180deg, rgba(13, 13, 13, 0.62) 5.5%, rgba(23, 23, 23, 0.05) 88%, rgba(26, 26, 26, 0) 100%)",
+        "linear-gradient(180deg, rgba(13, 13, 13, 0.62) 5.5%, rgba(23, 23, 23, 0.05) 76.33%, rgba(26, 26, 26, 0) 93.93%) ",
     },
   },
   plugins: [],

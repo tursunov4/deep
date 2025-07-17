@@ -99,7 +99,7 @@ const { isDesktop } = useWindowWidth();
 
     <!--Отрисовка верхней шапки для мобильной версии-->
     <div
-      class="font-TT desktop:justify-end justify-end font-bold p-6 flex gap-[10px] items-center text-[14px] leading-[14px] desktop:border-0 border-b border-black"
+      class="font-TT desktop:justify-end justify-end font-bold p-6 flex gap-[10px] desktop:gap-[5px] items-center text-[14px] leading-[14px] desktop:border-0 border-b border-black"
     >
       <!-- <div>
         {{ step != "formed" ? t("cart.check_order") : t("cart.cart") }}
@@ -117,10 +117,12 @@ const { isDesktop } = useWindowWidth();
         {{ t("cart.delete_all") }}
       </div> -->
 
-      <RouterLink class="text-customGray" to="/">
+      <RouterLink class="text-[#6D6D6D]" to="/">
         {{ t("breadcrumbs.home") }}
       </RouterLink>
-      -
+      <span
+        class="h-[2px] hidden desktop:block w-[11px] mb-[3px] bg-[#6D6D6D]"
+      ></span>
       <RouterLink to="/cart">
         {{ t("cart.cart") }}
       </RouterLink>
@@ -244,7 +246,7 @@ const { isDesktop } = useWindowWidth();
               Cart.products.reduce((sum, product) => sum + product.amount, 0) ==
               0
             "
-            class="font-TT font-bold mt-[50px] mb-[6vw] text-[1.1250vw] w-[240px] h-[35px] hover:bg-black hover:text-white flex justify-center items-center border border-black"
+            class="font-TT font-bold cursor-pointer mt-[50px] mb-[6vw] text-[18px] pt-[6px] w-[240px] h-[35px] hover:bg-black hover:text-white flex justify-center items-center border border-black"
           >
             {{ t("cart.shop_now").toUpperCase() }}
           </div>

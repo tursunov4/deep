@@ -11,6 +11,7 @@ import Telegramicon from "../assets/telegram.svg";
 import Facebookicon from "../assets/Facebook.svg";
 import Instagramicon from "../assets/Instagramm.svg";
 import Youtubeicon from "../assets/yt.svg";
+import Phoneicon from "../assets/phones.svg";
 import { useModal } from "../composables/useModal";
 const { openModal } = useModal();
 const { t } = useI18n({ useScope: "global" });
@@ -276,6 +277,7 @@ onMounted(() => {
         <img class="w-[27.9px] h-[27.9px]" :src="WhatsAppicon" />
         <img class="w-[27.9px] h-[27.9px]" :src="Telegramicon" />
         <img class="w-[27.9px] h-[27.9px]" :src="Printericon" />
+
         <img class="w-[27.9px] h-[27.9px]" :src="Facebookicon" />
         <img class="w-[27.9px] h-[27.9px]" :src="Instagramicon" />
         <img class="w-[27.9px] h-[27.9px]" :src="Youtubeicon" />
@@ -402,7 +404,9 @@ onMounted(() => {
             :src="Telegramicon"
             alt="Telegram"
           />
-
+          <img class="w-[22.9px] h-[22.9px]" :src="Phoneicon" alt="Telegram" />
+        </div>
+        <div class="flex flex-wrap items-center mt-[8.75px] gap-[8.57px]">
           <img class="w-[22.9px] h-[22.9px]" :src="Printericon" alt="Print" />
 
           <img

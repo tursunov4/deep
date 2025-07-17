@@ -22,7 +22,7 @@ const isMainPage = computed(() => {
 // Dynamic styling based on page and dropdown state
 const headerClasses = computed(() => {
   const baseClasses =
-    "w-full flex items-center justify-between px-6 desktop:px-[30px] p-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300";
+    "w-full flex items-center justify-between px-6 desktop:px-[30px] p-[30px] fixed top-0 left-0 z-50 font-TT text-[14px] tracking-[0.03em] transition-all duration-300 desktop:pb-[138px]";
 
   // If mobile menu is open, always use white text/icons on black background
   if (isMobileMenuOpen.value) {
@@ -31,7 +31,7 @@ const headerClasses = computed(() => {
 
   // If dropdown is active, always use white text/icons
   if (activeDropdown.value) {
-    return `${baseClasses} text-white`;
+    return `${baseClasses} desktop:pb-[30px] text-white`;
   }
 
   if (isMainPage.value) {
@@ -78,13 +78,14 @@ const logoSrc = computed(() => {
 const cartIconSrc = computed(() => {
   // If mobile menu is open, use white icon (on black background)
   if (isMobileMenuOpen.value) {
-    return "/cart-black.svg"; // Changed to white cart icon
+    return "/cart-white2.svg"; // Changed to white cart icon
   }
 
   // If dropdown is active, use white icon (on black background)
   if (activeDropdown.value) {
-    return "/cart-black.svg"; // Changed to white cart icon
+    return "/cart-white2.svg"; // Changed to white cart icon
   }
+
   // Otherwise use logic based on page
   return isMainPage.value ? "/cart-black.svg" : "/cart-white.svg";
 });
@@ -136,11 +137,11 @@ const textColorClasses = computed(() => {
 });
 
 const menuItems = computed(() => [
-  { title: t("header.santexnika"), link: "#" },
+  { title: t("header.santexnika"), link: "/category/Plumbing" },
   { title: t("header.lighting"), link: "/category/Lighting" },
   { title: t("header.doors"), link: "/doors" },
   { title: t("header.furniture"), link: "/Category/Furniture" },
-  { title: t("header.fur"), link: "/#" },
+  { title: t("header.fur"), link: "/category/Accessories" },
   { title: t("header.collections"), link: "/collections" },
   { title: t("header.inspiration"), link: "/inspirations" },
   { title: t("header.catalog"), link: "/catalogs" },
@@ -432,7 +433,12 @@ watch(
         <img
           :src="hamburgerIconSrc"
           :alt="isMobileMenuOpen ? 'close menu' : 'open menu'"
-          class="h-[35px] w-[35px] transition-transform duration-300"
+          class="transition-transform duration-300"
+          :class="
+            isMobileMenuOpen
+              ? 'h-[16px] w-[16px] ml-[19px] '
+              : 'h-[35px] w-[35px] '
+          "
         />
       </button>
     </div>
@@ -449,10 +455,10 @@ watch(
           <div class="grid grid-cols-6 border-b border-[#9F9F9F] pb-5">
             <!-- Column 1 -->
             <div class="col-span-1">
-              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-4">
                 {{ t("header.component") }}
               </h3>
-              <div class="space-y-4">
+              <div class="space-y-[4px]">
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.link"
@@ -466,10 +472,10 @@ watch(
 
             <!-- Column 2 -->
             <div class="col-span-1">
-              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-4">
                 {{ t("header.tovar") }}
               </h3>
-              <div class="space-y-4">
+              <div class="space-y-[4px]">
                 <div
                   v-for="item in activeDropdown === 'САНТЕХНИКА'
                     ? dropdownMenus[activeDropdown].deepDesign
@@ -485,10 +491,10 @@ watch(
 
             <!-- Column 3 -->
             <div class="col-span-1">
-              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-6">
+              <h3 class="text-[#9F9F9F] text-[12px] font-normal mb-4">
                 {{ t("header.info") }}
               </h3>
-              <div class="space-y-4">
+              <div class="space-y-[4px]">
                 <div
                   v-for="info in dropdownMenus[activeDropdown].information"
                   :key="info.link"
@@ -507,7 +513,9 @@ watch(
                 src="../assets/deppdesign.svg"
                 alt="deep design"
               />
-              <p class="text-[#8D8D8D] text-xs leading-relaxed font-light">
+              <p
+                class="text-[#8D8D8D] max-w-[547px] text-xs leading-relaxed font-light"
+              >
                 {{ t("header.description") }}
               </p>
             </div>
@@ -521,7 +529,7 @@ watch(
       <div
         v-if="isMobileMenuOpen"
         class="fixed inset-0 z-40 bg-black text-white overflow-y-auto pb-5"
-        style="background-color: rgba(0, 0, 0, 0.95)"
+        style="background-color: #101010"
       >
         <!-- Mobile Menu Content -->
         <div class="px-6 py-6 pt-[95px] h-full">
@@ -530,32 +538,21 @@ watch(
             <!-- Categories Header -->
             <div class="flex-1">
               <h3
-                class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+                class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-3 tracking-wider font-medium"
               >
                 {{ t("header.category") }}
               </h3>
 
-              <div class="space-y-0">
+              <div class="space-y-3">
                 <div v-for="item in menuItems" :key="item.title" class="block">
                   <div
-                    class="flex items-center gap-5 py-1 justify-between cursor-pointer text-[15px] text-white hover:text-[#9F9F9F] transition-all duration-300"
+                    class="flex items-center gap-4 py-1 justify-between cursor-pointer text-white hover:text-[#9F9F9F] transition-all duration-300"
                     @click="handleMobileMenuClick(item.title)"
                   >
-                    <span>{{ item.title }}</span>
-                    <svg
-                      v-if="dropdownMenus[item.title]"
-                      class="w-5 h-5 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                    <span
+                      class="font-normal text-[18px] leading-[15px] tracking-[0em] uppercase"
+                      >{{ item.title }}</span
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
                   </div>
                 </div>
               </div>
@@ -566,13 +563,13 @@ watch(
               <!-- Deep Design Section -->
               <div class="mb-6">
                 <h4
-                  class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-5 tracking-wider font-medium"
+                  class="text-[#9F9F9F] pt-8 border-t border-[#9F9F9F] text-[12px] mb-4 tracking-wider font-medium"
                 >
                   Deep Design
                 </h4>
-                <div class="space-y-0">
+                <div class="space-y-3">
                   <div
-                    class="text-white uppercase text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
+                    class="text-white font-normal text-[18px] leading-[15px] tracking-[0em] uppercase hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/');
                       toggleMobileMenu();
@@ -581,7 +578,7 @@ watch(
                     {{ t("header.main") }}
                   </div>
                   <div
-                    class="text-white text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
+                    class="text-white font-normal text-[18px] leading-[15px] tracking-[0em] uppercase hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/about');
                       toggleMobileMenu();
@@ -590,7 +587,7 @@ watch(
                     {{ t("header.about") }}
                   </div>
                   <div
-                    class="text-white text-[15px] hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
+                    class="text-white font-normal text-[18px] leading-[15px] tracking-[0em] uppercase hover:text-[#9F9F9F] cursor-pointer transition-opacity py-1"
                     @click="
                       navigateTo('/catalogs');
                       toggleMobileMenu();
@@ -602,7 +599,7 @@ watch(
               </div>
 
               <!-- Language Switch -->
-              <div class="flex items-center gap-4 pt-4 items-start">
+              <div class="flex items-center justify-end gap-4 pt-4 items-start">
                 <button
                   @click="changeLang('ru')"
                   :class="[
@@ -623,17 +620,25 @@ watch(
                 </button>
               </div>
 
-              <div class="grid grid-cols-2 pb-5">
+              <div class="flex items-start justify-between gap-[22px] pb-5">
                 <!-- Contact Info -->
-                <div class="text-[#9F9F9F] text-sm">
-                  <div class="mb-2 text-white">+7 909 999 3517</div>
-                  <div class="space-y-1">
-                    <div>{{ t("header.menu.address") }}</div>
-                    <div>{{ t("header.den") }}</div>
+                <div class="text-[#9F9F9F] max-w-[174px]">
+                  <div
+                    class="mb-2 font-arial text-[#9F9F9F] font-normal text-[14px]"
+                  >
+                    +7 909 999 3517
+                  </div>
+                  <div class="">
+                    <div class="font-arial font-normal text-[14px]">
+                      {{ t("header.menu.address") }}
+                    </div>
+                    <div class="font-arial font-normal text-[14px]">
+                      {{ t("header.den") }}
+                    </div>
                   </div>
                 </div>
                 <!-- Social Icons -->
-                <div class="flex gap-4 pt-4 flex-wrap">
+                <div class="grid grid-cols-3 gap-4 flex-wrap">
                   <a href="https://www.instagram.com/depp_d/" target="_blank">
                     <img
                       class="w-[35px] filter brightness-100"
@@ -710,7 +715,7 @@ watch(
               </h3>
 
               <!-- Categories List -->
-              <div class="space-y-0 mb-8 pb-4 border-b border-gray-600">
+              <div class="space-y-2 mb-8 pb-4 border-b border-gray-600">
                 <div
                   v-for="category in dropdownMenus[activeDropdown].categories"
                   :key="category.name"
@@ -734,7 +739,7 @@ watch(
                   </span>
                 </div>
 
-                <div class="space-y-0">
+                <div class="space-y-1">
                   <div
                     v-for="subItem in activeDropdown === 'САНТЕХНИКА'
                       ? dropdownMenus[activeDropdown].deepDesign
