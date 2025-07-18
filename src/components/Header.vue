@@ -403,7 +403,9 @@ watch(
           @click="changeLang('en')"
           :class="[
             'hover:text-white font-normal font-arial transition-opacity duration-300 p-1',
-            locale !== 'en' ? 'text-[#9F9F9F]' : 'text-white',
+            locale !== 'en'
+              ? 'text-[#9F9F9F] '
+              : 'text-white border-b border-white',
           ]"
         >
           EN
@@ -413,7 +415,9 @@ watch(
           @click="changeLang('ru')"
           :class="[
             'font-arial font-normal hover:text-white  transition-opacity duration-300 p-1',
-            locale !== 'ru' ? 'text-[#9F9F9F]' : 'text-white',
+            locale !== 'ru'
+              ? 'text-[#9F9F9F] '
+              : 'text-white border-b border-white',
           ]"
         >
           RU
@@ -604,7 +608,7 @@ watch(
                   @click="changeLang('ru')"
                   :class="[
                     'text-sm transition-colors font-arial duration-300',
-                    locale === 'ru' ? 'text-white' : 'text-[#9F9F9F]',
+                    locale === 'ru' ? 'text-white ' : 'text-[#9F9F9F]',
                   ]"
                 >
                   RU
