@@ -149,11 +149,11 @@ defineProps<{
             </div>
             <div
               @click="Cart.changeAmount(product.product.id, false)"
-              class="desktop:mr-3 flex hover:bg-black hover:text-white text-3xl cursor-pointer font-light w-[35px] h-[35px] border-black border items-center before:content-[''] before:w-1/2 before:bg-black before:h-[2px] hover:before:bg-white justify-center"
+              class="desktop:mr-3 flex hover:bg-black hover:text-white text-3xl cursor-pointer font-light w-[35px] h-[35px] border-black border items-center before:content-[''] before:w-[6.07px] before:bg-black before:h-[1.85px] hover:before:bg-white justify-center"
             ></div>
             <div
               @click="Cart.changeAmount(product.product.id, true)"
-              class="flex relative hover:bg-black hover:text-white text-3xl cursor-pointer font-light w-[35px] h-[35px] border-black border items-center justify-center before:content-[''] before:w-1/2 before:absolute before:bg-black before:h-[2px] hover:before:bg-white after:content-[''] after:w-1/2 after:bg-black after:h-[2px] hover:after:bg-white after:rotate-90"
+              class="flex relative hover:bg-black hover:text-white text-3xl cursor-pointer font-light w-[35px] h-[35px] border-black border items-center justify-center before:content-[''] before:w-[6.07px] before:absolute before:bg-black before:h-[1.85px] hover:before:bg-white after:content-[''] after:w-[6.07px] after:bg-black after:h-[1.85px] hover:after:bg-white after:rotate-90"
             ></div>
             <div
               class="font-TT grow desktop:hidden pl-4 flex justify-between font-semibold"

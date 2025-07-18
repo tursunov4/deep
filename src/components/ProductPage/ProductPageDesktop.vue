@@ -206,7 +206,7 @@ watch(
                 }
               "
               :class="{ '': selectedInfo.section }"
-              class="h-[100px] text-[12px] text-[#6D6D6D] duration-150 transition-all font-arial px-[30px] py-[24px]"
+              class="h-[100px] text-[12px] text-[#6D6D6D] duration-150 transition-all font-arial px-[11px] py-[24px]"
             >
               <div class="w-full h-full overflow-hidden overflow-ellipsis">
                 <template v-if="selectedInfo.section === 'tech'">{{
@@ -231,13 +231,13 @@ watch(
                 }}</template>
               </div>
             </div>
-            <div class="flex flex-grow justify-between items-end">
+            <div class="flex px-[11px] flex-grow justify-between items-end">
               <div
                 :class="{
-                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  'font-bold text-[14px]  font-TT text-black border-t border-black underline-offset-[16px]':
                     selectedInfo.section === 'tech',
                 }"
-                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                class="] duration-150 font-TT transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
                 @mouseleave="
                   selectedInfo.clicked ? null : (selectedInfo.section = null)
                 "
@@ -253,10 +253,10 @@ watch(
               </div>
               <div
                 :class="{
-                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  'font-bold text-[14px] font-TT  text-black border-t border-black underline-offset-[16px]':
                     selectedInfo.section === 'shipping',
                 }"
-                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                class="duration-150 font-TT transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
                 @mouseleave="
                   selectedInfo.clicked ? null : (selectedInfo.section = null)
                 "
@@ -274,10 +274,10 @@ watch(
               </div>
               <div
                 :class="{
-                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  'font-bold text-[14px] font-TT  text-black border-t border-black underline-offset-[16px]':
                     selectedInfo.section === 'support',
                 }"
-                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                class="duration-150 font-TT transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
                 @mouseleave="
                   selectedInfo.clicked ? null : (selectedInfo.section = null)
                 "
@@ -295,10 +295,10 @@ watch(
               </div>
               <div
                 :class="{
-                  'font-bold text-[14px]  text-black border-t border-black underline-offset-[16px]':
+                  'font-bold text-[14px]  font-TT text-black border-t border-black underline-offset-[16px]':
                     selectedInfo.section === 'returns',
                 }"
-                class="px-[30px] duration-150 transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
+                class="duration-150 font-TT transition-all py-[12px] font-bold text-[14px] uppercase text-[#6D6D6D] cursor-pointer"
                 @mouseleave="
                   selectedInfo.clicked ? null : (selectedInfo.section = null)
                 "
@@ -458,7 +458,7 @@ watch(
                   class="title leading-[22px] uppercase text-[#8B8B8B] border-b border-[#E0E0E0] gap-1 text-[18px] font-normal items-stretch justify-between flex mb-[7px]"
                 >
                   <div class="max-w-[140px] h-full -mb-[6px]">
-                    <span class="bg-white pr-3">{{
+                    <span class="bg-white pr-[2px]">{{
                       App.language == "ru"
                         ? spec.rus_name.toUpperCase()
                         : spec.eng_name.toUpperCase()
@@ -467,7 +467,7 @@ watch(
                   <div
                     class="text-end leading-[22px] uppercase flex items-end justify-end -mb-[6px] max-w-[120px]"
                   >
-                    <span class="pl-3 bg-white text-end">{{
+                    <span class="pl-[2px] bg-white text-end">{{
                       App.language == "ru"
                         ? spec.rus_value.toUpperCase()
                         : spec.eng_value.toUpperCase()

@@ -514,7 +514,7 @@ watch(
                 alt="deep design"
               />
               <p
-                class="text-[#8D8D8D] max-w-[547px] text-xs leading-relaxed font-light"
+                class="text-[#8D8D8D] font-arial max-w-[547px] font-normal text-[12px] leading-[100%] tracking-[0]"
               >
                 {{ t("header.description") }}
               </p>
